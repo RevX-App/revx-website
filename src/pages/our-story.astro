@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { Image } from 'astro:assets';
+import { founders } from '../founders';
+---
+
+<Base title="Our story" description="RevX was founded by UC San Diego students, starting with local mechanics and the neighborhoods around campus.">
+  <PageHead title="Our story" lede="RevX started at UC San Diego. We're signing up local mechanics first, then opening RevX to UCSD students and the neighborhoods around campus." />
+  <main>
+    <!-- 5. About: the founding team, linked to the profiles that vouch for them -->
+    <section id="about">
+      <div class="wrap">
+
+        <ul class="crew">
+          {
+            founders.map((f) => (
+              <li>
+                <span class="portrait">
+                  <Image src={f.photo} alt={`Portrait of ${f.name}`} widths={[80, 160, 240]} sizes="5rem" format="webp" quality={80} />
+                </span>
+                <h3 class="crew-name">{f.name}</h3>
+                <p class="crew-title">{f.title}</p>
+                <p class="crew-line">{f.line}</p>
+                <p class="crew-links">
+                  <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>LinkedIn</a>
+                  {f.site && (
+                    <a href={f.site} aria-label={`${f.name}'s website`}>
+                      {new URL(f.site).hostname}
+                    </a>
+                  )}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  /* About: four gauges on one rule, no boxes. */
+  .crew {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .crew li {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  /* "Done" lamp framing a photo: grayscale, with a slight sky tint laid over it. */
+  .portrait {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-text);
+    background: var(--sand);
+    overflow: hidden;
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+  }
+
+  .crew-name {
+    font-size: 1.625rem;
+  }
+
+  .crew-title {
+    color: var(--muted);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.0625rem;
+  }
+
+  .crew-line {
+    margin-top: 0.4rem;
+    color: var(--body);
+    max-width: 32ch;
+  }
+
+  .crew-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+    margin-top: 0.3rem;
+  }
+
+  .crew-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  @media (max-width: 1000px) {
+    .crew {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .crew {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

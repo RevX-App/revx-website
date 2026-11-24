@@ -17,7 +17,7 @@
 - Pricing: mechanics send their own quotes. No in-app payments yet; owners pay the mechanic directly.
 - Mechanics pay no lead fees and there are no pay-to-rank listings. The first 100 mechanics are free forever.
 - Privacy: exact coordinates stay on RevX's servers; others see an area of about 0.7 miles, and only the matched mechanic gets the job-site location.
-- Not yet available: payments and escrow, verified mechanics, OBD-II fault codes, VIN scanning, scheduling, insurance.
+- Not yet available: payments and escrow, verified mechanics, OBD-II fault codes, VIN scanning, insurance.
 
 ## Team
 
@@ -25,4 +25,9 @@ Founded by UC San Diego students: Stephanie Kovalchuk-Lum (Founder), Mustaqim Bi
 
 ## Pages
 
-- [Home](https://revx.website/): how RevX works, trust and privacy, mechanics, roadmap, team, contact, FAQ
+- [Home](https://revx.website/): what RevX is, the roadmap, and a link to open the web app
+- [How it works](https://revx.website/how-it-works): the three stages from posting a problem to a blind review, plus trust and privacy
+- [For mechanics](https://revx.website/mechanics): how mechanics pick jobs and quote, with no lead fees
+- [Our story](https://revx.website/our-story): the UC San Diego founding team
+- [FAQ](https://revx.website/faq): direct answers about cost, the AI read, coverage and location privacy
+- [Contact](https://revx.website/contact): app support and the founders' emails

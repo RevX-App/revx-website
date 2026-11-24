@@ -1,0 +1,37 @@
+---
+/** Inner-page title band on the brand green, continuous with the site nav. */
+interface Props {
+  title: string;
+  lede?: string;
+}
+
+const { title, lede } = Astro.props;
+---
+
+<header class="page-head">
+  <div class="wrap">
+    <h1>{title}</h1>
+    {lede && <p>{lede}</p>}
+  </div>
+</header>
+
+<style>
+  .page-head {
+    background: var(--brand-deep);
+    color: #fff;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  h1 {
+    color: #fff;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  p {
+    margin-top: 1rem;
+    max-width: 52ch;
+    font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+    color: rgb(255 255 255 / 0.8);
+  }
+</style>
