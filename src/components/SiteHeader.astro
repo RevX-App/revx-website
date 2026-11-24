@@ -1,68 +1,47 @@
 ---
 /**
- * Sticky header. The section lamps are the page's navigation and its scroll
- * progress: passed sections stay sky-rimmed, the section in view is lit.
- * At 1100px and below the lamps give way to a menu (labelled with the current
- * section) and a thin progress strip; below 640px the header CTA also hides.
+ * Sticky site nav on the brand's deep green. The current page is marked from the
+ * URL (lime + underline + aria-current), so there is no script. At 960px and
+ * below the links fold into a menu sheet.
  */
-import Icon from './Icon.astro';
-import { SECTIONS } from '../sections';
+import Mark from '../assets/revx-mark.svg';
 import Wordmark from './Wordmark.astro';
+import { NAV } from '../nav';
 import { APP_URL } from '../config';
 
+// Same normalisation as Base's canonical: build.format 'file' reports /faq.html.
+const path = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, '') || '/';
+const current = (href: string) => (href === path ? 'page' : undefined);
 ---
 
 <header class="site-header">
   <div class="wrap bar">
-    <a href="#top" class="home" aria-label="RevX, back to top"><Wordmark size="1.75rem" /></a>
+    <a href="/" class="home" aria-label="RevX home" aria-current={current('/')}>
+      <Mark class="mark" aria-hidden="true" />
+      <Wordmark size="1.6rem" />
+    </a>
 
-    <nav class="lamp-nav" aria-label="Sections">
-      <ol>
-        {
-          SECTIONS.map((s) => (
-            <li>
-              <a href={`#${s.id}`} data-lamp={s.id} title={s.label}>
-                <span class="bulb">
-                  <Icon name={s.icon} size={18} />
-                </span>
-                <span class="lamp-label">{s.label}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ol>
+    <nav class="links" aria-label="Main">
+      <ul>
+        {NAV.map((n) => <li><a href={n.href} aria-current={current(n.href)}>{n.label}</a></li>)}
+      </ul>
+      <a class="btn btn-primary bar-cta" href={APP_URL}>Open RevX</a>
     </nav>
 
-    <a class="btn btn-primary bar-cta" href={APP_URL}>Open RevX</a>
-
     <details class="menu">
-      <summary aria-label="Open section menu">
-        <span class="menu-current" data-current>Menu</span>
+      <summary aria-label="Open menu">
+        Menu
         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
       </summary>
-      <div class="menu-sheet">
-        <ol>
-          {
-            SECTIONS.map((s) => (
-              <li>
-                <a href={`#${s.id}`} data-lamp={s.id}>
-                  <span class="bulb">
-                    <Icon name={s.icon} size={18} />
-                  </span>
-                  {s.label}
-                </a>
-              </li>
-            ))
-          }
-        </ol>
+      <nav class="menu-sheet" aria-label="Main">
+        <ul>
+          {NAV.map((n) => <li><a href={n.href} aria-current={current(n.href)}>{n.label}</a></li>)}
+        </ul>
         <a class="btn btn-primary" href={APP_URL}>Open RevX</a>
-      </div>
+      </nav>
     </details>
-  </div>
-  <div class="progress" aria-hidden="true">
-    {SECTIONS.map((s) => <span data-lamp={s.id} />)}
   </div>
 </header>
 
@@ -71,8 +50,9 @@ import { APP_URL } from '../config';
     position: sticky;
     top: 0;
     z-index: 30;
-    background: color-mix(in srgb, var(--bg) 94%, transparent);
-    border-bottom: 1px solid var(--rule);
+    background: var(--brand-deep);
+    color: #fff;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
   }
 
   .bar {
@@ -86,71 +66,69 @@ import { APP_URL } from '../config';
   .home {
     display: inline-flex;
     align-items: center;
+    gap: 0.6rem;
     min-height: 2.75rem;
     text-decoration: none;
   }
 
-  .lamp-nav ol {
+  .mark {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+  }
+
+  /* White "Rev" on the green; the X stays lime. */
+  .home :global(.rev) {
+    color: #fff;
+  }
+
+  .home :global(.x) {
+    color: var(--accent);
+  }
+
+  .links {
     display: flex;
-    gap: clamp(0.25rem, 1.5vw, 1.25rem);
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  ul {
+    display: flex;
+    gap: clamp(0.25rem, 1.2vw, 1rem);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .lamp-nav a,
-  .menu-sheet a:not(.btn) {
+  ul a {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
     min-height: 2.75rem;
-    padding-inline: 0.4rem;
+    padding-inline: 0.5rem;
+    color: #fff;
     text-decoration: none;
-    color: var(--muted);
-  }
-
-  .bulb {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: 1.5px solid var(--unlit);
-    background: var(--sand);
-    color: var(--muted);
-    transition:
-      background-color 0.3s var(--ease-out),
-      border-color 0.3s var(--ease-out),
-      color 0.3s var(--ease-out);
-  }
-
-  .lamp-label {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.9375rem;
-    letter-spacing: 0.08em;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
+    transition: color 0.2s var(--ease-out);
   }
 
-  .lamp-nav a:hover {
-    color: var(--heading);
+  ul a:hover,
+  ul a[aria-current='page'] {
+    color: var(--accent);
   }
 
-  [data-state='done'] .bulb {
-    border-color: var(--accent-text);
-    color: var(--accent-text);
+  /* Inset underline: marks the page without shifting layout. */
+  ul a[aria-current='page'] {
+    box-shadow: inset 0 -2px 0 var(--accent);
   }
 
-  .lamp-nav a[data-state='on'],
-  .menu-sheet a[data-state='on'] {
-    color: var(--heading);
-  }
-
-  [data-state='on'] .bulb {
-    border-color: var(--accent-text);
-    background: var(--accent);
-    color: var(--on-accent);
+  .site-header a:focus-visible,
+  .site-header summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .bar-cta {
@@ -158,40 +136,18 @@ import { APP_URL } from '../config';
     font-size: 1rem;
   }
 
-  .menu,
-  .progress {
+  .menu {
     display: none;
+    position: relative;
   }
 
-  @media (max-width: 1100px) {
-    .lamp-nav {
+  @media (max-width: 960px) {
+    .links {
       display: none;
-    }
-
-    .bar-cta {
-      margin-left: auto;
-    }
-
-    .progress {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 3px;
-      height: 3px;
-    }
-
-    .progress span {
-      background: var(--unlit);
-      transition: background-color 0.3s var(--ease-out);
-    }
-
-    .progress [data-state='done'],
-    .progress [data-state='on'] {
-      background: var(--accent);
     }
 
     .menu {
       display: block;
-      position: relative;
     }
 
     .menu summary {
@@ -200,11 +156,11 @@ import { APP_URL } from '../config';
       gap: 0.6rem;
       min-height: 2.75rem;
       padding-inline: 0.9rem;
-      border: 1px solid var(--rule-strong);
+      border: 1px solid rgb(255 255 255 / 0.25);
       border-radius: 999px;
       list-style: none;
       cursor: pointer;
-      color: var(--heading);
+      color: #fff;
       font-family: var(--font-display);
       font-weight: 600;
       font-size: 0.9375rem;
@@ -222,79 +178,24 @@ import { APP_URL } from '../config';
       top: calc(100% + 0.6rem);
       width: min(18rem, calc(100vw - 2rem));
       padding: 0.75rem;
-      border: 1px solid var(--rule-strong);
+      border: 1px solid rgb(255 255 255 / 0.12);
       border-radius: 1.25rem;
-      background: var(--panel);
+      background: var(--brand-deep);
       box-shadow: 0 24px 50px -20px var(--shadow);
     }
 
-    .menu-sheet ol {
-      list-style: none;
-      margin: 0 0 0.75rem;
-      padding: 0;
+    .menu-sheet ul {
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 0.75rem;
     }
 
-    .menu-sheet a:not(.btn) {
+    .menu-sheet ul a {
       font-size: 1.0625rem;
-      color: var(--body);
     }
 
     .menu-sheet .btn {
       width: 100%;
     }
   }
-
-  @media (max-width: 640px) {
-    .bar-cta {
-      display: none;
-    }
-
-  }
 </style>
-
-<script>
-  const header = document.querySelector<HTMLElement>('.site-header');
-  if (header) {
-    const ids = [...new Set([...header.querySelectorAll<HTMLElement>('[data-lamp]')].map((el) => el.dataset.lamp!))];
-    const sections = ids.map((id) => document.getElementById(id)).filter((s): s is HTMLElement => !!s);
-    const current = header.querySelector<HTMLElement>('[data-current]');
-    const menu = header.querySelector<HTMLDetailsElement>('.menu');
-
-    const update = () => {
-      const line = header.offsetHeight + window.innerHeight * 0.3;
-      let active = -1;
-      sections.forEach((s, i) => {
-        if (s.getBoundingClientRect().top <= line) active = i;
-      });
-      header.querySelectorAll<HTMLElement>('[data-lamp]').forEach((el) => {
-        const i = ids.indexOf(el.dataset.lamp!);
-        el.dataset.state = i < active ? 'done' : i === active ? 'on' : 'off';
-        if (el.tagName === 'A') {
-          if (i === active) el.setAttribute('aria-current', 'location');
-          else el.removeAttribute('aria-current');
-        }
-      });
-      if (current) {
-        const link = header.querySelector<HTMLElement>(`.lamp-nav [data-lamp="${ids[active]}"] .lamp-label`);
-        current.textContent = active >= 0 && link ? link.textContent : 'Menu';
-      }
-    };
-
-    let queued = false;
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (queued) return;
-        queued = true;
-        requestAnimationFrame(() => {
-          update();
-          queued = false;
-        });
-      },
-      { passive: true },
-    );
-    window.addEventListener('resize', update);
-    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => (menu.open = false)));
-    update();
-  }
-</script>

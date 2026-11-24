@@ -1,10 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
-import Wordmark from '../components/Wordmark.astro';
 import discBrake from '../assets/disc-brake.jpg';
 import stephPhoto from '../assets/steph.jpg';
 import piqimPhoto from '../assets/piqim.jpg';
@@ -174,7 +172,6 @@ const schema = [
 ---
 
 <Base schema={schema}>
-  <SiteHeader />
   <Hero />
 
   <main>
@@ -593,20 +590,6 @@ const schema = [
     </section>
   </main>
 
-  <footer class="foot">
-    <div class="wrap foot-inner">
-      <div>
-        <Wordmark size="1.5rem" />
-        <p>The mechanic at your door. San Diego, CA.</p>
-      </div>
-      <nav aria-label="Legal">
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-        <a href="/support">Support</a>
-      </nav>
-      <p class="copy">© 2026 RevX</p>
-    </div>
-  </footer>
 </Base>
 
 <script>
@@ -1571,41 +1554,6 @@ const schema = [
   }
 
   /* Footer */
-  .foot {
-    border-top: 1px solid var(--rule);
-    padding-block: 2rem;
-  }
-
-  .foot-inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .foot-inner p {
-    margin-top: 0.4rem;
-    color: var(--muted);
-    font-size: 0.9375rem;
-  }
-
-  .foot nav {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .foot nav a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    padding-inline: 0.6rem;
-  }
-
-  .foot .copy {
-    margin: 0;
-  }
-
   @media (max-width: 1000px) {
     .stage,
     .faq-grid,
