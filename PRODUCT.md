@@ -40,14 +40,15 @@ The core loop is Post → Diagnose → Swipe → Match → Chat & quote → Job 
 
 Built and live (v0.1.1): AI diagnosis (multimodal; on by default with an owner opt-out; returns explanation, ranked causes, severity, urgency up to "stop driving", a confidence level and a USD cost band; posting never waits on it, per handoff §1), structured intake, mechanic-only technical briefing, two-way swiping, multiple quotes per post, realtime chat, job tracking (honor system, both confirm), blind reviews, location privacy, map, community, push notifications (match, message, job completed), and iOS/Android/web builds.
 
-Not built. Never imply these exist; they may appear only as labelled roadmap: payments/escrow/Stripe, background checks, verified-mechanic badges, insurance, VIN scanner, OBD-II Bluetooth, scheduling, image/voice messages in chat, Pro subscriptions, Instant Book, e-bikes/scooters.
+Not built. Never imply these exist; they may appear only as labelled roadmap: payments/escrow/Stripe, background checks, verified-mechanic badges, insurance, VIN scanner, OBD-II Bluetooth, image/voice messages in chat, Pro subscriptions, Instant Book, e-bikes/scooters.
 
 Constraints:
 - **No App Store / Play Store badges.** The apps are not public. Copy may say "coming to iOS & Android".
 - **Primary CTA opens the hosted web app.** That URL is not final, so it lives in one config constant as a placeholder. Mechanics use the same link and sign up as a Mechanic account.
 - **The roadmap is shown and labelled as roadmap, with no figures.** No Pro pricing, commission, or funding numbers.
 - **AI disclaimer is mirrored from the app:** "AI-generated from your photos and answers… not a substitute for a hands-on inspection." Diagnosis is never called certified or guaranteed.
-- Single page, plus placeholder Privacy and Terms pages. No analytics.
+- Six pages (Home, How it works, For mechanics, Our story, FAQ, Contact) under one persistent nav, plus Privacy, Terms and Support. No analytics.
+- **Confirmed by the founders (2026-11-24):** appointments are scheduled in the app with both parties' agreement, and mutual consent runs the whole loop (both match, both agree to the job, both confirm, both review). Quotes are discussed and sent in chat, and owner and mechanic agree on one. Payment happens directly between owner and mechanic; in-app payments and escrow are roadmap. Founders review every mechanic sign-up, and mechanics may optionally attach licenses and certifications; the app shows **no** verified marker. RevX takes no commission during launch; a commission is planned later, likely with escrow.
 
 ## Brand Commitments
 
@@ -64,7 +65,7 @@ Constraints:
 - Demo personas (fictional, from `scripts/seed.mjs`): Sam P. (owner, brake-grinding post), Gina L. of "Triton Auto" (mechanic, UCSD, mechanical + computer/ECU, 12 mi radius), Mia, Jay.
 - **Team:** placeholder cards only. Names, roles and consent are pending.
 - **Traction:** placeholder entries only, visibly marked as placeholders (e.g. pitch placements, mechanics signed, beta users). Never present them as real.
-- "First 100 mechanics free forever" is approved for publication.
+- "First 100 mechanics free forever" is retired: commissions are planned, so "forever" would be broken. Use founding-status wording instead (e.g. "the first 100 sign-ups get founding status and the best terms we ever offer").
 
 ## Product Principles
 
