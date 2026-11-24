@@ -8,12 +8,12 @@ interface Props {
 const { title, lede } = Astro.props;
 ---
 
-<header class="page-head">
+<div class="page-head">
   <div class="wrap">
     <h1>{title}</h1>
     {lede && <p>{lede}</p>}
   </div>
-</header>
+</div>
 
 <style>
   .page-head {

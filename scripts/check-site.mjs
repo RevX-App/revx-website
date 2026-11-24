@@ -16,6 +16,8 @@ for (const page of ALL) {
   check(html.includes('class="site-header'), `${page}: no site-header`);
   check(html.includes('class="site-footer'), `${page}: no site-footer`);
   check(!html.includes('data-lamp'), `${page}: still has data-lamp`);
+  // A body-level <header> is a banner landmark; the site nav is the only one.
+  check(!html.includes('<header class="page-head'), `${page}: page-head is a second banner landmark`);
 
   // Every <a> carrying aria-current="page", with its href. Astro may emit attributes in any order.
   const current = [...html.matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)].map((m) => m[0].match(/href="([^"]*)"/)?.[1]);
@@ -32,6 +34,8 @@ const read = (f) => (existsSync(f) ? readFileSync(f, 'utf8') : '');
 check(read('dist/faq.html').includes('"FAQPage"'), 'faq: no FAQPage schema');
 check(!read('dist/index.html').includes('"FAQPage"'), 'index: FAQPage schema should live on /faq');
 check(read('dist/index.html').includes('"Organization"'), 'index: no Organization schema');
+// Founders confirmed scheduling is built; it must not be listed as unbuilt.
+check(!/name: ?"?Scheduling|>Scheduling</.test(read('dist/index.html')), 'index: lists Scheduling as not built');
 const sitemap = read('dist/sitemap.xml');
 for (const path of Object.values(NAV)) check(sitemap.includes(`<loc>https://revx.website${path === '/' ? '/' : path}</loc>`), `sitemap: missing ${path}`);
 
