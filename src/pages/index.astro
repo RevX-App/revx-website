@@ -4,6 +4,35 @@ import Hero from '../components/Hero.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
 import { APP_URL, SITE } from '../config';
 import { founders } from '../founders';
+import { Image } from 'astro:assets';
+import { homeFaq } from '../faq';
+import diagnosis from '../assets/screens/diagnosis.png';
+import quote from '../assets/screens/quote.png';
+import confirm from '../assets/screens/confirm.png';
+
+// Copy approved 2026-11-24: two sentences per step, each tied to a real app screen.
+const journey = [
+  {
+    name: 'Snap & Diagnose',
+    body: "Answer the questions a mechanic would ask, add a photo, and record the noise if you like. You get a plain-English read: likely causes, how urgent it is, and a rough cost range.",
+    note: 'AI-generated from your photos and answers. Not a substitute for a hands-on inspection.',
+    screen: diagnosis,
+    alt: "RevX's AI diagnosis for a 2016 Honda Civic: most likely worn front brake pads, high severity, urgent, book this week, $150 to $350, with a plain-English explanation.",
+  },
+  {
+    name: 'Match & Compare',
+    body: 'Mechanics who want the job swipe on your post, and you choose who you trust. Chat, compare quotes, and agree on a price and a time together.',
+    screen: quote,
+    alt: 'An itemized estimate from a mechanic: front pad replacement labor $135 and front ceramic brake pads $65, total $200, with Approve, Request changes and Decline buttons.',
+    wide: true,
+  },
+  {
+    name: 'Get Fixed & Review',
+    body: "Meet where you agreed, at your place or their shop, and you both confirm when the job's done. Then you review each other, and neither side sees the other's review until both are in.",
+    screen: confirm,
+    alt: "A RevX chat after the appointment: the mechanic says the work is complete, and the owner's next step is a Confirm it is fixed button.",
+  },
+];
 
 const roadmap: { icon: IconName; name: string }[] = [
   { icon: 'payments', name: 'Payments & escrow' },
@@ -72,6 +101,52 @@ const schema = [
   <Hero />
 
   <main>
+    <!-- Customer journey: three steps, each with a real app screen -->
+    <section id="journey">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>From a strange noise to a fixed car.</h2>
+        </header>
+        <ol class="journey">
+          {
+            journey.map((step, i) => (
+              <li class="step">
+                <div class="step-copy">
+                  <p class="step-num" aria-hidden="true">{i + 1}</p>
+                  <h3>{step.name}</h3>
+                  <p>{step.body}</p>
+                  {step.note && <p class="step-note">{step.note}</p>}
+                </div>
+                <figure class:list={['step-screen', { wide: step.wide }]}>
+                  <Image src={step.screen} alt={step.alt} widths={step.wide ? [480, 720, 960] : [320, 480, 640]} sizes={step.wide ? '(max-width: 1000px) 100vw, 34rem' : '(max-width: 1000px) 18rem, 20rem'} format="webp" quality={80} />
+                </figure>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="screens-note">Screens from the RevX app · demo accounts</p>
+      </div>
+    </section>
+
+    <!-- Practical questions, from the same list as /faq -->
+    <section id="questions">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>The practical bits.</h2>
+        </header>
+        <dl class="qa">
+          {
+            homeFaq.map(({ q, a }) => (
+              <div>
+                <dt>{q}</dt>
+                <dd>{a}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="more"><a href="/faq">More questions</a></p>
+      </div>
+    </section>
 
     <!-- 4. Roadmap -->
     <section id="vision" class="vision">
@@ -129,6 +204,110 @@ const schema = [
 </Base>
 
 <style>
+  /* Journey: copy and screen side by side, alternating sides down the page. */
+  .journey {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .step:nth-child(even) .step-copy {
+    order: 2;
+  }
+
+  .step-num {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+
+  .step-copy p:not(.step-num) {
+    margin-top: 0.75rem;
+    max-width: 44ch;
+    color: var(--body);
+    font-size: 1.125rem;
+  }
+
+  .step-copy .step-note {
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .step-screen {
+    margin: 0;
+    justify-self: center;
+    width: min(100%, 20rem);
+  }
+
+  .step-screen.wide {
+    width: min(100%, 34rem);
+  }
+
+  .step-screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule-strong);
+    border-radius: 1.5rem;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.05),
+      0 24px 36px -24px var(--shadow);
+  }
+
+  .screens-note {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  /* Practical questions */
+  .qa {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem 3rem;
+  }
+
+  .qa div {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .qa dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.375rem;
+    line-height: 1.15;
+    color: var(--heading);
+  }
+
+  .qa dd {
+    margin: 0.5rem 0 0;
+    color: var(--body);
+  }
+
+  .more {
+    margin-top: 2rem;
+  }
+
   /* Roadmap */
   .vision {
     background: var(--sand);
@@ -274,6 +453,14 @@ const schema = [
   }
 
   @media (max-width: 1000px) {
+    .step {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .step:nth-child(even) .step-copy {
+      order: 0;
+    }
+
     .close-inner {
       grid-template-columns: minmax(0, 1fr);
     }

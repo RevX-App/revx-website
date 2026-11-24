@@ -36,6 +36,17 @@ check(!read('dist/index.html').includes('"FAQPage"'), 'index: FAQPage schema sho
 check(read('dist/index.html').includes('"Organization"'), 'index: no Organization schema');
 // Founders confirmed scheduling is built; it must not be listed as unbuilt.
 check(!/name: ?"?Scheduling|>Scheduling</.test(read('dist/index.html')), 'index: lists Scheduling as not built');
+// P2: shared practical Q&A and the three-step journey on Home.
+const QA = ['What does it cost?', 'How are mechanics checked?', 'How do I schedule?', 'How do I pay?', 'What happens at the appointment?'];
+const STEPS = ['Snap &amp; Diagnose', 'Match &amp; Compare', 'Get Fixed &amp; Review'];
+const home = read('dist/index.html');
+for (const q of QA) {
+  check(home.includes(q), `index: missing Q&A "${q}"`);
+  check(read('dist/faq.html').includes(q), `faq: missing "${q}"`);
+}
+for (const s of STEPS) check(home.includes(s), `index: missing step "${s}"`);
+check(!home.includes('data-demo'), 'index: hero demo still present');
+for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 const sitemap = read('dist/sitemap.xml');
 for (const path of Object.values(NAV)) check(sitemap.includes(`<loc>https://revx.website${path === '/' ? '/' : path}</loc>`), `sitemap: missing ${path}`);
 
