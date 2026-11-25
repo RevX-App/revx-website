@@ -16,6 +16,9 @@ for (const page of ALL) {
   check(html.includes('class="site-header'), `${page}: no site-header`);
   check(html.includes('class="site-footer'), `${page}: no site-footer`);
   check(!html.includes('data-lamp'), `${page}: still has data-lamp`);
+  // Two nav landmarks (bar + phone sheet) need distinct names.
+  const navLabels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
+  check(new Set(navLabels).size === navLabels.length, `${page}: duplicate nav labels ${JSON.stringify(navLabels)}`);
   // A body-level <header> is a banner landmark; the site nav is the only one.
   check(!html.includes('<header class="page-head'), `${page}: page-head is a second banner landmark`);
 
