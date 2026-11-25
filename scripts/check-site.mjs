@@ -58,6 +58,14 @@ check(!home.includes('alumniOf'), 'index: team are current students, not alumni'
 check(read('dist/faq.html').includes('id="trust"'), 'faq: no #trust group');
 check(read('dist/faq.html').includes('Trust &amp; safety'), 'faq: no Trust & safety heading');
 check(read('dist/our-story.html').includes('Jaynie Schnell'), 'our-story: Jaynie missing');
+// P4: one recruitment headline on Home and /mechanics; the stock photo and its credit are gone.
+const MECH = ['Turn wrenches in San Diego?', 'Keep 100% of your quotes during launch.', 'No lead fees. No pay-to-rank.', 'Join as a founding mechanic', 'A founder reviews every mechanic who signs up.'];
+for (const t of MECH) {
+  check(home.includes(t), `index: mechanic CTA missing "${t}"`);
+  check(read('dist/mechanics.html').includes(t), `mechanics: missing "${t}"`);
+}
+for (const t of ['Earnings', 'Flexibility', 'Customers', 'Fair access']) check(read('dist/mechanics.html').includes(t), `mechanics: missing "${t}"`);
+check(!/Irvin calicut|CC BY-SA|illustrative/.test(read('dist/mechanics.html')), 'mechanics: stock photo or credit still present');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 const sitemap = read('dist/sitemap.xml');
 for (const path of Object.values(NAV)) check(sitemap.includes(`<loc>https://revx.website${path === '/' ? '/' : path}</loc>`), `sitemap: missing ${path}`);

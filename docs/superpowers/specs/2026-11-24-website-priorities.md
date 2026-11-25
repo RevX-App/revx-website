@@ -50,6 +50,10 @@ Rule over everything: **assert only what runs.**
 ## P4: mechanic recruitment
 
 - High-contrast CTA using the headline above. Emphasise earnings, flexibility, customer acquisition, fair access. Move the photo credit off the promo card to a credits spot.
+- Decided 2026-11-24: a full-lime band on Home after "Why trust RevX?", with the headline, support line and "Join as a founding mechanic" (to `/app`). `/mechanics` opens with the same headline, which comes from one shared constant.
+- `/mechanics` four lines: Earnings · Flexibility · Customers · Fair access (copy approved in chat), replacing the three spec rows.
+- The illustrative job card and its Wikimedia brake photo are replaced by the real mechanic swipe screen, so no photo credit is needed anywhere.
+- Founding status: no counter, no end date. Under the button: "A founder reviews every mechanic who signs up." (No turnaround promised.)
 
 ## P5: Our Story
 
