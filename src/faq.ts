@@ -43,7 +43,7 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     id: 'consent',
     group: 'trust',
     q: 'Can anything happen without my OK?',
-    a: 'No. Matching, hiring, scheduling and closing a job each need both you and your mechanic to agree.',
+    a: 'Matching, hiring, scheduling and closing a job each need both you and your mechanic to agree.', // also Home's trust body: no leading "No."
   },
   {
     id: 'reviews',
