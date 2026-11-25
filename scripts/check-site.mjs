@@ -74,7 +74,8 @@ for (const page of ALL) check(!read(`dist/${page}.html`).includes('data-placehol
 const org = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].flatMap((m) => [JSON.parse(m[1])].flat()).find((o) => o['@type'] === 'Organization');
 check(JSON.stringify(org?.founder?.map((f) => f.name)) === '["Stephanie Kovalchuk-Lum","Mustaqim Bin Burhanuddin"]', `index: founders are ${JSON.stringify(org?.founder?.map((f) => f.name))}`);
 // P6: a four-stop progress strip replaces the unbuilt-feature list everywhere.
-for (const t of ['App live in your browser', 'Signing up mechanics', 'UCSD &amp; La Jolla', 'Greater San Diego + iOS &amp; Android', "We'll mark a stop done only when it's actually running."])
+// 2026-11-25: five stops; the apps branch off "App live" and merge into the San Diego launch.
+for (const t of ['App live in your browser', 'Signing up mechanics', 'iOS &amp; Android apps', 'Launch in the San Diego area', 'Launch across SoCal', 'class="graph"', "We'll mark a stop done only when it's actually running."])
   check(home.includes(t) || home.includes(t.replaceAll("'", '&#39;')), `index: progress strip missing "${t}"`);
 for (const gone of ['Verified mechanics', 'OBD-II', 'VIN scanner', 'Soft test', 'Roadmap:'])
   check(!home.includes(gone), `index: still lists "${gone}"`);
