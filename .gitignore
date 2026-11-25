@@ -7,3 +7,5 @@ dist/
 .impeccable/live/
 .impeccable/decision/
 .DS_Store
+# Raw photos with private screen content; only the cropped copies are committed.
+src/assets/revxmeeting.JPG

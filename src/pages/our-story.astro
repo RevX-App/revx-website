@@ -60,21 +60,20 @@ import { story } from '../story';
 
     <!-- How we're building it: the consent principle and the honesty rule -->
     <section id="how">
-      <div class="wrap split">
-        <div>
-          <header class="sec-head">
-            <h2>How we're building it</h2>
-          </header>
-          <div class="prose">
-            <p>
-              Consent is the rule. You and your mechanic both choose the match, both agree to the job, both confirm it's done, and both leave a review.
-            </p>
-            <p>And we only tell you about what the app does today. Anything still in the works, we say so.</p>
-          </div>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>How we're building it</h2>
+        </header>
+        <div class="prose">
+          <p>We talk all the time as a team: on Discord, on Google Meet and in person.</p>
+          <p>
+            Consent is the rule. You and your mechanic both choose the match, both agree to the job, both confirm it's done, and both leave a review.
+          </p>
+          <p>And we only tell you about what the app does today. Anything still in the works, we say so.</p>
         </div>
         {
           story.behindTheScenes ? (
-            <Image class="bts" src={story.behindTheScenes.src} alt={story.behindTheScenes.alt} widths={[480, 800, 1200]} sizes="(max-width: 1000px) 100vw, 34rem" format="webp" quality={78} />
+            <Image class="bts" src={story.behindTheScenes.src} alt={story.behindTheScenes.alt} widths={[640, 1200, 2000]} sizes="(max-width: 1360px) 100vw, 82rem" format="webp" quality={78} />
           ) : (
             <Placeholder need="Behind-the-scenes photo: the team at work, or with a mechanic." />
           )
@@ -230,6 +229,10 @@ import { story } from '../story';
 </Base>
 
 <style>
+  .bts {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
   .group-photo,
   .bts {
     display: block;

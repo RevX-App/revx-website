@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import basementLogo from './assets/logos/basement.jpeg';
 import tritonWebDevLogo from './assets/logos/triton-web-dev.jpeg';
+import teamCall from './assets/story/team-call.jpg';
 
 /**
  * Our Story content the founders supply. Every optional item renders nothing in production
@@ -17,6 +18,8 @@ export const story: {
   mechanicQuote?: { quote: string; name: string; shop: string };
 } = {
   milestones: [],
+  // Cropped to the video tiles only: the original shows the Meet link, tabs and internal notes.
+  behindTheScenes: { src: teamCall, alt: 'RevX teammates on a Google Meet video call.' },
   // Confirmed by the founder 2026-11-24. Supporters, not investors: never say "backed by".
   helpers: [
     { name: 'The Basement @ UCSD', what: 'Helped us get started and connected the founders.', logo: basementLogo },
