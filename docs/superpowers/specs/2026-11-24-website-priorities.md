@@ -9,7 +9,8 @@ Rule over everything: **assert only what runs.**
 - **Pricing:** mechanic and owner discuss in chat; the mechanic sends quotes in the app; they agree on one.
 - **Scheduling:** appointments are set in the app with both parties' agreement. (Built. `PRODUCT.md` was wrong.)
 - **Payment:** directly between owner and mechanic. In-app payments and escrow are roadmap.
-- **Verification:** mechanics sign up; founders review each one. Mechanics may optionally attach licenses and certifications. **No verified badge or marker exists in the app**; never say "verified badge".
+- **Verification:** mechanics sign up; founders verify each one. Profiles show what was checked: years of experience, certifications, licenses (confirmed 2026-11-25). No badge exists; never say "verified badge".
+- **Contact:** one shared inbox, revxtheapp@gmail.com (no paid domain yet). Founders' personal addresses stay off the site.
 - **Arrival / shop visit:** both confirm the job in the app, then both leave reviews.
 - **Commission:** none now, during launch. A commission is planned later, likely alongside escrow.
 - **Account deletion** exists in the app (Profile → Account & Security → Delete account).

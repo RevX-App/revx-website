@@ -50,7 +50,7 @@ for (const q of QA) {
 for (const s of STEPS) check(home.includes(s), `index: missing step "${s}"`);
 check(!home.includes('data-demo'), 'index: hero demo still present');
 // P3: trust section opens with the team, links to the full trust group.
-const TRUST = ['Why trust RevX?', 'five UC San Diego students', 'Mechanics are reviewed', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
+const TRUST = ['Why trust RevX?', 'five UC San Diego students', 'Mechanics are verified', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
 for (const t of TRUST) check(home.includes(t), `index: trust section missing ${t}`);
 // Home owns #trust now; the old-anchor script must not bounce it to another page.
 check(!/const to = \{[^}]*\btrust:/.test(home), 'index: /#trust still redirects away');
@@ -80,6 +80,10 @@ for (const gone of ['Verified mechanics', 'OBD-II', 'VIN scanner', 'Soft test', 
   check(!home.includes(gone), `index: still lists "${gone}"`);
 check(!/OBD|verified mechanics|insurance/i.test(read('dist/llms.txt')), 'llms.txt: still lists unbuilt features');
 check(!read('dist/our-story.html').includes('labelled as roadmap'), 'our-story: still mentions a roadmap');
+// One shared inbox; founders' personal addresses stay off the public site.
+check(read('dist/contact.html').includes('revxtheapp@gmail.com'), 'contact: shared inbox missing');
+for (const page of ALL) check(!/stefania\.ua04@|mbinburhanuddin@/.test(read(`dist/${page}.html`)), `${page}: personal email exposed`);
+check(read('dist/faq.html').includes('years of experience'), 'faq: vetting answer lacks what profiles show');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');

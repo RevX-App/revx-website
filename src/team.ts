@@ -16,7 +16,6 @@ export const team: {
   quote?: string; // their own words; Our Story shows a dev-only slot until set
   linkedin?: string;
   site?: string;
-  email?: string;
 }[] = [
   {
     name: 'Stephanie Kovalchuk-Lum',
@@ -25,7 +24,6 @@ export const team: {
     study: "Cog Sci, UI/UX Design '29",
     line: 'Bridging the gap between drivers and the mechanics they can trust.',
     linkedin: 'https://www.linkedin.com/in/stephaniekovalchuk-lum/',
-    email: 'stefania.ua04@gmail.com',
   },
   {
     name: 'Mustaqim Bin Burhanuddin',
@@ -35,7 +33,6 @@ export const team: {
     line: 'Product lead; built the RevX app.',
     linkedin: 'https://www.linkedin.com/in/piqim/',
     site: 'https://piqim.com',
-    email: 'mbinburhanuddin@gmail.com',
   },
   {
     name: 'Eliot Boda',

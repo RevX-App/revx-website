@@ -13,7 +13,7 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     id: 'vetting',
     group: 'trust',
     q: 'How are mechanics checked?',
-    a: 'Founders review every mechanic who signs up. Mechanics can add licenses and certifications to their profile, and reviews from past jobs build their record.',
+    a: "Founders verify every mechanic who signs up. Each profile shows what we checked, like years of experience, certifications and licenses, so you can judge for yourself. Reviews from past jobs build their record.",
   },
   {
     id: 'schedule',

@@ -2,8 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Icon from '../components/Icon.astro';
-import { team } from '../team';
-const contacts = team.filter((f) => f.email);
+import { CONTACT_EMAIL } from '../config';
 ---
 
 <Base title="Contact" description="Get help with the RevX app, or email the founders about investing, press or partnerships.">
@@ -32,24 +31,18 @@ const contacts = team.filter((f) => f.email);
           <div class="msg-screen">
             <p class="msg-head">Incoming · founders' line</p>
             <ul class="lines">
-              {
-                contacts.map((c) => (
-                  <li>
-                    <span class="line-who">
-                      {c.name} · {c.title}
-                    </span>
-                    <a class="line-mail" href={`mailto:${c.email}`}>
-                      {c.email}
-                    </a>
-                    <button class="btn btn-ghost copy" type="button" data-copy={c.email}>
-                      <span class="copy-lamp" aria-hidden="true">
-                        <Icon name="check" size={16} />
-                      </span>
-                      <span data-copy-label>Copy email</span>
-                    </button>
-                  </li>
-                ))
-              }
+              <li>
+                <span class="line-who">RevX founders</span>
+                <a class="line-mail" href={`mailto:${CONTACT_EMAIL}`}>
+                  {CONTACT_EMAIL}
+                </a>
+                <button class="btn btn-ghost copy" type="button" data-copy={CONTACT_EMAIL}>
+                  <span class="copy-lamp" aria-hidden="true">
+                    <Icon name="check" size={16} />
+                  </span>
+                  <span data-copy-label>Copy email</span>
+                </button>
+              </li>
             </ul>
           </div>
           <p class="sr-only" aria-live="polite" data-copy-status />
@@ -59,7 +52,7 @@ const contacts = team.filter((f) => f.email);
   </main>
 </Base>
 <script>
-  // Copy a founder's email; the lamp lights only on a click, per the no-autonomous-motion rule.
+  // Copy the founders' email; the lamp lights only on a click, per the no-autonomous-motion rule.
   const status = document.querySelector<HTMLElement>('[data-copy-status]');
   document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
     const label = btn.querySelector<HTMLElement>('[data-copy-label]')!;

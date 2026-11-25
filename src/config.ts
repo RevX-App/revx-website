@@ -4,6 +4,9 @@
  */
 export const APP_URL: string = import.meta.env.PUBLIC_APP_URL || '/app';
 
+/** The one public inbox, shared by the founders (no paid domain yet). Support uses it too. */
+export const CONTACT_EMAIL = 'revxtheapp@gmail.com';
+
 export const SITE = {
   name: 'RevX',
   tagline: 'The mechanic at your door.',

@@ -39,7 +39,7 @@ const journey = [
 // Bodies come from the /faq trust answers so the two can't drift.
 const answer = (id: string) => faq.find((f) => f.id === id)!.a;
 const trust: { icon: IconName; name: string; body: string }[] = [
-  { icon: 'check', name: 'Mechanics are reviewed', body: answer('vetting') },
+  { icon: 'check', name: 'Mechanics are verified', body: answer('vetting') },
   { icon: 'job', name: 'Quotes you can read', body: answer('quotes') },
   { icon: 'match', name: 'Nothing happens without both of you', body: answer('consent') },
   { icon: 'review', name: 'Reviews you can believe', body: answer('reviews') },
