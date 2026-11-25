@@ -813,7 +813,7 @@ const schema = [
     .parallel .rail::before {
       top: 0;
       bottom: 0;
-      left: calc(var(--lane) + var(--stop) / 2);
+      left: calc(var(--lane) + var(--stop) / 2 - var(--wire)); /* line up with the fork's and merge's right borders, drawn inside their boxes */
       border-left-width: var(--wire);
       border-color: var(--accent-text);
     }
