@@ -53,7 +53,7 @@ check(!home.includes('data-demo'), 'index: hero demo still present');
 const TRUST = ['Why trust RevX?', 'five UC San Diego students', 'Mechanics are reviewed', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
 for (const t of TRUST) check(home.includes(t), `index: trust section missing ${t}`);
 // Home owns #trust now; the old-anchor script must not bounce it to another page.
-check(!/trust: ?'\/how-it-works/.test(home), 'index: /#trust still redirects away');
+check(!/const to = \{[^}]*\btrust:/.test(home), 'index: /#trust still redirects away');
 check(!home.includes('alumniOf'), 'index: team are current students, not alumni');
 check(read('dist/faq.html').includes('id="trust"'), 'faq: no #trust group');
 check(read('dist/faq.html').includes('Trust &amp; safety'), 'faq: no Trust & safety heading');
@@ -67,6 +67,7 @@ for (const t of MECH) {
 for (const t of ['Earnings', 'Flexibility', 'Customers', 'Fair access']) check(read('dist/mechanics.html').includes(t), `mechanics: missing "${t}"`);
 check(!/Irvin calicut|CC BY-SA|illustrative/.test(read('dist/mechanics.html')), 'mechanics: stock photo or credit still present');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
+check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');
 for (const path of Object.values(NAV)) check(sitemap.includes(`<loc>https://revx.website${path === '/' ? '/' : path}</loc>`), `sitemap: missing ${path}`);
 

@@ -6,7 +6,7 @@ import { APP_URL, SITE, MECHANIC_PITCH as pitch } from '../config';
 import { team } from '../team';
 import Portrait from '../components/Portrait.astro';
 import { Image } from 'astro:assets';
-import { homeFaq } from '../faq';
+import { faq, homeFaq } from '../faq';
 import diagnosis from '../assets/screens/diagnosis.png';
 import quote from '../assets/screens/quote.png';
 import confirm from '../assets/screens/confirm.png';
@@ -36,12 +36,14 @@ const journey = [
 ];
 
 // Approved 2026-11-24: only mechanisms that run in the app today.
+// Bodies come from the /faq trust answers so the two can't drift.
+const answer = (id: string) => faq.find((f) => f.id === id)!.a;
 const trust: { icon: IconName; name: string; body: string }[] = [
-  { icon: 'check', name: 'Mechanics are reviewed', body: 'Founders review every mechanic who signs up. Mechanics can add licenses and certifications to their profile.' },
-  { icon: 'job', name: 'Quotes you can read', body: "Quotes list parts and labor line by line. Once sent, a quote can't be edited, only replaced by a new version you approve." },
-  { icon: 'match', name: 'Nothing happens without both of you', body: 'Matching, hiring, scheduling and closing a job each need both sides to agree.' },
-  { icon: 'review', name: 'Reviews you can believe', body: 'Reviews stay hidden until both sides submit, and ratings go public after 3 reviews. After each job, you also tell us privately whether the price matched the quote.' },
-  { icon: 'bell', name: 'Payment and problems', body: "You pay your mechanic directly. RevX doesn't hold your money yet, so it can't issue refunds. If something goes wrong, report or block them in the app, or email support. We aim to review reports within 24 hours." },
+  { icon: 'check', name: 'Mechanics are reviewed', body: answer('vetting') },
+  { icon: 'job', name: 'Quotes you can read', body: answer('quotes') },
+  { icon: 'match', name: 'Nothing happens without both of you', body: answer('consent') },
+  { icon: 'review', name: 'Reviews you can believe', body: answer('reviews') },
+  { icon: 'bell', name: 'Payment and problems', body: answer('problems') },
 ];
 
 const roadmap: { icon: IconName; name: string }[] = [
@@ -73,7 +75,7 @@ const person = (f: (typeof team)[number]) => ({
   name: f.name,
   jobTitle: f.title,
   description: f.line,
-  sameAs: [f.linkedin, f.site].filter(Boolean),
+  ...((f.linkedin || f.site) && { sameAs: [f.linkedin, f.site].filter(Boolean) }),
   affiliation: UCSD,
 });
 
@@ -386,6 +388,12 @@ const schema = [
     margin-top: 2rem;
   }
 
+  .more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
   /* Why trust RevX: the team, then the lamps that are lit today. */
   .trust {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -506,11 +514,6 @@ const schema = [
 
   .mech-join {
     background: var(--on-accent);
-    color: var(--accent);
-  }
-
-  .mech-join:hover {
-    background: var(--brand-deep);
     color: var(--accent);
   }
 

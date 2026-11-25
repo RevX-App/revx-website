@@ -56,5 +56,6 @@ export const team: {
     name: 'Jaynie Schnell',
     title: 'Head of Marketing',
     study: "Clinical Psychology '27",
+    line: 'Marketing works when you relate.',
   },
 ];
