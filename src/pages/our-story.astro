@@ -41,7 +41,7 @@ import { story } from '../story';
         </header>
       </div>
       <!-- Heading on its own row, so the photo and the story start on the same line. -->
-      <div class="wrap split">
+      <div class:list={['wrap', { split: story.founderCar || import.meta.env.DEV }]}>
         <div>
           {
             story.founderCar ? (
@@ -236,10 +236,6 @@ import { story } from '../story';
     font-weight: 600;
   }
 
-
-
-
-
   /* The team: one gauge per person on one rule, no boxes. */
   .crew {
     list-style: none;
@@ -247,7 +243,7 @@ import { story } from '../story';
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr));
-    gap: 0 clamp(1.5rem, 3vw, 2.5rem);
+    gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem); /* row gap separates wrapped rows of cards */
   }
 
   /* Every card spans the same three rows (who, what they do, links), so they line up across the row. */
@@ -285,7 +281,6 @@ import { story } from '../story';
     color: var(--body);
     max-width: 32ch;
   }
-
 
   .crew-links {
     display: flex;
@@ -354,11 +349,6 @@ import { story } from '../story';
     color: var(--body);
     max-width: 36ch;
   }
-
-
-
-
-
 
   /* Want to help: two rows, the whole row is the link. */
   .ways {

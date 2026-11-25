@@ -103,6 +103,20 @@ for (const page of ALL) {
   check(!/\bRevX\b(?!\.website)/.test(text), `${page}: visible text still says "RevX"`);
   check(read(`dist/${page}.html`).includes('class="tld'), `${page}: wordmark missing .website`);
 }
+// The rename also covers attributes (alt, aria-label, title, meta content) and JSON-LD.
+// Allowed on purpose: the old name as a search alias, and the share image's alt (that image still shows "RevX").
+const bare = /\bRevX\b(?!\.website|-App)/; // RevX-App is the real GitHub org
+for (const page of ALL) {
+  const html = read(`dist/${page}.html`);
+  const attrs = [...html.matchAll(/\b(?:alt|aria-label|title|content)="([^"]*)"/g)].map((m) => m[1]).filter((v) => !v.startsWith('RevX wordmark under'));
+  const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1].replace(/"alternateName":\[[^\]]*\]/g, ''));
+  for (const v of [...attrs, ...ld]) check(!bare.test(v), `${page}: attribute or JSON-LD still says "RevX": ${v.slice(0, 80)}`);
+}
+const llms = read('dist/llms.txt');
+check(!bare.test(llms.replace('(formerly RevX)', '').replace('named "RevX"', '')), 'llms.txt: bare "RevX" outside the formerly/disambiguation notes');
+check(llms.includes('(formerly RevX)') && !llms.includes('formerly RevX.website'), 'llms.txt: should say "formerly RevX"');
+const homeOrg = [...home.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap((m) => [JSON.parse(m[1])].flat()).find((o) => o['@type'] === 'Organization');
+check(JSON.stringify(homeOrg?.alternateName) === '["RevX","RevX car repair"]', `index: alternateName is ${JSON.stringify(homeOrg?.alternateName)}`);
 // Our Story 2026-11-25: dated branch timeline, founder's story, no press section, Jaynie's site.
 for (const t of ['Published our promotional website', 'Built and launched the web app', 'Recruiting mechanics', 'Launch on iOS &amp; Android', 'More to come', '$4,000', 'jaynie.me', 'class="graph"'])
   check(story.includes(t), `our-story: missing "${t}"`);

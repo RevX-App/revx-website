@@ -1,6 +1,6 @@
 # RevX.website
 
-> RevX.website (formerly RevX.website) is a San Diego car-repair marketplace built at UCSD. Car and motorcycle owners describe a problem, get an AI mechanic's read on it, and match with a mobile mechanic who wants the job. Not to be confused with other companies or products named "RevX.website".
+> RevX.website (formerly RevX) is a San Diego car-repair marketplace built at UCSD. Car and motorcycle owners describe a problem, get an AI mechanic's read on it, and match with a mobile mechanic who wants the job. Not to be confused with other companies or products named "RevX".
 
 ## What it does
 
