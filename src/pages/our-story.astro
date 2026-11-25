@@ -36,11 +36,14 @@ import { story } from '../story';
 
     <!-- Why we started: the founder's own reason -->
     <section id="why">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>Why we started</h2>
+        </header>
+      </div>
+      <!-- Heading on its own row, so the photo and the story start on the same line. -->
       <div class="wrap split">
         <div>
-          <header class="sec-head">
-            <h2>Why we started</h2>
-          </header>
           {
             story.founderCar ? (
               <Image class="car" src={story.founderCar.src} alt={story.founderCar.alt} widths={[480, 800, 1200]} sizes="(max-width: 1000px) 100vw, 40rem" format="webp" quality={78} />
@@ -208,7 +211,6 @@ import { story } from '../story';
   }
 
   .car {
-    margin-top: 0.5rem;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     object-position: 60% 55%; /* keep the car and the lift in frame */
