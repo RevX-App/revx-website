@@ -16,7 +16,7 @@ const current = (href: string) => (href === path ? 'page' : undefined);
 
 <header class="site-header">
   <div class="wrap bar">
-    <a href="/" class="home" aria-label="RevX home" aria-current={current('/')}>
+    <a href="/" class="home" aria-label="RevX.website home" aria-current={current('/')}>
       <Mark class="mark" aria-hidden="true" />
       <Wordmark size="1.6rem" />
     </a>
@@ -25,7 +25,7 @@ const current = (href: string) => (href === path ? 'page' : undefined);
       <ul>
         {NAV.map((n) => <li><a href={n.href} aria-current={current(n.href)}>{n.label}</a></li>)}
       </ul>
-      <a class="btn btn-primary bar-cta" href={APP_URL}>Open RevX</a>
+      <a class="btn btn-primary bar-cta" href={APP_URL}>Open RevX.website</a>
     </nav>
 
     <details class="menu">
@@ -39,7 +39,7 @@ const current = (href: string) => (href === path ? 'page' : undefined);
         <ul>
           {NAV.map((n) => <li><a href={n.href} aria-current={current(n.href)}>{n.label}</a></li>)}
         </ul>
-        <a class="btn btn-primary" href={APP_URL}>Open RevX</a>
+        <a class="btn btn-primary" href={APP_URL}>Open RevX.website</a>
       </nav>
     </details>
   </div>

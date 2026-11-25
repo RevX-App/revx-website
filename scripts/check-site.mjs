@@ -50,7 +50,7 @@ for (const q of QA) {
 for (const s of STEPS) check(home.includes(s), `index: missing step "${s}"`);
 check(!home.includes('data-demo'), 'index: hero demo still present');
 // P3: trust section opens with the team, links to the full trust group.
-const TRUST = ['Why trust RevX?', 'five UC San Diego students', 'Mechanics are verified', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
+const TRUST = ['Why trust RevX.website?', 'five UC San Diego students', 'Mechanics are verified', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
 for (const t of TRUST) check(home.includes(t), `index: trust section missing ${t}`);
 // Home owns #trust now; the old-anchor script must not bounce it to another page.
 check(!/const to = \{[^}]*\btrust:/.test(home), 'index: /#trust still redirects away');
@@ -94,6 +94,12 @@ const contact = read('dist/contact.html');
 for (const t of ['For investors', 'raising', 'id="investors"']) check(contact.includes(t), `contact: missing "${t}"`);
 check(read('dist/our-story.html').includes('href="/contact#investors"'), 'our-story: investor row not linked to #investors');
 check(read('dist/faq.html').includes('damaged'), 'faq: no damage/insurance answer');
+// Renamed to RevX.website (2026-11-25): no bare "RevX" left in visible text, and the wordmark carries the suffix.
+for (const page of ALL) {
+  const text = read(`dist/${page}.html`).replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, ' ');
+  check(!/\bRevX\b(?!\.website)/.test(text), `${page}: visible text still says "RevX"`);
+  check(read(`dist/${page}.html`).includes('class="tld'), `${page}: wordmark missing .website`);
+}
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');

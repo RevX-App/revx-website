@@ -1,6 +1,6 @@
-# RevX
+# RevX.website
 
-> RevX is a San Diego car-repair marketplace built at UCSD. Car and motorcycle owners describe a problem, get an AI mechanic's read on it, and match with a mobile mechanic who wants the job. Not to be confused with other companies or products named "RevX".
+> RevX.website (formerly RevX.website) is a San Diego car-repair marketplace built at UCSD. Car and motorcycle owners describe a problem, get an AI mechanic's read on it, and match with a mobile mechanic who wants the job. Not to be confused with other companies or products named "RevX.website".
 
 ## What it does
 
@@ -16,8 +16,8 @@
 - Location: launching in San Diego, CA, starting around UCSD and nearby neighborhoods.
 - Platform: runs in the browser today; iOS and Android apps are coming.
 - Pricing: mechanics send their own quotes. No in-app payments yet; owners pay the mechanic directly.
-- Mechanics pay no lead fees and there are no pay-to-rank listings. RevX takes no commission during launch; a commission may come later, alongside in-app payments. The first 100 mechanics get founding status and the best terms RevX ever offers.
-- Privacy: exact coordinates stay on RevX's servers; others see an area of about 0.7 miles, and only the matched mechanic gets the job-site location.
+- Mechanics pay no lead fees and there are no pay-to-rank listings. RevX.website takes no commission during launch; a commission may come later, alongside in-app payments. The first 100 mechanics get founding status and the best terms RevX.website ever offers.
+- Privacy: exact coordinates stay on RevX.website's servers; others see an area of about 0.7 miles, and only the matched mechanic gets the job-site location.
 - Not yet available: in-app payments and escrow; iOS and Android apps.
 
 ## Team
@@ -26,9 +26,9 @@ Five current UC San Diego students: Stephanie Kovalchuk-Lum (Founder & CEO), Mus
 
 ## Pages
 
-- [Home](https://revx.website/): what RevX is, the journey, why to trust it, where it's at, and a link to open the web app
+- [Home](https://revx.website/): what RevX.website is, the journey, why to trust it, where it's at, and a link to open the web app
 - [How it works](https://revx.website/how-it-works): the three stages from posting a problem to a blind review, plus trust and privacy
 - [For mechanics](https://revx.website/mechanics): how mechanics pick jobs and quote, with no lead fees
-- [Our story](https://revx.website/our-story): why RevX started, how it's built, the team, and who's helped
+- [Our story](https://revx.website/our-story): why RevX.website started, how it's built, the team, and who's helped
 - [FAQ](https://revx.website/faq): direct answers about cost, the AI read, coverage and location privacy
 - [Contact](https://revx.website/contact): app support and the founders' shared email, revxtheapp@gmail.com

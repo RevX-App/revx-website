@@ -11,12 +11,12 @@ export const CONTACT_EMAIL = 'revxtheapp@gmail.com';
 export const PHONE = { display: '(619) 780-5799', tel: '+16197805799' };
 
 export const SITE = {
-  name: 'RevX',
+  name: 'RevX.website',
   tagline: 'The mechanic at your door.',
   // "RevX" alone is a crossbow and an ad-tech firm in AI answers; always pair it with the category.
-  title: 'RevX: AI mechanic and mobile mechanics in San Diego',
+  title: 'RevX.website: AI mechanic and mobile mechanics in San Diego',
   description:
-    'RevX is a San Diego car-repair marketplace. Describe the problem, get an AI mechanic\'s read on it, and match with a mobile mechanic who wants the job.',
+    'RevX.website is a San Diego car-repair marketplace. Describe the problem, get an AI mechanic\'s read on it, and match with a mobile mechanic who wants the job.',
 };
 
 /** Mechanic recruitment copy, shared by Home's band and /mechanics so they can't drift. Approved 2026-11-24. */

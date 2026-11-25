@@ -1,7 +1,7 @@
 **Effective date:** November 5, 2026
 
-RevX connects vehicle owners with mechanics. It is run by Mustaqim Bin Burhanuddin, in
-California ("RevX", "we"). Contact: revxtheapp@gmail.com. RevX is for adults 18 and over
+RevX.website connects vehicle owners with mechanics. It is run by Mustaqim Bin Burhanuddin, in
+California ("RevX.website", "we"). Contact: revxtheapp@gmail.com. RevX.website is for adults 18 and over
 in the United States.
 
 ## What we collect
@@ -93,7 +93,7 @@ These limited copies can last a short time after deletion:
   logs (up to 55 days) and email delivery logs.
 - **Legal requirements:** anything the law requires us to keep, only as long as required.
 
-We can't remove anything someone else already saved outside RevX, such as a screenshot.
+We can't remove anything someone else already saved outside RevX.website, such as a screenshot.
 
 ## Your rights
 
@@ -103,7 +103,7 @@ permissions in your phone's settings.
 
 ## Security and children
 
-We use access controls and encrypted connections, but no system is perfectly secure. RevX is
+We use access controls and encrypted connections, but no system is perfectly secure. RevX.website is
 not for anyone under 18. If you think a minor has an account, contact us and we'll delete it.
 
 ## Changes

@@ -18,7 +18,7 @@ interface Props {
 }
 
 const { title, description = SITE.description, noindex = false, schema = [] } = Astro.props;
-const fullTitle = title ? `${title} · RevX` : SITE.title;
+const fullTitle = title ? `${title} · RevX.website` : SITE.title;
 const ogImage = new URL('/og.png', Astro.site);
 const OG_ALT =
   'RevX wordmark under a row of dashboard lamps, with "The mechanic at your door." and "Post it, get an AI read, match with a San Diego mechanic."';
@@ -41,7 +41,7 @@ const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Ast
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="RevX" />
+    <meta property="og:site_name" content="RevX.website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />

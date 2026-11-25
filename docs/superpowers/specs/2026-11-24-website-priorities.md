@@ -5,6 +5,8 @@ Rule over everything: **assert only what runs.**
 
 ## Product truths (confirmed by founder)
 
+- **Name:** the company is **RevX.website** (renamed 2026-11-25). Text says "RevX.website"; the wordmark is Rev + lime X + a muted ".website"; app captions say "the app". Structured data keeps "RevX" as an alternate name.
+
 - **Consent is the principle:** both sides match, both agree to take the job, both confirm, both review.
 - **Pricing:** mechanic and owner discuss in chat; the mechanic sends quotes in the app; they agree on one.
 - **Scheduling:** appointments are set in the app with both parties' agreement. (Built. `PRODUCT.md` was wrong.)

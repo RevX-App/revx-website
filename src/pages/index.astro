@@ -18,7 +18,7 @@ const journey = [
     body: "Answer the questions a mechanic would ask, add a photo, and record the noise if you like. You get a plain-English read: likely causes, how urgent it is, and a rough cost range.",
     note: 'AI-generated from your photos and answers. Not a substitute for a hands-on inspection.',
     screen: diagnosis,
-    alt: "RevX's AI diagnosis for a 2016 Honda Civic: most likely worn front brake pads, high severity, urgent, book this week, $150 to $350, with a plain-English explanation.",
+    alt: "The app's AI diagnosis for a 2016 Honda Civic: most likely worn front brake pads, high severity, urgent, book this week, $150 to $350, with a plain-English explanation.",
   },
   {
     name: 'Match & Compare',
@@ -31,7 +31,7 @@ const journey = [
     name: 'Get Fixed & Review',
     body: "Meet where you agreed, at your place or their shop, and you both confirm when the job's done. Then you review each other, and neither side sees the other's review until both are in.",
     screen: confirm,
-    alt: "A RevX chat after the appointment: the mechanic says the work is complete, and the owner's next step is a Confirm it is fixed button.",
+    alt: "A chat in the app after the appointment: the mechanic says the work is complete, and the owner's next step is a Confirm it is fixed button.",
   },
 ];
 
@@ -84,8 +84,8 @@ const schema = [
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': new URL('/#org', Astro.site).href,
-    name: 'RevX',
-    alternateName: ['RevX car repair', 'RevX app'],
+    name: 'RevX.website',
+    alternateName: ['RevX.website', 'RevX.website car repair'],
     url: new URL('/', Astro.site).href,
     logo: new URL('/icon-512.png', Astro.site).href,
     description: SITE.description,
@@ -98,7 +98,7 @@ const schema = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'RevX',
+    name: 'RevX.website',
     url: new URL('/', Astro.site).href,
     publisher: { '@id': new URL('/#org', Astro.site).href },
   },
@@ -140,7 +140,7 @@ const schema = [
             ))
           }
         </ol>
-        <p class="screens-note">Screens from the RevX app · demo accounts</p>
+        <p class="screens-note">Screens from the app · demo accounts</p>
       </div>
     </section>
 
@@ -169,13 +169,13 @@ const schema = [
       <div class="wrap split trust">
         <div>
           <header class="sec-head">
-            <h2>Why trust RevX?</h2>
+            <h2>Why trust RevX.website?</h2>
             <p class="lede">
-              We're five UC San Diego students. We've had bad experiences with mechanics ourselves, and found out too late there were better options. RevX is how we help you avoid that.
+              We're five UC San Diego students. We've had bad experiences with mechanics ourselves, and found out too late there were better options. RevX.website is how we help you avoid that.
             </p>
             <p class="lede">We're starting with our own campus, and a founder reads every message you send.</p>
           </header>
-          <ul class="team" aria-label="The RevX team">
+          <ul class="team" aria-label="The RevX.website team">
             {
               team.map((f) => (
                 <li>
@@ -226,7 +226,7 @@ const schema = [
           <p class="mech-note">
             Questions? Call or text <a class="mech-tel" href={`tel:${PHONE.tel}`}>{PHONE.display}</a>
           </p>
-          <a class="mech-more" href="/mechanics">How RevX works for mechanics</a>
+          <a class="mech-more" href="/mechanics">How RevX.website works for mechanics</a>
         </div>
       </div>
     </section>
@@ -274,7 +274,7 @@ const schema = [
         <div class="close-actions">
           <a class="start" href={APP_URL}>
             <span class="start-main">Open</span>
-            <span class="start-sub">RevX</span>
+            <span class="start-sub">RevX.website</span>
           </a>
         </div>
       </div>
