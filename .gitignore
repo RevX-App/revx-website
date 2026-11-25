@@ -9,3 +9,4 @@ dist/
 .DS_Store
 # Raw photos with private screen content; only the cropped copies are committed.
 src/assets/revxmeeting.JPG
+src/assets/story/carinshop.jpeg

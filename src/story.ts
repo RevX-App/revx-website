@@ -3,6 +3,7 @@ import type { Stop } from './components/BranchGraph.astro';
 import basementLogo from './assets/logos/basement.jpeg';
 import tritonWebDevLogo from './assets/logos/triton-web-dev.jpeg';
 import teamCall from './assets/story/team-call.jpg';
+import brokenCar from './assets/story/broken-car.jpg';
 
 /**
  * Our Story content the founders supply. Every optional item renders nothing in production
@@ -27,6 +28,8 @@ export const story: {
     ],
     by: 'Mustaqim Bin Burhanuddin, Co-Founder & CTO',
   },
+  // Cropped below the car on the upper lift: its license plate isn't ours to publish.
+  founderCar: { src: brokenCar, alt: "Mustaqim's car on the lift at the repair shop." },
   // Confirmed 2026-11-25. Marketing and recruiting run side by side, then merge into the app-store launch.
   milestones: [
     { name: 'Founded', label: 'Apr 2026', state: 'done', col: 1, lane: 'main' },
