@@ -153,6 +153,13 @@ import { story } from '../story';
           {
             story.helpers.map((h) => (
               <li>
+                <span class="helper-logo">
+                  {h.logo ? (
+                    <Image src={h.logo} alt={`${h.name} logo`} height={56} densities={[1, 2]} />
+                  ) : (
+                    <Placeholder need={`${h.name} logo, transparent PNG or SVG.`} />
+                  )}
+                </span>
                 <span class="helper-name">{h.url ? <a href={h.url}>{h.name}</a> : h.name}</span>
                 <span class="helper-what">{h.what}</span>
               </li>
@@ -344,31 +351,53 @@ import { story } from '../story';
     min-height: 2.75rem;
   }
 
-  /* Who's helped us: names on rules, what they did beside them. */
+  /* Who's helped us: supporters side by side, logo over name over what they did. */
   .helpers {
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem clamp(1.5rem, 4vw, 3rem);
   }
 
   .helpers li {
     display: grid;
-    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
-    gap: 0.25rem 1.5rem;
-    padding-block: 1.1rem;
-    border-bottom: 1px solid var(--rule);
+    align-content: start;
+    gap: 0.35rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .helper-logo {
+    display: flex;
+    align-items: center;
+    min-height: 3.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .helper-logo:empty {
+    display: none;
+  }
+
+  .helper-logo img {
+    display: block;
+    height: 3.5rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
   }
 
   .helper-name {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     color: var(--heading);
   }
 
   .helper-what {
     color: var(--body);
+    max-width: 36ch;
   }
 
   .press-head {
@@ -449,8 +478,7 @@ import { story } from '../story';
   }
 
   @media (max-width: 640px) {
-    .timeline li,
-    .helpers li {
+    .timeline li {
       grid-template-columns: minmax(0, 1fr);
     }
   }

@@ -10,7 +10,7 @@ export const story: {
   founderNote?: { text: string[]; by: string };
   milestones: { date: string; name: string }[];
   behindTheScenes?: { src: ImageMetadata; alt: string };
-  helpers: { name: string; what: string; url?: string }[];
+  helpers: { name: string; what: string; url?: string; logo?: ImageMetadata }[]; // logo: transparent PNG/SVG in src/assets/logos/
   press: { outlet: string; title: string; url: string }[];
   mechanicQuote?: { quote: string; name: string; shop: string };
 } = {
