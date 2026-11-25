@@ -66,6 +66,11 @@ Rule over everything: **assert only what runs.**
 - Helped by, live now: The Basement @ UCSD (helped us get started and connected the founders) and Triton Web Developers (built this website). Never "backed by".
 - Slots the founders fill: group photo, one quote per person, founder's note, milestones, first-mechanic quote (Our Story and /mechanics), press, behind-the-scenes photo. An empty slot shows a dashed placeholder on the dev server only and renders nothing in production; check-site fails if a placeholder reaches `dist/`.
 - Origin copy is limited to the founder's words: shared bad mechanic experiences, finding out too late there were better options.
+- Updated 2026-11-25:
+  - "So far" is a branch graph (shared `BranchGraph` with Home): Founded (Apr 2026) → Published our promotional website (Oct 2026) → Built and launched the web app (Nov 2026) → Marketing and Recruiting mechanics side by side (Dec 2026) → Launch on iOS & Android (in progress) → More to come.
+  - Founder's note: Mustaqim's $4,000 suspension story (half price via a friend's mobile mechanic), plus a slot for a photo of the broken car.
+  - Team: no quotes (each line is already their paraphrased words); cards align in three rows. Jaynie's site: jaynie.me.
+  - No press section until real coverage exists (noted in story.ts).
 
 ## P6: roadmap
 

@@ -100,6 +100,10 @@ for (const page of ALL) {
   check(!/\bRevX\b(?!\.website)/.test(text), `${page}: visible text still says "RevX"`);
   check(read(`dist/${page}.html`).includes('class="tld'), `${page}: wordmark missing .website`);
 }
+// Our Story 2026-11-25: dated branch timeline, founder's story, no press section, Jaynie's site.
+for (const t of ['Published our promotional website', 'Built and launched the web app', 'Recruiting mechanics', 'Launch on iOS &amp; Android', 'More to come', '$4,000', 'jaynie.me', 'class="graph"'])
+  check(story.includes(t), `our-story: missing "${t}"`);
+check(!story.includes('In the press'), 'our-story: press section is back without press');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');

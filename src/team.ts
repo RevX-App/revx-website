@@ -13,7 +13,6 @@ export const team: {
   title: string;
   study: string;
   line?: string;
-  quote?: string; // their own words; Our Story shows a dev-only slot until set
   linkedin?: string;
   site?: string;
 }[] = [
@@ -56,5 +55,6 @@ export const team: {
     title: 'Head of Marketing',
     study: "Clinical Psychology '27",
     line: 'Marketing works when you relate.',
+    site: 'https://jaynie.me',
   },
 ];
