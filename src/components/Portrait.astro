@@ -1,0 +1,62 @@
+---
+/**
+ * A team member's round portrait in a lit lamp ring. A pending photo shows initials,
+ * so a missing file never ships as a broken image.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  person: { name: string; photo?: ImageMetadata };
+  size?: number; // rem
+}
+
+const { person, size = 5 } = Astro.props;
+const initials = person.name
+  .split(' ')
+  .map((w) => w[0])
+  .filter((_, i, a) => i === 0 || i === a.length - 1)
+  .join('');
+const px = size * 16;
+---
+
+<span class="portrait" style={`--size: ${size}rem`}>
+  {
+    person.photo ? (
+      <Image src={person.photo} alt={`Portrait of ${person.name}`} widths={[px, px * 2, px * 3]} sizes={`${size}rem`} format="webp" quality={80} />
+    ) : (
+      <span class="initials" aria-hidden="true">{initials}</span>
+    )
+  }
+</span>
+
+<style>
+  /* "Done" lamp framing a photo, in grayscale. */
+  .portrait {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-text);
+    background: var(--sand);
+    overflow: hidden;
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+  }
+
+  .initials {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: calc(var(--size) * 0.36);
+    letter-spacing: 0.04em;
+    color: var(--accent-text);
+  }
+</style>

@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
 import { APP_URL, SITE } from '../config';
-import { founders } from '../founders';
+import { team } from '../team';
+import Portrait from '../components/Portrait.astro';
 import { Image } from 'astro:assets';
 import { homeFaq } from '../faq';
 import diagnosis from '../assets/screens/diagnosis.png';
@@ -34,6 +35,15 @@ const journey = [
   },
 ];
 
+// Approved 2026-11-24: only mechanisms that run in the app today.
+const trust: { icon: IconName; name: string; body: string }[] = [
+  { icon: 'check', name: 'Mechanics are reviewed', body: 'Founders review every mechanic who signs up. Mechanics can add licenses and certifications to their profile.' },
+  { icon: 'job', name: 'Quotes you can read', body: "Quotes list parts and labor line by line. Once sent, a quote can't be edited, only replaced by a new version you approve." },
+  { icon: 'match', name: 'Nothing happens without both of you', body: 'Matching, hiring, scheduling and closing a job each need both sides to agree.' },
+  { icon: 'review', name: 'Reviews you can believe', body: 'Reviews stay hidden until both sides submit, and ratings go public after 3 reviews. After each job, you also tell us privately whether the price matched the quote.' },
+  { icon: 'bell', name: 'Payment and problems', body: "You pay your mechanic directly. RevX doesn't hold your money yet, so it can't issue refunds. If something goes wrong, report or block them in the app, or email support. We aim to review reports within 24 hours." },
+];
+
 const roadmap: { icon: IconName; name: string }[] = [
   { icon: 'payments', name: 'Payments & escrow' },
   { icon: 'verified', name: 'Verified mechanics' },
@@ -57,6 +67,16 @@ const stateLabel = { done: 'Done', now: 'Now', next: 'Next' };
 
 const UCSD = { '@type': 'CollegeOrUniversity', name: 'University of California San Diego', url: 'https://ucsd.edu' };
 
+// Everyone is a current student, so UCSD is an affiliation, not alumniOf.
+const person = (f: (typeof team)[number]) => ({
+  '@type': 'Person',
+  name: f.name,
+  jobTitle: f.title,
+  description: f.line,
+  sameAs: [f.linkedin, f.site].filter(Boolean),
+  affiliation: UCSD,
+});
+
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -70,14 +90,8 @@ const schema = [
     areaServed: { '@type': 'City', name: 'San Diego', containedInPlace: { '@type': 'State', name: 'California' } },
     foundingLocation: { '@type': 'Place', name: 'San Diego, California' },
     sameAs: ['https://github.com/RevX-App'],
-    founder: founders.map((f) => ({
-      '@type': 'Person',
-      name: f.name,
-      jobTitle: f.title,
-      description: f.line,
-      sameAs: [f.linkedin, f.site].filter(Boolean),
-      alumniOf: UCSD,
-    })),
+    founder: team.filter((f) => /found/i.test(f.title)).map(person),
+    employee: team.filter((f) => !/found/i.test(f.title)).map(person),
   },
   {
     '@context': 'https://schema.org',
@@ -94,7 +108,7 @@ const schema = [
   <script is:inline>
     // Old one-page anchors (shared before the site split) land on their new pages.
     {
-      const to = { how: '/how-it-works', trust: '/how-it-works#trust', mechanics: '/mechanics', about: '/our-story', contact: '/contact', faq: '/faq' }[location.hash.slice(1)];
+      const to = { how: '/how-it-works', mechanics: '/mechanics', about: '/our-story', contact: '/contact', faq: '/faq' }[location.hash.slice(1)];
       if (to) location.replace(to);
     }
   </script>
@@ -145,6 +159,50 @@ const schema = [
           }
         </dl>
         <p class="more"><a href="/faq">More questions</a></p>
+      </div>
+    </section>
+
+    <!-- Why trust RevX: who's behind it, then the mechanisms that run today -->
+    <section id="trust">
+      <div class="wrap split trust">
+        <div>
+          <header class="sec-head">
+            <h2>Why trust RevX?</h2>
+            <p class="lede">
+              We're five UC San Diego students. We've had bad experiences with mechanics ourselves, and found out too late there were better options. RevX is how we help you avoid that.
+            </p>
+            <p class="lede">We're starting with our own campus, and a founder reads every message you send.</p>
+          </header>
+          <ul class="team" aria-label="The RevX team">
+            {
+              team.map((f) => (
+                <li>
+                  <Portrait person={f} size={3.5} />
+                  <span class="team-name">{f.name}</span>
+                  <span class="team-role">{f.title}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="more"><a href="/our-story">Meet the team</a></p>
+        </div>
+
+        <div>
+          <ul class="lamps">
+            {
+              trust.map((t) => (
+                <li>
+                  <span class="lit" aria-hidden="true"><Icon name={t.icon} size={20} /></span>
+                  <div>
+                    <h3>{t.name}</h3>
+                    <p>{t.body}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="more"><a href="/faq#trust">How we handle trust</a></p>
+        </div>
       </div>
     </section>
 
@@ -282,7 +340,7 @@ const schema = [
   .qa {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr)); /* 4 questions: 2 columns, never an orphan */
     gap: 1.5rem 3rem;
   }
 
@@ -306,6 +364,86 @@ const schema = [
 
   .more {
     margin-top: 2rem;
+  }
+
+  /* Why trust RevX: the team, then the lamps that are lit today. */
+  .trust {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+
+  @media (max-width: 1000px) {
+    .trust {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .team {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+    gap: 1.5rem 1.25rem;
+  }
+
+  .team li {
+    display: grid;
+    justify-items: start;
+    gap: 0.15rem;
+  }
+
+  .team :global(.portrait) {
+    margin-bottom: 0.5rem;
+  }
+
+  .team-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.15;
+    color: var(--heading);
+  }
+
+  .team-role {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .lamps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .lamps li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.1rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .lamps h3 {
+    font-size: 1.375rem;
+    line-height: 1.15;
+  }
+
+  .lamps p {
+    margin-top: 0.4rem;
+    color: var(--body);
+    max-width: 58ch;
+  }
+
+  /* Lit counterpart of the roadmap's dashed .dead lamp: these run today. */
+  .lit {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-text);
+    color: var(--accent-text);
   }
 
   /* Roadmap */
