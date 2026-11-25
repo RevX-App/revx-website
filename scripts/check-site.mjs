@@ -96,7 +96,7 @@ check(read('dist/our-story.html').includes('href="/contact#investors"'), 'our-st
 check(read('dist/faq.html').includes('damaged'), 'faq: no damage/insurance answer');
 // Renamed to RevX.website (2026-11-25): no bare "RevX" left in visible text, and the wordmark carries the suffix.
 for (const page of ALL) {
-  const text = read(`dist/${page}.html`).replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, ' ');
+  const text = read(`dist/${page}.html`).replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, '');
   check(!/\bRevX\b(?!\.website)/.test(text), `${page}: visible text still says "RevX"`);
   check(read(`dist/${page}.html`).includes('class="tld'), `${page}: wordmark missing .website`);
 }
