@@ -84,6 +84,16 @@ check(!read('dist/our-story.html').includes('labelled as roadmap'), 'our-story: 
 check(read('dist/contact.html').includes('revxtheapp@gmail.com'), 'contact: shared inbox missing');
 for (const page of ALL) check(!/stefania\.ua04@|mbinburhanuddin@/.test(read(`dist/${page}.html`)), `${page}: personal email exposed`);
 check(read('dist/faq.html').includes('years of experience'), 'faq: vetting answer lacks what profiles show');
+// Persona pass (2026-11-25): phone line, owner expectations, plain mechanic copy, investors, damage answer.
+for (const page of ['index', 'mechanics', 'contact']) check(read(`dist/${page}.html`).includes('href="tel:+16197805799"'), `${page}: no call/text line`);
+check(home.includes('Post today, and we&#39;ll match you as mechanics near you sign up.') || home.includes("Post today, and we'll match you as mechanics near you sign up."), 'index: no owner expectation line');
+const mech = read('dist/mechanics.html');
+for (const t of ['Free to join', 'How to join', 'no download', 'how far you']) check(mech.includes(t), `mechanics: missing "${t}"`);
+check(!mech.includes('service radius'), 'mechanics: still says "service radius"');
+const contact = read('dist/contact.html');
+for (const t of ['For investors', 'raising', 'id="investors"']) check(contact.includes(t), `contact: missing "${t}"`);
+check(read('dist/our-story.html').includes('href="/contact#investors"'), 'our-story: investor row not linked to #investors');
+check(read('dist/faq.html').includes('damaged'), 'faq: no damage/insurance answer');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');

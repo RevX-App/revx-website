@@ -58,6 +58,12 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     a: "You pay your mechanic directly. RevX doesn't hold your money yet, so it can't issue refunds. If something goes wrong, report or block them in the app, or email support. We aim to review reports within 24 hours.",
   },
   {
+    id: 'damage',
+    group: 'trust',
+    q: 'What if my car gets damaged?',
+    a: "RevX doesn't insure repairs. Ask your mechanic about their own coverage before work starts, and report any problem in the app.",
+  },
+  {
     id: 'ai',
     group: 'other',
     q: 'How does the AI mechanic work?',

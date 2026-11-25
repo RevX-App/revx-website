@@ -71,6 +71,14 @@ Rule over everything: **assert only what runs.**
 - Decided 2026-11-24: four stops. Done "App live in your browser" · Now "Signing up mechanics" · Next "UCSD & La Jolla" · Later "Greater San Diego + iOS & Android". Heading "Where we're at." Lede "We'll mark a stop done only when it's actually running." No dates. The route visual is reused.
 - The feature lamps, their icons and CSS, and the old Pitching/Soft-test route are deleted. llms.txt "Not yet available" is reduced to in-app payments and escrow, plus the iOS and Android apps. Our Story says "Anything still in the works, we say so."
 
+## Persona pass (2026-11-25)
+
+- Owners can post and sign up on the web app today. Hero: "Mechanics are joining now. Post today, and we'll match you as mechanics near you sign up."
+- Mechanics' call/text line: Google Voice (619) 780-5799, shown in the lime band, on /mechanics and on Contact.
+- /mechanics: "Free to join", 3 plain join steps, no "swipe"/"service radius" jargon. Founding status stays vague until its concrete terms are decided.
+- Contact "For investors": "We're raising now." Rows: problem, model, where we are, who we are. No traction numbers and no one-pager until they exist.
+- FAQ trust: "RevX doesn't insure repairs."
+
 ## Contact
 
 - `/contact` splits into "Need help with the app?" (links to `/support`) and "Investing, press, partners?" (founders' emails).

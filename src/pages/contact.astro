@@ -2,7 +2,15 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Icon from '../components/Icon.astro';
-import { CONTACT_EMAIL } from '../config';
+import { CONTACT_EMAIL, PHONE } from '../config';
+
+// Approved 2026-11-25. No traction numbers until they're real.
+const pitchRows = [
+  { name: 'The problem', body: "Car owners can't tell what's wrong or what's fair, and good independent mechanics struggle to find customers." },
+  { name: 'The model', body: 'Free during launch. A commission comes later, once in-app payments and escrow are live.' },
+  { name: 'Where we are', body: "The app is live in the browser, and we're onboarding founding mechanics around UC San Diego." },
+  { name: 'Who we are', body: 'Five UC San Diego students who built the app in-house, with a start from The Basement @ UCSD.' },
+];
 ---
 
 <Base title="Contact" description="Get help with the RevX app, or email the founders about investing, press or partnerships.">
@@ -15,11 +23,32 @@ import { CONTACT_EMAIL } from '../config';
           <p class="lede">
             Account questions, bugs, reports and account deletion are on our <a href="/support">support page</a>.
           </p>
+          <p class="lede">Mechanics with questions can call or text <a href={`tel:${PHONE.tel}`}>{PHONE.display}</a>.</p>
         </header>
       </div>
     </section>
 
-    <!-- 6. Contact: investors first, straight to the founders' inboxes -->
+    <!-- For investors: the plan in four lines, then the shared inbox below -->
+    <section id="investors">
+      <div class="wrap split">
+        <header class="sec-head">
+          <h2>For investors</h2>
+          <p class="lede">We're raising now. Email us below to set up a call.</p>
+        </header>
+        <dl class="pitch">
+          {
+            pitchRows.map((r) => (
+              <div>
+                <dt>{r.name}</dt>
+                <dd>{r.body}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </section>
+
+    <!-- 6. Contact: straight to the founders' shared inbox -->
     <section id="contact">
       <div class="wrap split contact">
         <header class="sec-head">
@@ -74,6 +103,31 @@ import { CONTACT_EMAIL } from '../config';
 <style>
   #help .sec-head {
     margin-bottom: 0;
+  }
+
+  .pitch {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pitch div {
+    display: grid;
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    gap: 0.25rem 1.5rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .pitch dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading);
+  }
+
+  .pitch dd {
+    margin: 0;
+    color: var(--body);
   }
 
   /* Contact: the message centre, one line per founder. */
@@ -172,6 +226,10 @@ import { CONTACT_EMAIL } from '../config';
   }
 
   @media (max-width: 640px) {
+    .pitch div {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .lines li {
       grid-template-columns: minmax(0, 1fr);
       justify-items: start;

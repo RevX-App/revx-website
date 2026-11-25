@@ -7,6 +7,9 @@ export const APP_URL: string = import.meta.env.PUBLIC_APP_URL || '/app';
 /** The one public inbox, shared by the founders (no paid domain yet). Support uses it too. */
 export const CONTACT_EMAIL = 'revxtheapp@gmail.com';
 
+/** Founders' Google Voice line for mechanics' questions (call or text). */
+export const PHONE = { display: '(619) 780-5799', tel: '+16197805799' };
+
 export const SITE = {
   name: 'RevX',
   tagline: 'The mechanic at your door.',
@@ -21,5 +24,5 @@ export const MECHANIC_PITCH = {
   headline: ['Turn wrenches in San Diego?', 'Keep 100% of your quotes during launch.'],
   support: 'No lead fees. No pay-to-rank. Connect with drivers who need your expertise.',
   cta: 'Join as a founding mechanic',
-  note: 'A founder reviews every mechanic who signs up.',
+  note: 'Free to join. A founder reviews every mechanic who signs up.',
 };

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
-import { APP_URL, SITE, MECHANIC_PITCH as pitch } from '../config';
+import { APP_URL, SITE, PHONE, MECHANIC_PITCH as pitch } from '../config';
 import { team } from '../team';
 import Portrait from '../components/Portrait.astro';
 import { Image } from 'astro:assets';
@@ -50,7 +50,7 @@ const trust: { icon: IconName; name: string; body: string }[] = [
 const stops: { name: string; body: string; state: 'done' | 'now' | 'next' | 'later' }[] = [
   { name: 'App live in your browser', body: 'Post a problem, match and book at revx.website today.', state: 'done' },
   { name: 'Signing up mechanics', body: "We're onboarding founding mechanics around UC San Diego.", state: 'now' },
-  { name: 'UCSD & La Jolla', body: 'Opening RevX to students and neighbors near campus.', state: 'next' },
+  { name: 'UCSD & La Jolla', body: 'Our public launch for students and neighbors near campus.', state: 'next' },
   { name: 'Greater San Diego + iOS & Android', body: 'More of the city, and apps in the stores.', state: 'later' },
 ];
 const stateLabel = { done: 'Done', now: 'Now', next: 'Next', later: 'Later' };
@@ -211,6 +211,9 @@ const schema = [
             {pitch.cta} <Icon name="arrow" size={18} />
           </a>
           <p class="mech-note">{pitch.note}</p>
+          <p class="mech-note">
+            Questions? Call or text <a class="mech-tel" href={`tel:${PHONE.tel}`}>{PHONE.display}</a>
+          </p>
           <a class="mech-more" href="/mechanics">How RevX works for mechanics</a>
         </div>
       </div>
@@ -496,6 +499,12 @@ const schema = [
 
   .mech-note {
     font-size: 0.9375rem;
+  }
+
+  .mech-tel,
+  .mech-tel:hover {
+    color: var(--on-accent);
+    font-weight: 700;
   }
 
   .mech-more,
