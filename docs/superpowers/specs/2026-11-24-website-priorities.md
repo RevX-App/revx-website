@@ -58,6 +58,11 @@ Rule over everything: **assert only what runs.**
 ## P5: Our Story
 
 - Page structure built now, with clearly marked placeholders; the founders write the story. Uses the team photos (Jaynie's pending).
+- Decided 2026-11-24. Order: Why we started → How we're building it → So far (milestones) → The team → Who's helped us → mechanic quote → Want to help?
+- Titles: Stephanie Founder & CEO, Mustaqim Co-Founder & CTO, Eliot and Daniel Lead Software Engineer, Jaynie Head of Marketing ("Marketing works when you relate."). Only the two founders go under schema `founder`.
+- Helped by, live now: The Basement @ UCSD (helped us get started and connected the founders) and Triton Web Developers (built this website). Never "backed by".
+- Slots the founders fill: group photo, one quote per person, founder's note, milestones, first-mechanic quote (Our Story and /mechanics), press, behind-the-scenes photo. An empty slot shows a dashed placeholder on the dev server only and renders nothing in production; check-site fails if a placeholder reaches `dist/`.
+- Origin copy is limited to the founder's words: shared bad mechanic experiences, finding out too late there were better options.
 
 ## P6: roadmap
 

@@ -22,13 +22,13 @@
 
 ## Team
 
-Five current UC San Diego students: Stephanie Kovalchuk-Lum (Founder), Mustaqim Bin Burhanuddin (Co-founder, product lead), Eliot Boda (Founding Engineer), Daniel Zhang (Founding Engineer, AI diagnosis) and Jaynie Schnell (Head of Marketing).
+Five current UC San Diego students: Stephanie Kovalchuk-Lum (Founder & CEO), Mustaqim Bin Burhanuddin (Co-Founder & CTO), Eliot Boda (Lead Software Engineer), Daniel Zhang (Lead Software Engineer, AI diagnosis) and Jaynie Schnell (Head of Marketing). Helped by The Basement @ UCSD and Triton Web Developers, who built the website.
 
 ## Pages
 
 - [Home](https://revx.website/): what RevX is, the roadmap, and a link to open the web app
 - [How it works](https://revx.website/how-it-works): the three stages from posting a problem to a blind review, plus trust and privacy
 - [For mechanics](https://revx.website/mechanics): how mechanics pick jobs and quote, with no lead fees
-- [Our story](https://revx.website/our-story): the UC San Diego founding team
+- [Our story](https://revx.website/our-story): why RevX started, how it's built, the team, and who's helped
 - [FAQ](https://revx.website/faq): direct answers about cost, the AI read, coverage and location privacy
 - [Contact](https://revx.website/contact): app support and the founders' emails

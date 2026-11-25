@@ -6,12 +6,14 @@ import danielPhoto from './assets/daniel.jpg';
 
 // Visible Home/Our story/Contact and the Organization markup come from this one list.
 // All are current UC San Diego students; `study` is major and class year.
+// Schema `founder` is every title containing "found"; everyone else is `employee`.
 export const team: {
   name: string;
   photo?: ImageMetadata; // missing = pending; Portrait shows initials
   title: string;
   study: string;
   line?: string;
+  quote?: string; // their own words; Our Story shows a dev-only slot until set
   linkedin?: string;
   site?: string;
   email?: string;
@@ -19,7 +21,7 @@ export const team: {
   {
     name: 'Stephanie Kovalchuk-Lum',
     photo: stephPhoto,
-    title: 'Founder',
+    title: 'Founder & CEO',
     study: "Cog Sci, UI/UX Design '29",
     line: 'Bridging the gap between drivers and the mechanics they can trust.',
     linkedin: 'https://www.linkedin.com/in/stephaniekovalchuk-lum/',
@@ -28,7 +30,7 @@ export const team: {
   {
     name: 'Mustaqim Bin Burhanuddin',
     photo: piqimPhoto,
-    title: 'Co-founder',
+    title: 'Co-Founder & CTO',
     study: "Math-CS '28",
     line: 'Product lead; built the RevX app.',
     linkedin: 'https://www.linkedin.com/in/piqim/',
@@ -38,7 +40,7 @@ export const team: {
   {
     name: 'Eliot Boda',
     photo: eliotPhoto,
-    title: 'Founding Engineer',
+    title: 'Lead Software Engineer',
     study: "CS '28",
     line: 'Polishes the RevX app: the UI details, fixes and finish.',
     linkedin: 'https://www.linkedin.com/in/eliotboda/',
@@ -47,7 +49,7 @@ export const team: {
   {
     name: 'Daniel Zhang',
     photo: danielPhoto,
-    title: 'Founding Engineer',
+    title: 'Lead Software Engineer',
     study: "AI '29",
     line: 'Builds the AI diagnosis: rule engine plus multimodal model.',
     linkedin: 'https://www.linkedin.com/in/daniel-zhang-78a2773a4/',

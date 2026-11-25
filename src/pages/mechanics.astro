@@ -5,6 +5,8 @@ import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
 import swipe from '../assets/screens/swipe.png';
 import { APP_URL, MECHANIC_PITCH as pitch } from '../config';
+import Placeholder from '../components/Placeholder.astro';
+import { story } from '../story';
 // Approved 2026-11-24: marketing's four angles, each limited to what the app does today.
 const mechSpec = [
   { name: 'Earnings', body: 'Keep 100% of your quotes during launch. You set the price in your quote; the owner pays you directly.' },
@@ -32,6 +34,22 @@ const mechSpec = [
               ))
             }
           </dl>
+          {
+            story.mechanicQuote ? (
+              <blockquote class="voice">
+                <p>“{story.mechanicQuote.quote}”</p>
+                <footer>
+                  {story.mechanicQuote.name} · {story.mechanicQuote.shop}
+                </footer>
+              </blockquote>
+            ) : (
+              import.meta.env.DEV && (
+                <div class="voice">
+                  <Placeholder need="First mechanic's quote (shared with Our Story)." />
+                </div>
+              )
+            )
+          }
           <div class="founding">
             <p class="founding-head">The first 100 mechanics get founding status and the best terms we ever offer.</p>
             <p>
@@ -86,6 +104,23 @@ const mechSpec = [
   .spec dd {
     margin: 0;
     color: var(--body);
+  }
+
+  .voice {
+    margin: 2rem 0 0;
+  }
+
+  .voice p {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    line-height: 1.1;
+    color: var(--heading);
+  }
+
+  .voice footer {
+    margin-top: 0.75rem;
+    color: var(--muted);
   }
 
   .founding {
