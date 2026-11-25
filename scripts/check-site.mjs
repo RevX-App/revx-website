@@ -73,6 +73,13 @@ for (const t of ["Why we started", "How we're building it", 'The team', "Who's h
 for (const page of ALL) check(!read(`dist/${page}.html`).includes('data-placeholder'), `${page}: dev placeholder leaked into the build`);
 const org = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].flatMap((m) => [JSON.parse(m[1])].flat()).find((o) => o['@type'] === 'Organization');
 check(JSON.stringify(org?.founder?.map((f) => f.name)) === '["Stephanie Kovalchuk-Lum","Mustaqim Bin Burhanuddin"]', `index: founders are ${JSON.stringify(org?.founder?.map((f) => f.name))}`);
+// P6: a four-stop progress strip replaces the unbuilt-feature list everywhere.
+for (const t of ['App live in your browser', 'Signing up mechanics', 'UCSD &amp; La Jolla', 'Greater San Diego + iOS &amp; Android', "We'll mark a stop done only when it's actually running."])
+  check(home.includes(t) || home.includes(t.replaceAll("'", '&#39;')), `index: progress strip missing "${t}"`);
+for (const gone of ['Verified mechanics', 'OBD-II', 'VIN scanner', 'Soft test', 'Roadmap:'])
+  check(!home.includes(gone), `index: still lists "${gone}"`);
+check(!/OBD|verified mechanics|insurance/i.test(read('dist/llms.txt')), 'llms.txt: still lists unbuilt features');
+check(!read('dist/our-story.html').includes('labelled as roadmap'), 'our-story: still mentions a roadmap');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');

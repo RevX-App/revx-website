@@ -46,26 +46,14 @@ const trust: { icon: IconName; name: string; body: string }[] = [
   { icon: 'bell', name: 'Payment and problems', body: answer('problems') },
 ];
 
-const roadmap: { icon: IconName; name: string }[] = [
-  { icon: 'payments', name: 'Payments & escrow' },
-  { icon: 'verified', name: 'Verified mechanics' },
-  { icon: 'obd', name: 'OBD-II fault codes' },
-  { icon: 'vin', name: 'VIN scanner' },
-  { icon: 'photo', name: 'Photo messages' },
-  { icon: 'insurance', name: 'Insurance' },
-  { icon: 'ebike', name: 'E-bikes & scooters' },
-  { icon: 'pro', name: 'Pro plans' },
+// Approved 2026-11-24. No dates; a stop is marked done only when it's actually running.
+const stops: { name: string; body: string; state: 'done' | 'now' | 'next' | 'later' }[] = [
+  { name: 'App live in your browser', body: 'Post a problem, match and book at revx.website today.', state: 'done' },
+  { name: 'Signing up mechanics', body: "We're onboarding founding mechanics around UC San Diego.", state: 'now' },
+  { name: 'UCSD & La Jolla', body: 'Opening RevX to students and neighbors near campus.', state: 'next' },
+  { name: 'Greater San Diego + iOS & Android', body: 'More of the city, and apps in the stores.', state: 'later' },
 ];
-
-// Milestones are a separate route from the feature lamps: no feature is promised to a stop.
-const milestones: { name: string; state: 'done' | 'now' | 'next' }[] = [
-  { name: 'Pitching', state: 'done' },
-  { name: 'Soft test', state: 'now' },
-  { name: 'Promotion', state: 'next' },
-  { name: 'Launch on App Store & Google Play', state: 'next' },
-  { name: 'Beyond San Diego', state: 'next' },
-];
-const stateLabel = { done: 'Done', now: 'Now', next: 'Next' };
+const stateLabel = { done: 'Done', now: 'Now', next: 'Next', later: 'Later' };
 
 const UCSD = { '@type': 'CollegeOrUniversity', name: 'University of California San Diego', url: 'https://ucsd.edu' };
 
@@ -228,28 +216,16 @@ const schema = [
       </div>
     </section>
 
-    <!-- 4. Roadmap -->
-    <section id="vision" class="vision">
+    <!-- Progress strip: where RevX actually is -->
+    <section id="progress" class="vision">
       <div class="wrap">
         <header class="sec-head">
-          <h2>Roadmap: lamps we haven't wired yet.</h2>
-          <p class="lede">Where RevX is headed. None of this works in the app today.</p>
+          <h2>Where we're at.</h2>
+          <p class="lede">We'll mark a stop done only when it's actually running.</p>
         </header>
-        <ul class="unwired" aria-label="Roadmap, not built">
-          {
-            roadmap.map((r) => (
-              <li>
-                <span class="dead"><Icon name={r.icon} size={20} /></span>
-                <span>{r.name}</span>
-              </li>
-            ))
-          }
-        </ul>
-
-        <h3 class="route-head">The road to launch.</h3>
         <ol class="route">
           {
-            milestones.map((m) => (
+            stops.map((m) => (
               <li class={m.state} aria-current={m.state === 'now' ? 'step' : undefined}>
                 <span class="stop" aria-hidden="true">
                   {m.state === 'done' && <Icon name="check" size={18} />}
@@ -257,6 +233,7 @@ const schema = [
                 </span>
                 <span class="stop-name">{m.name}</span>
                 <span class="stop-state">{stateLabel[m.state]}</span>
+                <span class="stop-body">{m.body}</span>
               </li>
             ))
           }
@@ -463,7 +440,7 @@ const schema = [
     max-width: 58ch;
   }
 
-  /* Lit counterpart of the roadmap's dashed .dead lamp: these run today. */
+  /* Lit lamps: these run today. */
   .lit {
     display: grid;
     place-items: center;
@@ -537,57 +514,20 @@ const schema = [
     }
   }
 
-  /* Roadmap */
+  /* Progress strip */
   .vision {
     background: var(--sand);
   }
 
-  .unwired {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
-    gap: 1.25rem 2rem;
-  }
-
-  .unwired li {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    color: var(--muted);
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.125rem;
-  }
-
-  .dead {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 50%;
-    border: 1.5px dashed var(--muted);
-    background: var(--sand);
-    color: var(--muted);
-  }
-
-  /* Roadmap route: milestones on one wire, solid where travelled, dashed ahead. */
-  .route-head {
-    margin-top: clamp(3rem, 6vw, 4.5rem);
-    margin-bottom: 1.75rem;
-    font-size: clamp(1.5rem, 2.2vw, 2rem);
-  }
-
+  /* Route: stops on one wire, solid where travelled, dashed ahead. */
   .route {
     --stop: 2.75rem;
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
   }
 
   .route li {
@@ -642,8 +582,15 @@ const schema = [
     color: var(--heading);
   }
 
-  .next .stop-name {
+  .next .stop-name,
+  .later .stop-name {
     color: var(--muted);
+  }
+
+  .stop-body {
+    margin-top: 0.25rem;
+    color: var(--body);
+    max-width: 26ch;
   }
 
   .stop-state {
@@ -708,7 +655,8 @@ const schema = [
     }
 
     .route .stop {
-      grid-row: span 2;
+      grid-row: span 3;
+      align-self: start;
       margin-bottom: 0;
     }
 
@@ -729,16 +677,6 @@ const schema = [
   }
 
   @media (max-width: 640px) {
-    .unwired {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .unwired li {
-      font-size: 1rem;
-      line-height: 1.2;
-    }
-
     .close-actions {
       flex-wrap: wrap;
     }

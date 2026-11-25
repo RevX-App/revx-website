@@ -67,6 +67,8 @@ Rule over everything: **assert only what runs.**
 ## P6: roadmap
 
 - Remove the unbuilt-feature list from the public site. A progress strip on Home: mechanic onboarding **Now**, UCSD/La Jolla launch **Next**, Greater San Diego + mobile apps **Later**. Nothing is marked live until it is operationally confirmed.
+- Decided 2026-11-24: four stops. Done "App live in your browser" · Now "Signing up mechanics" · Next "UCSD & La Jolla" · Later "Greater San Diego + iOS & Android". Heading "Where we're at." Lede "We'll mark a stop done only when it's actually running." No dates. The route visual is reused.
+- The feature lamps, their icons and CSS, and the old Pitching/Soft-test route are deleted. llms.txt "Not yet available" is reduced to in-app payments and escrow, plus the iOS and Android apps. Our Story says "Anything still in the works, we say so."
 
 ## Contact
 
