@@ -157,10 +157,10 @@ import { story } from '../story';
               <li>
                 {h.logo ? (
                   <span class="helper-logo">
-                    <Image src={h.logo} alt={`${h.name} logo`} height={56} densities={[1, 2]} />
+                    <Image src={h.logo} alt="" width={72} height={72} densities={[1, 2]} format="webp" />
                   </span>
                 ) : (
-                  <Placeholder need={`${h.name} logo, transparent PNG or SVG.`} />
+                  <Placeholder need={`${h.name} logo, square image.`} />
                 )}
                 <span class="helper-name">{h.url ? <a href={h.url}>{h.name}</a> : h.name}</span>
                 <span class="helper-what">{h.what}</span>
@@ -364,19 +364,29 @@ import { story } from '../story';
     border-top: 1px solid var(--rule-strong);
   }
 
+  /* Logos sit in a squircle: a rounded square, true superellipse where corner-shape is supported. */
   .helper-logo {
-    display: flex;
-    align-items: center;
-    min-height: 3.5rem;
-    margin-bottom: 0.6rem;
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 28%;
+    overflow: hidden;
+    border: 1px solid var(--rule-strong);
+  }
+
+  @supports (corner-shape: squircle) {
+    .helper-logo {
+      border-radius: 50%;
+      corner-shape: squircle;
+    }
   }
 
   .helper-logo img {
     display: block;
-    height: 3.5rem;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .helper-name {

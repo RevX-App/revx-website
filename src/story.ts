@@ -1,4 +1,6 @@
 import type { ImageMetadata } from 'astro';
+import basementLogo from './assets/logos/basement.jpeg';
+import tritonWebDevLogo from './assets/logos/triton-web-dev.jpeg';
 
 /**
  * Our Story content the founders supply. Every optional item renders nothing in production
@@ -10,15 +12,15 @@ export const story: {
   founderNote?: { text: string[]; by: string };
   milestones: { date: string; name: string }[];
   behindTheScenes?: { src: ImageMetadata; alt: string };
-  helpers: { name: string; what: string; url?: string; logo?: ImageMetadata }[]; // logo: transparent PNG/SVG in src/assets/logos/
+  helpers: { name: string; what: string; url?: string; logo?: ImageMetadata }[]; // logo: square image in src/assets/logos/, shown in a squircle
   press: { outlet: string; title: string; url: string }[];
   mechanicQuote?: { quote: string; name: string; shop: string };
 } = {
   milestones: [],
   // Confirmed by the founder 2026-11-24. Supporters, not investors: never say "backed by".
   helpers: [
-    { name: 'The Basement @ UCSD', what: 'Helped us get started and connected the founders.' },
-    { name: 'Triton Web Developers', what: 'Built this website.' },
+    { name: 'The Basement @ UCSD', what: 'Helped us get started and connected the founders.', logo: basementLogo },
+    { name: 'Triton Web Developers', what: 'Built this website.', logo: tritonWebDevLogo },
   ],
   press: [],
 };
