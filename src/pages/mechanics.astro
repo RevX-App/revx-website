@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import mustangHero from '../assets/heroes/mustang-hero.jpg';
 import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
 import swipe from '../assets/screens/swipe.png';
@@ -25,7 +26,7 @@ const joinSteps = [
 ---
 
 <Base title="For mechanics" description="RevX works both ways: you swipe on San Diego jobs that fit your specialties and radius, and owners swipe on you.">
-  <PageHead title={pitch.headline.join(' ')} lede={pitch.support} />
+  <PageHead title={pitch.headline.join(' ')} lede={pitch.support} photo={mustangHero} focus="50% 61%" />
   <main>
     <!-- 3. Mechanics -->
     <section id="mechanics">

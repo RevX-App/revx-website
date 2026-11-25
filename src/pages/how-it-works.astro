@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import civicHero from '../assets/heroes/civic-hero.jpg';
 import Icon from '../components/Icon.astro';
 // Stage 1 uses a different demo post from the hero, so the page moves forward
 // instead of replaying the brake example.
@@ -22,7 +23,7 @@ const quotes = [
 ---
 
 <Base title="How it works" description="Post your car problem, get an AI read, match with a San Diego mechanic, then get it fixed and reviewed.">
-  <PageHead title="How RevX works" lede="Three stages, from the first photo to the last review." />
+  <PageHead title="How RevX works" lede="Three stages, from the first photo to the last review." photo={civicHero} focus="50% 56%" />
   <main>
     <!-- 1. How it works: three stages, each adding something new -->
     <section id="how">

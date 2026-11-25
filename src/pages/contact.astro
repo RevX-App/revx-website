@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import ferrariHero from '../assets/heroes/ferrari-hero.jpeg';
 import Icon from '../components/Icon.astro';
 import { CONTACT_EMAIL, PHONE } from '../config';
 
@@ -14,7 +15,7 @@ const pitchRows = [
 ---
 
 <Base title="Contact" description="Get help with the RevX app, or email the founders about investing, press or partnerships.">
-  <PageHead title="Contact" lede="Help with the app, or a direct line to the founders." />
+  <PageHead title="Contact" lede="Help with the app, or a direct line to the founders." photo={ferrariHero} focus="50% 62%" />
   <main>
     <section id="help">
       <div class="wrap">
