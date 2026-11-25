@@ -6,8 +6,7 @@ import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
 import swipe from '../assets/screens/swipe.png';
 import { APP_URL, PHONE, MECHANIC_PITCH as pitch } from '../config';
-import Placeholder from '../components/Placeholder.astro';
-import { story } from '../story';
+import MechanicQuote from '../components/MechanicQuote.astro';
 // Approved 2026-11-24: marketing's four angles, each limited to what the app does today.
 const mechSpec = [
   { name: 'Earnings', body: 'Keep 100% of your quotes during launch. You set the price in your quote; the owner pays you directly.' },
@@ -25,7 +24,7 @@ const joinSteps = [
 
 ---
 
-<Base title="For mechanics" description="RevX works both ways: you swipe on San Diego jobs that fit your specialties and radius, and owners swipe on you.">
+<Base title="For mechanics" description="Pick the San Diego repair jobs that fit your skills and how far you'll travel. Free to join, no lead fees, and you keep 100% of your quotes during launch.">
   <PageHead title={pitch.headline.join(' ')} lede={pitch.support} photo={mustangHero} focus="50% 61%" />
   <main>
     <!-- 3. Mechanics -->
@@ -42,22 +41,7 @@ const joinSteps = [
               ))
             }
           </dl>
-          {
-            story.mechanicQuote ? (
-              <blockquote class="voice">
-                <p>“{story.mechanicQuote.quote}”</p>
-                <footer>
-                  {story.mechanicQuote.name} · {story.mechanicQuote.shop}
-                </footer>
-              </blockquote>
-            ) : (
-              import.meta.env.DEV && (
-                <div class="voice">
-                  <Placeholder need="First mechanic's quote (shared with Our Story)." />
-                </div>
-              )
-            )
-          }
+          <MechanicQuote class="quote" />
           <h2 class="join-head">How to join</h2>
           <ol class="join-steps">
             {joinSteps.map((s) => <li>{s}</li>)}
@@ -121,21 +105,8 @@ const joinSteps = [
     color: var(--body);
   }
 
-  .voice {
-    margin: 2rem 0 0;
-  }
-
-  .voice p {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 2.4vw, 2rem);
-    line-height: 1.1;
-    color: var(--heading);
-  }
-
-  .voice footer {
-    margin-top: 0.75rem;
-    color: var(--muted);
+  .mechanics :global(.quote) {
+    margin-top: 2rem;
   }
 
   .join-head {

@@ -8,7 +8,7 @@ import { CONTACT_EMAIL, PHONE } from '../config';
 // Approved 2026-11-25. No traction numbers until they're real.
 const pitchRows = [
   { name: 'The problem', body: "Car owners can't tell what's wrong or what's fair, and good independent mechanics struggle to find customers." },
-  { name: 'The model', body: 'Free during launch. A commission comes later, once in-app payments and escrow are live.' },
+  { name: 'The model', body: 'Free during launch. A commission may come later, likely alongside in-app payments and escrow.' },
   { name: 'Where we are', body: "The app is live in the browser, and we're onboarding founding mechanics around UC San Diego." },
   { name: 'Who we are', body: 'Five UC San Diego students who built the app in-house, with a start from The Basement @ UCSD.' },
 ];
@@ -29,33 +29,25 @@ const pitchRows = [
       </div>
     </section>
 
-    <!-- For investors: the plan in four lines, then the shared inbox below -->
+    <!-- Investing, press, partners: the plan in four lines, then the founders' shared inbox -->
     <section id="investors">
-      <div class="wrap split">
-        <header class="sec-head">
-          <h2>For investors</h2>
-          <p class="lede">We're raising now. Email us below to set up a call.</p>
-        </header>
-        <dl class="pitch">
-          {
-            pitchRows.map((r) => (
-              <div>
-                <dt>{r.name}</dt>
-                <dd>{r.body}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
-    </section>
-
-    <!-- 6. Contact: straight to the founders' shared inbox -->
-    <section id="contact">
       <div class="wrap split contact">
-        <header class="sec-head">
-          <h2>Investing, press, partners?</h2>
-          <p class="lede">Email us directly; a founder reads every message.</p>
-        </header>
+        <div>
+          <header class="sec-head">
+            <h2>For investors</h2>
+            <p class="lede">We're raising now. For investing, press or partnerships, email us; a founder reads every message.</p>
+          </header>
+          <dl class="pitch">
+            {
+              pitchRows.map((r) => (
+                <div>
+                  <dt>{r.name}</dt>
+                  <dd>{r.body}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
 
         <figure class="panel-glass">
           <div class="msg-screen">
@@ -107,7 +99,7 @@ const pitchRows = [
   }
 
   .pitch {
-    margin: 0;
+    margin: 1.75rem 0 0;
     border-top: 1px solid var(--rule);
   }
 
@@ -133,7 +125,7 @@ const pitchRows = [
 
   /* Contact: the message centre, one line per founder. */
   .contact {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
     align-items: center;
   }
 

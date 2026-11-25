@@ -314,3 +314,10 @@ main h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Phone links sit inline in copy; keep them a full 44px tap target. */
+a[href^='tel:'] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}

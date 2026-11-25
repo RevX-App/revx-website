@@ -19,7 +19,7 @@ Rule over everything: **assert only what runs.**
 
 - Mechanic headline: "Turn wrenches in San Diego? Keep 100% of your quotes during launch." Support: "No lead fees. No pay-to-rank. Connect with drivers who need your expertise." The FAQ says plainly that a commission may come later with in-app payments.
 - "First 100 mechanics free forever" is replaced with founding-status wording, e.g. "Founding mechanics: the first 100 sign-ups get founding status and the best terms we ever offer."
-- Verification copy: "Founders review every mechanic who signs up. Mechanics can add licenses and certifications to their profile."
+- Verification copy: "Founders verify every mechanic who signs up. Each profile shows what we checked, like years of experience, certifications and licenses."
 
 ## P1: navigation and branding
 
@@ -82,4 +82,4 @@ Rule over everything: **assert only what runs.**
 
 ## Contact
 
-- `/contact` splits into "Need help with the app?" (links to `/support`) and "Investing, press, partners?" (founders' emails).
+- `/contact`: "Need help with the app?" (links to `/support`, plus the call/text line), then "For investors" (pitch rows + the shared inbox revxtheapp@gmail.com).

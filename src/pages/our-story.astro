@@ -4,6 +4,7 @@ import PageHead from '../components/PageHead.astro';
 import porscheHero from '../assets/heroes/porsche-hero.jpeg';
 import Portrait from '../components/Portrait.astro';
 import Placeholder from '../components/Placeholder.astro';
+import MechanicQuote from '../components/MechanicQuote.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 import { team } from '../team';
@@ -11,7 +12,7 @@ import { story } from '../story';
 ---
 
 <Base title="Our story" description="RevX is built by five UC San Diego students who learned the hard way that there were better options than the mechanic they went to.">
-  <PageHead title="Our story" lede="RevX started at UC San Diego. We're signing up local mechanics first, then opening RevX to UCSD students and the neighborhoods around campus." photo={porscheHero} focus="50% 60%" />
+  <PageHead title="Our story" lede="RevX started at UC San Diego. The app is open today, and we're signing up local mechanics around campus first." photo={porscheHero} focus="50% 60%" />
   <main>
     <!-- Group photo: founders supply it -->
     {
@@ -154,13 +155,13 @@ import { story } from '../story';
           {
             story.helpers.map((h) => (
               <li>
-                <span class="helper-logo">
-                  {h.logo ? (
+                {h.logo ? (
+                  <span class="helper-logo">
                     <Image src={h.logo} alt={`${h.name} logo`} height={56} densities={[1, 2]} />
-                  ) : (
-                    <Placeholder need={`${h.name} logo, transparent PNG or SVG.`} />
-                  )}
-                </span>
+                  </span>
+                ) : (
+                  <Placeholder need={`${h.name} logo, transparent PNG or SVG.`} />
+                )}
                 <span class="helper-name">{h.url ? <a href={h.url}>{h.name}</a> : h.name}</span>
                 <span class="helper-what">{h.what}</span>
               </li>
@@ -182,9 +183,11 @@ import { story } from '../story';
               </ul>
             </>
           ) : (
-            <div class="press-slot">
-              <Placeholder need="Press or mentions: outlet, title and link for each real article." />
-            </div>
+            import.meta.env.DEV && (
+              <div class="press-slot">
+                <Placeholder need="Press or mentions: outlet, title and link for each real article." />
+              </div>
+            )
           )
         }
       </div>
@@ -195,16 +198,7 @@ import { story } from '../story';
       (story.mechanicQuote || import.meta.env.DEV) && (
         <section id="mechanic-voice">
           <div class="wrap">
-            {story.mechanicQuote ? (
-              <blockquote class="voice">
-                <p>“{story.mechanicQuote.quote}”</p>
-                <footer>
-                  {story.mechanicQuote.name} · {story.mechanicQuote.shop}
-                </footer>
-              </blockquote>
-            ) : (
-              <Placeholder need="First mechanic's quote, with name, shop and their written OK." />
-            )}
+            <MechanicQuote />
           </div>
         </section>
       )
@@ -377,10 +371,6 @@ import { story } from '../story';
     margin-bottom: 0.6rem;
   }
 
-  .helper-logo:empty {
-    display: none;
-  }
-
   .helper-logo img {
     display: block;
     height: 3.5rem;
@@ -421,23 +411,6 @@ import { story } from '../story';
     margin-top: 2rem;
   }
 
-  .voice {
-    margin: 0;
-    max-width: 46rem;
-  }
-
-  .voice p {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    line-height: 1.1;
-    color: var(--heading);
-  }
-
-  .voice footer {
-    margin-top: 1rem;
-    color: var(--muted);
-  }
 
   /* Want to help: two rows, the whole row is the link. */
   .ways {

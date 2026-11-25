@@ -18,7 +18,7 @@ const { title, lede, photo, focus = '50% 58%' } = Astro.props;
 
 <div class="page-head">
   <div class="backdrop" aria-hidden="true">
-    <Image src={photo} alt="" widths={[640, 1024, 1600]} sizes="100vw" format="webp" quality={70} loading="eager" style={`object-position: ${focus}`} />
+    <Image src={photo} alt="" widths={[640, 1024, 1600]} sizes="(max-width: 760px) 100vw, min(55vw, 48rem)" format="webp" quality={70} loading="eager" style={`object-position: ${focus}`} />
   </div>
   <div class="wrap">
     <h1>{title}</h1>

@@ -758,32 +758,14 @@ const schema = [
     .graph {
       --lane: calc(var(--stop) + 1rem); /* branch rail offset */
       grid-template-columns: minmax(0, 1fr);
-      grid-template-rows: none;
     }
 
-    .graph li,
-    .graph li.main,
-    .graph li.branch {
+    .graph li {
       position: relative;
       display: grid;
-      grid-row: auto;
-      grid-column: auto;
-      grid-template-rows: none;
       grid-template-columns: calc(var(--stop) + var(--lane)) minmax(0, 1fr);
       column-gap: 0.75rem;
       padding: 0 0 1.75rem;
-    }
-
-    .graph li .label,
-    .graph li.main .label,
-    .branch .label {
-      padding: 0;
-      align-self: start;
-    }
-
-    .rail {
-      position: static;
-      margin: 0;
     }
 
     .branch .stop {
