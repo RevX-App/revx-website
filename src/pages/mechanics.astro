@@ -6,7 +6,6 @@ import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
 import swipe from '../assets/screens/swipe.png';
 import { APP_URL, PHONE, MECHANIC_PITCH as pitch } from '../config';
-import MechanicQuote from '../components/MechanicQuote.astro';
 // Approved 2026-11-24: marketing's four angles, each limited to what the app does today.
 const mechSpec = [
   { name: 'Earnings', body: 'Keep 100% of your quotes during launch. You set the price in your quote; the owner pays you directly.' },
@@ -41,7 +40,6 @@ const joinSteps = [
               ))
             }
           </dl>
-          <MechanicQuote class="quote" />
           <h2 class="join-head">How to join</h2>
           <ol class="join-steps">
             {joinSteps.map((s) => <li>{s}</li>)}
@@ -103,10 +101,6 @@ const joinSteps = [
   .spec dd {
     margin: 0;
     color: var(--body);
-  }
-
-  .mechanics :global(.quote) {
-    margin-top: 2rem;
   }
 
   .join-head {

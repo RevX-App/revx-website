@@ -71,6 +71,7 @@ Rule over everything: **assert only what runs.**
   - Founder's note: Mustaqim's $4,000 suspension story (half price via a friend's mobile mechanic), plus a slot for a photo of the broken car.
   - Team: no quotes (each line is already their paraphrased words); cards align in three rows. Jaynie's site: jaynie.me.
   - No press section until real coverage exists (noted in story.ts).
+  - No first-mechanic quote until we have one with the mechanic's written OK. The slot (Our Story + /mechanics) was removed; see story.ts for how to restore it (component in commit 2d421f3).
 
 ## P6: roadmap
 

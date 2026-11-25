@@ -9,6 +9,9 @@ import brokenCar from './assets/story/broken-car.jpg';
  * Our Story content the founders supply. Every optional item renders nothing in production
  * until it is filled in; on the dev server a dashed placeholder marks the gap.
  * Assert only what is real: no invented events, quotes, press or endorsements.
+ * First mechanic's quote: removed until we have one, with the mechanic's written OK (2026-11-25).
+ *   It showed on Our Story (own section before "Want to help?") and on /mechanics (under the four lines);
+ *   restore src/components/MechanicQuote.astro from commit 2d421f3 and add `mechanicQuote: { quote, name, shop }` here.
  * Press: none yet (2026-11-25). When real coverage exists, add an "In the press" list under Who's helped us.
  */
 export const story: {
@@ -18,7 +21,6 @@ export const story: {
   milestones: Stop[];
   behindTheScenes?: { src: ImageMetadata; alt: string };
   helpers: { name: string; what: string; url?: string; logo?: ImageMetadata }[]; // logo: square image in src/assets/logos/, shown in a squircle
-  mechanicQuote?: { quote: string; name: string; shop: string };
 } = {
   // Founder's story, 2026-11-25, summarised from his own words.
   founderNote: {

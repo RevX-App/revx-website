@@ -4,7 +4,6 @@ import PageHead from '../components/PageHead.astro';
 import porscheHero from '../assets/heroes/porsche-hero.jpeg';
 import Portrait from '../components/Portrait.astro';
 import Placeholder from '../components/Placeholder.astro';
-import MechanicQuote from '../components/MechanicQuote.astro';
 import BranchGraph from '../components/BranchGraph.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
@@ -164,17 +163,6 @@ import { story } from '../story';
         </ul>
       </div>
     </section>
-
-    <!-- A real mechanic, with their written OK -->
-    {
-      (story.mechanicQuote || import.meta.env.DEV) && (
-        <section id="mechanic-voice">
-          <div class="wrap">
-            <MechanicQuote />
-          </div>
-        </section>
-      )
-    }
 
     <!-- Close: two ways to help -->
     <section id="join">
