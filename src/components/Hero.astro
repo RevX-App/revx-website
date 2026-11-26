@@ -1,26 +1,14 @@
 ---
 /**
- * First viewport: headline and actions on the left, the message-centre demo on
- * the right. The demo walks the seven-step loop only when the visitor asks it
- * to (lamp or Next); nothing advances on its own. Fictional seed personas.
+ * First viewport: headline and actions on the left, one real app screen on the
+ * right (a mechanic's swipe card for an owner's post). The garage photo sits
+ * behind as a dim backdrop.
  */
 import { Image } from 'astro:assets';
 import garage from '../assets/garage-hero.png';
-import Icon, { type IconName } from './Icon.astro';
+import swipe from '../assets/screens/swipe.png';
+import Icon from './Icon.astro';
 import { APP_URL } from '../config';
-
-const steps: { id: string; label: string; icon: IconName }[] = [
-  { id: 'post', label: 'Post', icon: 'post' },
-  { id: 'diagnose', label: 'Diagnose', icon: 'diagnose' },
-  { id: 'swipe', label: 'Swipe', icon: 'swipe' },
-  { id: 'match', label: 'Match', icon: 'match' },
-  { id: 'chat', label: 'Chat & quote', icon: 'chat' },
-  { id: 'job', label: 'Job', icon: 'job' },
-  { id: 'review', label: 'Review', icon: 'review' },
-];
-
-// The demo rests on the diagnosis: the step that shows what only RevX does.
-const initial = 1;
 ---
 
 <section class="hero" id="top">
@@ -41,8 +29,8 @@ const initial = 1;
     <div class="hero-copy">
       <h1>The mechanic at your door.</h1>
       <p class="lede">
-        RevX is a San Diego car-repair marketplace. Post what's wrong, get an AI mechanic's read on
-        it, and match with a mobile mechanic who actually wants the job.
+        Tell us what's wrong and get a plain-English read on it. Then compare quotes from San Diego
+        mechanics who want the job.
       </p>
       <div class="actions">
         <a class="btn btn-primary" href={APP_URL}>Open RevX</a>
@@ -53,129 +41,18 @@ const initial = 1;
       <p class="platforms">Runs in your browser today. iOS &amp; Android coming.</p>
     </div>
 
-    <div class="mc" data-demo data-step={initial}>
-      <div class="mc-head">
-        <div class="steps" role="tablist" aria-label="The RevX loop, step by step">
-          {
-            steps.map((s, i) => (
-              <button
-                class="step"
-                role="tab"
-                id={`step-${s.id}`}
-                aria-controls={`panel-${s.id}`}
-                aria-selected={i === initial ? 'true' : 'false'}
-                aria-label={s.label}
-                tabindex={i === initial ? 0 : -1}
-                data-kind={s.id === 'diagnose' ? 'warn' : 'sky'}
-                data-state={i < initial ? 'done' : i === initial ? 'on' : 'off'}
-              >
-                <span class="bulb">
-                  <Icon name={s.icon} size={18} />
-                </span>
-              </button>
-            ))
-          }
-        </div>
-        <p class="step-title">
-          <span data-step-name>{steps[initial].label}</span>
-          <span class="step-count"><span data-step-num>{initial + 1}</span> of {steps.length}</span>
-        </p>
-      </div>
-
-      <div class="screen">
-        <section class="panel" id="panel-post" role="tabpanel" aria-labelledby="step-post" hidden>
-          <p class="screen-head">Sam's 2016 Civic · new post</p>
-          <dl class="fields">
-            <div><dt>Category</dt><dd>Mechanical</dd></div>
-            <div><dt>Symptom</dt><dd>Grinding noise</dd></div>
-            <div><dt>Where</dt><dd>Front left</dd></div>
-            <div><dt>When</dt><dd>Only when braking</dd></div>
-            <div><dt>How long</dt><dd>A few days, getting worse</dd></div>
-            <div><dt>Media</dt><dd>1 photo · 0:04 noise clip</dd></div>
-          </dl>
-        </section>
-
-        <section class="panel" id="panel-diagnose" role="tabpanel" aria-labelledby="step-diagnose">
-          <p class="read">Sounds like the front-left pads are worn down to the metal.</p>
-          <ol class="causes">
-            <li class="lead">Worn front brake pads</li>
-            <li>Scored brake rotor</li>
-            <li>Sticking caliper slide pin</li>
-          </ol>
-          <dl class="readouts">
-            <div><dt>Severity</dt><dd class="warn">High</dd></div>
-            <div><dt>Urgency</dt><dd>Get it seen soon</dd></div>
-            <div><dt>Est. range</dt><dd>$180–$350</dd></div>
-          </dl>
-        </section>
-
-        <section class="panel" id="panel-swipe" role="tabpanel" aria-labelledby="step-swipe" hidden>
-          <div class="deck">
-            <article class="mcard" data-card="0">
-              <p class="mcard-name">Gina L.</p>
-              <p class="mcard-shop">Triton Auto · 2.5 mi</p>
-              <p class="mcard-tags">Mechanical · Computer/ECU</p>
-            </article>
-            <article class="mcard" data-card="1" hidden>
-              <p class="mcard-name">Diego R.</p>
-              <p class="mcard-shop">Mobile mechanic · 4.0 mi</p>
-              <p class="mcard-tags">Mechanical · Motorcycles</p>
-            </article>
-          </div>
-          <div class="deck-actions">
-            <button type="button" class="round" data-swipe="left" aria-label="Pass on this mechanic">
-              <Icon name="x" size={20} />
-            </button>
-            <span class="hint">Drag the card, or tap</span>
-            <button type="button" class="round yes" data-swipe="right" aria-label="Swipe right on this mechanic">
-              <Icon name="heart" size={20} />
-            </button>
-          </div>
-        </section>
-
-        <section class="panel" id="panel-match" role="tabpanel" aria-labelledby="step-match" hidden>
-          <p class="big">It's a match!</p>
-          <p class="pair">Sam P. <Icon name="match" size={22} /> Gina L.</p>
-          <p class="note">Both swiped right on the same post. Both phones get an alert.</p>
-        </section>
-
-        <section class="panel" id="panel-chat" role="tabpanel" aria-labelledby="step-chat" hidden>
-          <div class="bubbles">
-            <p class="bubble them">Saw your photo. That's metal on metal. I can take a look.</p>
-            <p class="bubble me">What would it run?</p>
-          </div>
-          <div class="quotes">
-            <p class="quote lead"><span>Gina L. · pads + rotor resurface</span><b>$240</b></p>
-            <p class="quote"><span>2 more quotes on this post</span></p>
-          </div>
-        </section>
-
-        <section class="panel" id="panel-job" role="tabpanel" aria-labelledby="step-job" hidden>
-          <ol class="checks">
-            <li><Icon name="check" size={18} /> Job started</li>
-            <li><Icon name="check" size={18} /> Sam marked it done</li>
-            <li><Icon name="check" size={18} /> Gina marked it done</li>
-          </ol>
-          <p class="big">Completed</p>
-        </section>
-
-        <section class="panel" id="panel-review" role="tabpanel" aria-labelledby="step-review" hidden>
-          <div class="sealed">
-            <p><Icon name="lock" size={18} /> Sam's review · sealed</p>
-            <p><Icon name="lock" size={18} /> Gina's review · sealed</p>
-          </div>
-          <p class="note">Neither side sees the other's stars until both are in.</p>
-        </section>
-      </div>
-
-      <div class="mc-foot">
-        <p class="demo-note">Demo with fictional accounts.</p>
-        <button type="button" class="btn btn-ghost next" data-next>
-          <span><span data-next-word>Next</span><span class="next-to" data-next-label>: Swipe</span></span>
-          <Icon name="arrow" size={18} />
-        </button>
-      </div>
-    </div>
+    <figure class="phone">
+      <Image
+        src={swipe}
+        alt="A mechanic's swipe card for a 2016 Honda Civic post: a photo of the front wheel off, 'Brakes seem to have an issue, where the pads are worn out', tagged Mechanical and This week, with pass, details and interested buttons."
+        widths={[320, 480, 640]}
+        sizes="(max-width: 1000px) 18rem, 22rem"
+        format="webp"
+        quality={80}
+        loading="eager"
+      />
+      <figcaption>Screens from the RevX app · demo accounts</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -208,7 +85,7 @@ const initial = 1;
 
   .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
     gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
   }
@@ -259,417 +136,29 @@ const initial = 1;
     font-size: 0.9375rem;
   }
 
-  /* Message centre */
-  .mc {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: clamp(1.1rem, 2.2vw, 1.75rem);
+  /* The screen sits in a thin bezel, like the app's own phone frame on desktop. */
+  .phone {
+    margin: 0;
+    justify-self: center;
+    width: min(100%, 22rem);
+  }
+
+  .phone img {
+    display: block;
+    width: 100%;
+    height: auto;
     border: 1px solid var(--rule-strong);
     border-radius: 1.75rem;
-    background: var(--panel);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.05),
       0 30px 60px -24px var(--shadow);
   }
 
-  .steps {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .step {
-    display: grid;
-    place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-  }
-
-  .bulb {
-    display: grid;
-    place-items: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 50%;
-    border: 1.5px solid var(--unlit);
-    background: var(--sand);
-    color: var(--muted);
-    transition:
-      background-color 0.3s var(--ease-out),
-      color 0.3s var(--ease-out),
-      border-color 0.3s var(--ease-out);
-  }
-
-  .step:hover .bulb {
-    border-color: var(--muted);
-    color: var(--muted);
-  }
-
-  .step[data-state='done'] .bulb {
-    border-color: var(--accent-text);
-    color: var(--accent-text);
-  }
-
-  .step[data-state='on'] .bulb {
-    border-color: var(--accent-text);
-    background: var(--accent);
-    color: var(--on-accent);
-  }
-
-  .step[data-state='on'][data-kind='warn'] .bulb {
-    border-color: var(--urgent-text);
-    background: var(--urgent);
-    color: var(--on-urgent);
-  }
-
-  .step-title {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+  figcaption {
     margin-top: 0.75rem;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--heading);
-  }
-
-  .step-count {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 0.9375rem;
+    text-align: center;
     color: var(--muted);
-  }
-
-  .screen {
-    min-height: 14.5rem;
-    padding: 1.1rem 1.2rem;
-    border-radius: 0.9rem;
-    background: var(--bg);
-    border: 1px solid var(--rule);
-  }
-
-  .panel[hidden] {
-    display: none;
-  }
-
-  .panel {
-    animation: panel-in 0.4s var(--ease-out);
-  }
-
-  @keyframes panel-in {
-    from {
-      opacity: 0.3;
-      filter: blur(3px);
-    }
-  }
-
-  .screen-head {
-    margin-bottom: 0.75rem;
-    color: var(--muted);
-    font-size: 0.9375rem;
-  }
-
-  .fields {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem 1.25rem;
-    margin: 0;
-  }
-
-  .fields dt,
-  .readouts dt {
-    font-family: var(--font-display);
-    font-weight: 600;
     font-size: 0.875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .fields dd,
-  .readouts dd {
-    margin: 0;
-    color: var(--heading);
-    font-weight: 500;
-    line-height: 1.3;
-  }
-
-  .read {
-    color: var(--heading);
-    font-size: 1.0625rem;
-    line-height: 1.4;
-  }
-
-  .causes {
-    list-style: none;
-    counter-reset: cause;
-    margin: 0.75rem 0 0.9rem;
-    padding: 0;
-    display: grid;
-    gap: 0.35rem;
-  }
-
-  .causes li {
-    counter-increment: cause;
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    padding: 0.2rem 0.7rem;
-    border: 1px dashed var(--rule-strong);
-    border-radius: 0.4rem;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.0625rem;
-    color: var(--muted);
-  }
-
-  .causes li::before {
-    content: counter(cause);
-    color: var(--muted);
-  }
-
-  .causes .lead {
-    border: 1px solid var(--accent-text);
-    background: var(--accent-wash);
-    font-size: 1.375rem;
-    color: var(--heading);
-  }
-
-  .causes .lead::before {
-    color: var(--accent-text);
-  }
-
-  .readouts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin: 0;
-  }
-
-  .readouts .warn {
-    color: var(--urgent-text);
-  }
-
-  .deck {
-    position: relative;
-    height: 7.25rem;
-  }
-
-  .mcard {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.15rem;
-    padding: 0.9rem 1.2rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--rule-strong);
-    background: var(--panel);
-    cursor: grab;
-    touch-action: pan-y;
-    user-select: none;
-    transition: transform 0.35s var(--ease-out);
-  }
-
-  .mcard[hidden] {
-    display: none;
-  }
-
-  .mcard.dragging {
-    transition: none;
-    cursor: grabbing;
-  }
-
-  .mcard-name {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.75rem;
-    color: var(--heading);
-    line-height: 1.05;
-  }
-
-  .mcard-shop {
-    color: var(--body);
-  }
-
-  .mcard-tags {
-    color: var(--accent-text);
-    font-size: 0.9375rem;
-  }
-
-  .deck-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0.75rem;
-  }
-
-  .hint {
-    color: var(--muted);
-    font-size: 0.9375rem;
-  }
-
-  .round {
-    display: grid;
-    place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 50%;
-    border: 1px solid var(--rule-strong);
-    background: var(--sand);
-    color: var(--muted);
-    cursor: pointer;
-  }
-
-  .round:hover {
-    color: var(--heading);
-    border-color: var(--muted);
-  }
-
-  .round.yes {
-    color: var(--accent-text);
-    border-color: var(--accent-text);
-  }
-
-  .big {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(2rem, 3.2vw, 2.75rem);
-    color: var(--accent-text);
-    line-height: 1;
-  }
-
-  .pair {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 0.9rem;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.375rem;
-    color: var(--heading);
-  }
-
-  .pair :global(svg) {
-    color: var(--accent-text);
-  }
-
-  .note {
-    margin-top: 0.75rem;
-    color: var(--muted);
-  }
-
-  .bubbles {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .bubble {
-    max-width: 85%;
-    padding: 0.45rem 0.8rem;
-    border-radius: 0.9rem;
-    line-height: 1.35;
-  }
-
-  .them {
-    background: var(--sand);
-    color: var(--heading);
-    border-bottom-left-radius: 0.2rem;
-  }
-
-  .me {
-    align-self: flex-end;
-    background: var(--accent);
-    color: var(--on-accent);
-    border-bottom-right-radius: 0.2rem;
-  }
-
-  .quotes {
-    display: grid;
-    gap: 0.35rem;
-    margin-top: 0.75rem;
-  }
-
-  .quote {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.35rem 0.7rem;
-    border: 1px dashed var(--rule-strong);
-    border-radius: 0.4rem;
-    color: var(--muted);
-  }
-
-  .quote.lead {
-    border: 1px solid var(--accent-text);
-    color: var(--heading);
-  }
-
-  .quote b {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    color: var(--accent-text);
-  }
-
-  .checks {
-    list-style: none;
-    margin: 0 0 0.9rem;
-    padding: 0;
-    display: grid;
-    gap: 0.45rem;
-    color: var(--heading);
-  }
-
-  .checks li {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
-
-  .checks :global(svg) {
-    color: var(--accent-text);
-  }
-
-  .sealed {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .sealed p {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.6rem 0.8rem;
-    border: 1px dashed var(--rule-strong);
-    border-radius: 0.5rem;
-    color: var(--heading);
-  }
-
-  .sealed :global(svg) {
-    color: var(--urgent-text);
-  }
-
-  .mc-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .demo-note {
-    color: var(--muted);
-    font-size: 0.9375rem;
-  }
-
-  .next {
-    min-height: 2.75rem;
-    font-size: 1rem;
   }
 
   @media (max-width: 1000px) {
@@ -677,8 +166,8 @@ const initial = 1;
       grid-template-columns: minmax(0, 1fr);
     }
 
-    .mc {
-      max-width: 40rem;
+    .phone {
+      width: min(100%, 18rem);
     }
   }
 
@@ -690,115 +179,5 @@ const initial = 1;
     .actions .btn {
       flex: 1 1 auto;
     }
-
-    .fields {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .readouts {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .screen {
-      min-height: 15rem;
-    }
-
-    .next-to {
-      display: none;
-    }
   }
 </style>
-
-<script>
-  const demo = document.querySelector<HTMLElement>('[data-demo]');
-  if (demo) {
-    const tabs = [...demo.querySelectorAll<HTMLButtonElement>('.step')];
-    const panels = tabs.map((t) => document.getElementById(t.getAttribute('aria-controls')!)!);
-    const name = demo.querySelector<HTMLElement>('[data-step-name]')!;
-    const num = demo.querySelector<HTMLElement>('[data-step-num]')!;
-    const nextLabel = demo.querySelector<HTMLElement>('[data-next-label]')!;
-    const nextWord = demo.querySelector<HTMLElement>('[data-next-word]')!;
-    let step = Number(demo.dataset.step ?? 1);
-
-    const go = (i: number) => {
-      step = (i + tabs.length) % tabs.length;
-      tabs.forEach((t, j) => {
-        const on = j === step;
-        t.dataset.state = j < step ? 'done' : on ? 'on' : 'off';
-        t.setAttribute('aria-selected', String(on));
-        t.tabIndex = on ? 0 : -1;
-        panels[j].hidden = !on;
-      });
-      name.textContent = tabs[step].getAttribute('aria-label');
-      num.textContent = String(step + 1);
-      const after = tabs[(step + 1) % tabs.length].getAttribute('aria-label');
-      const last = step === tabs.length - 1;
-      nextWord.textContent = last ? 'Start again' : 'Next';
-      nextLabel.textContent = last ? '' : `: ${after}`;
-    };
-
-    tabs.forEach((t, i) => {
-      t.addEventListener('click', () => go(i));
-      t.addEventListener('keydown', (e) => {
-        const delta = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        const jump = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
-        if (!delta && jump === null) return;
-        e.preventDefault();
-        go(jump ?? step + delta);
-        tabs[step].focus();
-      });
-    });
-    demo.querySelector('[data-next]')!.addEventListener('click', () => go(step + 1));
-
-    // Swipe deck: drag or buttons. Right swipe makes the match.
-    const cards = [...demo.querySelectorAll<HTMLElement>('.mcard')];
-    let current = 0;
-    const showCard = (i: number) => {
-      current = i % cards.length;
-      cards.forEach((c, j) => {
-        c.hidden = j !== current;
-        c.style.transform = '';
-      });
-    };
-    const decide = (dir: 'left' | 'right') => {
-      const card = cards[current];
-      card.style.transform = `translateX(${dir === 'right' ? 120 : -120}%) rotate(${dir === 'right' ? 12 : -12}deg)`;
-      window.setTimeout(() => {
-        if (dir === 'right') {
-          showCard(0);
-          go(3);
-        } else {
-          showCard(current + 1);
-        }
-      }, 320);
-    };
-    demo.querySelectorAll<HTMLButtonElement>('[data-swipe]').forEach((b) =>
-      b.addEventListener('click', () => decide(b.dataset.swipe as 'left' | 'right')),
-    );
-    cards.forEach((card) => {
-      let x0 = 0;
-      let dx = 0;
-      card.addEventListener('pointerdown', (e) => {
-        x0 = e.clientX;
-        dx = 0;
-        card.setPointerCapture(e.pointerId);
-        card.classList.add('dragging');
-      });
-      card.addEventListener('pointermove', (e) => {
-        if (!card.classList.contains('dragging')) return;
-        dx = e.clientX - x0;
-        card.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
-      });
-      const end = () => {
-        if (!card.classList.contains('dragging')) return;
-        card.classList.remove('dragging');
-        if (Math.abs(dx) > 80) decide(dx > 0 ? 'right' : 'left');
-        else card.style.transform = '';
-      };
-      card.addEventListener('pointerup', end);
-      card.addEventListener('pointercancel', end);
-    });
-
-    go(step);
-  }
-</script>
