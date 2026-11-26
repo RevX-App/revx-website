@@ -48,12 +48,12 @@ const trust: { icon: IconName; name: string; body: string }[] = [
 ];
 
 // Revised 2026-11-25. No dates; a stop is marked done only when it's actually running.
-// Same shape as Our Story's "So far": recruiting and marketing run side by side off "App live",
+// Same shape as Our Story's "So far": marketing (top) and recruiting (branch) run side by side off "App live",
 // then merge into the apps (in progress). `col` is the desktop column.
 const stops: Stop[] = [
   { name: 'App live in your browser', body: 'Post a problem, match and book at revx.website today.', state: 'done', col: 1, lane: 'main', fork: true },
-  { name: 'Recruiting mechanics', body: "We're onboarding founding mechanics around UC San Diego.", state: 'now', col: 2, lane: 'main', parallel: true },
-  { name: 'Marketing', body: 'Social media and events, getting the word out around campus.', state: 'now', col: 2, lane: 'branch' },
+  { name: 'Marketing', body: 'Social media and events, getting the word out around campus.', state: 'now', col: 2, lane: 'main', parallel: true },
+  { name: 'Recruiting mechanics', body: "We're onboarding founding mechanics around UC San Diego.", state: 'now', col: 2, lane: 'branch' },
   { name: 'iOS & Android apps', label: 'In progress', body: 'Coming to the App Store and Google Play.', state: 'next', col: 3, lane: 'main' },
   { name: 'Launch in the San Diego area', body: 'Starting with UCSD and La Jolla, then the rest of the city.', state: 'next', col: 4, lane: 'main' },
   { name: 'Launch across SoCal', body: 'More of Southern California.', state: 'later', col: 5, lane: 'main', last: true },
