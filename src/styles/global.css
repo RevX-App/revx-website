@@ -230,6 +230,77 @@ html {
   white-space: nowrap;
 }
 
+/* Page sections, shared by every page below the header. */
+main > section {
+  padding-block: var(--section);
+}
+
+main > section + section {
+  border-top: 1px solid var(--rule);
+}
+
+main h2 {
+  font-weight: 800;
+  font-size: clamp(2.25rem, 4.4vw, 4rem);
+}
+
+main h3 {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.sec-head {
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.lede {
+  margin-top: 1rem;
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+/* Instrument glass, shared by every panel below the hero. */
+.panel-glass {
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--rule-strong);
+  border-radius: 1.5rem;
+  background: var(--panel);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 24px 36px -24px var(--shadow);
+}
+
+.panel-title {
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.panel-note {
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.split .sec-head {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

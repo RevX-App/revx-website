@@ -39,6 +39,10 @@ FORM: Instrument cluster, position 7 of the ordered grounded list (raised by ind
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
+## Multi-page split (user-approved, 2026-11-24)
+
+The site became six pages under a dark-green persistent nav (see DESIGN.md "Navigation: Site Header"). Signature interaction (1), header lamps as scroll progress, is retired. The instrument-cluster world otherwise stays. This brief now covers Home only; P2 rewrites it around the customer journey and removes the hero demo.
+
 ## Unresolved
 
 Final web app URL, team names, real traction, legal text, custom domain.

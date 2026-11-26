@@ -1,7 +1,6 @@
 ---
 /** Shared shell for the privacy, terms and support pages. */
 import Base from '../layouts/Base.astro';
-import Wordmark from './Wordmark.astro';
 
 interface Props {
   title: string;
@@ -13,7 +12,6 @@ const { title, description } = Astro.props;
 
 <Base title={title} description={description} noindex>
   <main class="wrap legal">
-    <a href="/" class="home" aria-label="RevX home"><Wordmark size="1.75rem" /></a>
     <h1>{title}</h1>
     <slot />
     <p><a href="/">Back to RevX</a></p>
@@ -26,11 +24,6 @@ const { title, description } = Astro.props;
     padding-block: 3rem 6rem;
     display: grid;
     gap: 1.25rem;
-  }
-
-  .home {
-    text-decoration: none;
-    margin-bottom: 2rem;
   }
 
   h1 {

@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
 // Only indexable pages; the legal placeholders are noindex until their real text ships.
-const PATHS = ['/'];
+const PATHS = ['/', '/how-it-works', '/mechanics', '/our-story', '/faq', '/contact'];
 
 export const GET: APIRoute = ({ site }) =>
   new Response(

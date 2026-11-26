@@ -1,0 +1,77 @@
+---
+/** Site footer: brand, page links and legal links on every page. */
+import Mark from '../assets/revx-mark.svg';
+import Wordmark from './Wordmark.astro';
+import { NAV } from '../nav';
+---
+
+<footer class="site-footer foot">
+  <div class="wrap foot-inner">
+    <div>
+      <a href="/" class="brand" aria-label="RevX home">
+        <Mark class="mark" aria-hidden="true" />
+        <Wordmark size="1.5rem" />
+      </a>
+      <p>The mechanic at your door. San Diego, CA.</p>
+    </div>
+    <nav aria-label="Pages">
+      {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+    </nav>
+    <nav aria-label="Legal">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/support">Support</a>
+    </nav>
+    <p class="copy">© 2026 RevX</p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding-block: 2rem;
+  }
+
+  .foot-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .foot-inner p {
+    margin-top: 0.4rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .mark {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.6rem;
+  }
+
+  .copy {
+    margin: 0;
+  }
+</style>

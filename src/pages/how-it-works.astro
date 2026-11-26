@@ -1,0 +1,702 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Icon from '../components/Icon.astro';
+// Stage 1 uses a different demo post from the hero, so the page moves forward
+// instead of replaying the brake example.
+const intake = ['Check-engine light on', 'Rough idle when cold', 'Started this week', '1 photo', '0:06 audio'];
+
+const checks: { cause: string; verdict: string; state: 'lead' | 'open' | 'out' }[] = [
+  { cause: 'Ignition coil misfire', verdict: 'Fits the uneven idle in the audio', state: 'lead' },
+  { cause: 'Vacuum leak', verdict: 'Possible', state: 'open' },
+  { cause: 'Dirty mass airflow sensor', verdict: 'Less likely', state: 'open' },
+  { cause: 'Weak battery', verdict: 'Ruled out: starts normally', state: 'out' },
+];
+
+const quotes = [
+  { who: 'Gina L. · Triton Auto', price: '$210', lead: true },
+  { who: 'Diego R. · mobile mechanic', price: '$245' },
+  { who: 'Ray M. · Clairemont shop', price: '$260' },
+];
+
+---
+
+<Base title="How it works" description="Post your car problem, get an AI read, match with a San Diego mechanic, then get it fixed and reviewed.">
+  <PageHead title="How RevX works" lede="Three stages, from the first photo to the last review." />
+  <main>
+    <!-- 1. How it works: three stages, each adding something new -->
+    <section id="how">
+      <div class="wrap">
+
+        <ol class="stages">
+          <li class="stage">
+            <div class="stage-copy">
+              <p class="stage-lamps" aria-hidden="true">
+                <span class="lit"><Icon name="post" size={18} /></span>
+                <span class="lit warn"><Icon name="diagnose" size={18} /></span>
+              </p>
+              <h3>Post it, and get a read.</h3>
+              <p>
+                Five quick steps: vehicle, category, symptoms, a photo, and an optional recording of the
+                noise. Unless you opt out, AI turns your answers into a shortlist of likely causes, then
+                checks each one against your photo and audio. Posting never waits on it.
+              </p>
+              <p>You get plain English. A matched mechanic gets the technical briefing.</p>
+            </div>
+
+            <figure class="panel-glass readout" aria-label="Example: how an AI read is made">
+              <p class="panel-title">Mia's post · Computer/ECU · example</p>
+              <ol class="trace">
+                <li>
+                  <p class="trace-name">Your answers</p>
+                  <ul class="chips">{intake.map((c) => <li>{c}</li>)}</ul>
+                </li>
+                <li>
+                  <p class="trace-name">Shortlist from the rule engine</p>
+                  <ul class="shortlist">{checks.map((c) => <li>{c.cause}</li>)}</ul>
+                </li>
+                <li>
+                  <p class="trace-name">AI checks the evidence</p>
+                  <ol class="verdicts">
+                    {
+                      checks.map((c) => (
+                        <li class={c.state}>
+                          <span class="cause">{c.cause}</span>
+                          <span class="verdict">{c.verdict}</span>
+                        </li>
+                      ))
+                    }
+                  </ol>
+                </li>
+              </ol>
+              <dl class="stats">
+                <div><dt>Severity</dt><dd>Medium</dd></div>
+                <div><dt>Urgency</dt><dd class="warn">See someone soon</dd></div>
+                <div><dt>Cost range</dt><dd>$120–$300</dd></div>
+              </dl>
+              <figcaption>
+                AI-generated from your photos and answers. Not a substitute for a hands-on inspection.
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="stage">
+            <div class="stage-copy">
+              <p class="stage-lamps" aria-hidden="true">
+                <span class="lit"><Icon name="swipe" size={18} /></span>
+                <span class="lit"><Icon name="match" size={18} /></span>
+                <span class="lit"><Icon name="chat" size={18} /></span>
+              </p>
+              <h3>Both sides choose.</h3>
+              <p>
+                You swipe mechanics for your post. Mechanics swipe posts that fit their specialties and
+                service radius. A right swipe from both sides is a match, with an alert on both phones.
+              </p>
+              <p>
+                Chat in real time, collect quotes from several mechanics, and pick one. You can also find
+                mechanics on the map and message them straight from a pin.
+              </p>
+            </div>
+
+            <figure class="panel-glass" aria-label="Example: quotes on a post">
+              <p class="panel-title">Quotes on Mia's post · example</p>
+              <ol class="quotes">
+                {
+                  quotes.map((q) => (
+                    <li class:list={{ lead: q.lead }}>
+                      <span>{q.who}</span>
+                      <b>{q.price}</b>
+                    </li>
+                  ))
+                }
+              </ol>
+              <p class="panel-note">3 mechanics matched. Mia picks Gina's quote; the others stay open until she does.</p>
+            </figure>
+          </li>
+
+          <li class="stage">
+            <div class="stage-copy">
+              <p class="stage-lamps" aria-hidden="true">
+                <span class="lit"><Icon name="job" size={18} /></span>
+                <span class="lit"><Icon name="review" size={18} /></span>
+              </p>
+              <h3>Get it done, then review blind.</h3>
+              <p>
+                Start the job, and both sides confirm when it's finished. Then each side leaves a
+                five-star review. Neither sees the other's rating until both are in.
+              </p>
+            </div>
+
+            <figure class="panel-glass" aria-label="Example: job completion and blind reviews">
+              <p class="panel-title">Job · example</p>
+              <ol class="checks">
+                <li><Icon name="check" size={18} /> Job started</li>
+                <li><Icon name="check" size={18} /> Mia confirmed it's done</li>
+                <li><Icon name="check" size={18} /> Gina confirmed it's done</li>
+              </ol>
+              <div class="seals">
+                <div class="seal-group">
+                  <span class="seal"><Icon name="lock" size={20} /></span>
+                  <span class="seal"><Icon name="lock" size={20} /></span>
+                  <p>Sealed while one review is missing</p>
+                </div>
+                <Icon name="arrow" size={22} class="seal-arrow" />
+                <div class="seal-group">
+                  <span class="seal open"><Icon name="review" size={20} /></span>
+                  <span class="seal open"><Icon name="review" size={20} /></span>
+                  <p>Released together</p>
+                </div>
+              </div>
+            </figure>
+          </li>
+        </ol>
+
+      </div>
+    </section>
+
+    <!-- 2. Trust -->
+    <section id="trust">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>Trust and privacy, built into the wiring.</h2>
+          <p class="lede">Not promises. Rules the app enforces.</p>
+        </header>
+
+        <div class="panel-glass trust-panel">
+          <div class="trust-privacy">
+            <div class="grid-viz">
+              <svg viewBox="0 0 160 120">
+                <g class="cells">
+                  {
+                    Array.from({ length: 6 }, (_, c) =>
+                      Array.from({ length: 4 }, (_, r) => (
+                        <rect x={8 + c * 24} y={8 + r * 26} width="22" height="24" rx="2" />
+                      )),
+                    )
+                  }
+                </g>
+                <rect class="snapped" x="80" y="34" width="22" height="24" rx="2" />
+                <circle class="exact" cx="88" cy="44" r="3" />
+              </svg>
+              <figure class="band-gauge" aria-label="Distance shown to others: 2.5 miles, in half-mile steps">
+                <svg viewBox="0 0 220 64" aria-hidden="true">
+                  <line class="band-base" x1="10" y1="40" x2="210" y2="40" />
+                  {
+                    Array.from({ length: 11 }, (_, i) => (
+                      <g>
+                        <line
+                          class:list={['band-tick', { major: i % 2 === 0 }]}
+                          x1={10 + i * 20}
+                          y1={i % 2 === 0 ? 28 : 33}
+                          x2={10 + i * 20}
+                          y2="40"
+                        />
+                        {i % 2 === 0 && <text x={10 + i * 20} y="58">{i / 2}</text>}
+                      </g>
+                    ))
+                  }
+                  <path class="band-needle" d="M110 6 L110 40 M104 14 L110 6 L116 14" />
+                </svg>
+                <figcaption>2.5 mi shown, in half-mile steps</figcaption>
+              </figure>
+            </div>
+            <h3>Your exact spot stays private</h3>
+            <p>
+              Precise coordinates never leave the server. Others see a snapped area of about 0.7 miles
+              and a distance rounded to the half mile. Only your matched mechanic gets the job-site point.
+            </p>
+          </div>
+
+          <div class="trust-ratings">
+            <figure class="release" aria-label="A public rating appears after three released reviews">
+              <span class="rlamp on"><Icon name="review" size={18} /></span>
+              <span class="rlamp on"><Icon name="review" size={18} /></span>
+              <span class="rlamp"><Icon name="lock" size={18} /></span>
+              <figcaption>Rating stays hidden until the third review is released</figcaption>
+            </figure>
+            <h3>Ratings you can believe</h3>
+            <p>Reviews are blind, and nobody shows a public rating off one or two jobs.</p>
+          </div>
+
+          <p class="lcd">
+            <Icon name="diagnose" size={18} />
+            <span>Every AI read comes with a confidence level and the app's own disclaimer: not a substitute for a hands-on inspection.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  /* How it works */
+  .stages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .stage-copy {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .stage-copy p:not(.stage-lamps) {
+    color: var(--body);
+    max-width: 52ch;
+  }
+
+  .stage-lamps {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .stage-lamps span {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .stage-lamps .warn {
+    background: var(--urgent);
+    color: var(--on-urgent);
+  }
+
+  .trace {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0 0 0 1.25rem;
+    border-left: 1px solid var(--rule-strong);
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .trace > li {
+    position: relative;
+  }
+
+  .trace > li::before {
+    content: '';
+    position: absolute;
+    left: calc(-1.25rem - 4px);
+    top: 0.5rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .trace-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--heading);
+  }
+
+  .chips,
+  .shortlist {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chips li,
+  .shortlist li {
+    padding: 0.2rem 0.7rem;
+    font-size: 0.9375rem;
+  }
+
+  .chips li {
+    border-radius: 999px;
+    background: var(--sand);
+    color: var(--heading);
+  }
+
+  .shortlist li {
+    border: 1px dashed var(--rule-strong);
+    border-radius: 0.4rem;
+    color: var(--muted);
+  }
+
+  .verdicts {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .verdicts li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.2rem 1rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px dashed var(--rule-strong);
+    border-radius: 0.5rem;
+  }
+
+  .cause {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--muted);
+  }
+
+  .verdict {
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .verdicts .lead {
+    padding-block: 0.6rem;
+    border: 1px solid var(--accent-text);
+    background: var(--accent-wash);
+  }
+
+  .verdicts .lead .cause {
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    color: var(--heading);
+  }
+
+  .verdicts .lead .verdict {
+    color: var(--accent-text);
+  }
+
+  .verdicts .out .cause {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stats dt {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .stats dd {
+    margin: 0.1rem 0 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    color: var(--heading);
+  }
+
+  .stats .warn {
+    color: var(--urgent-text);
+  }
+
+  .readout figcaption {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .quotes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .quotes li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px dashed var(--rule-strong);
+    border-radius: 0.5rem;
+    color: var(--muted);
+  }
+
+  .quotes b {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--body);
+  }
+
+  .quotes .lead {
+    padding-block: 0.8rem;
+    border: 1px solid var(--accent-text);
+    background: var(--accent-wash);
+    color: var(--heading);
+  }
+
+  .quotes .lead b {
+    font-size: 1.625rem;
+    color: var(--accent-text);
+  }
+
+  .checks {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--heading);
+  }
+
+  .checks li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .checks :global(svg) {
+    color: var(--accent-text);
+  }
+
+  .seals {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 3vw, 2rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .seal-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 12rem;
+  }
+
+  .seal-group p {
+    flex-basis: 100%;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .seal {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1.5px dashed var(--unlit);
+    background: var(--sand);
+    color: var(--urgent-text);
+  }
+
+  .seal.open {
+    border: 1.5px solid var(--accent-text);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .seals :global(.seal-arrow) {
+    flex: none;
+    color: var(--muted);
+  }
+
+  /* Trust */
+  .trust-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .trust-privacy,
+  .trust-ratings {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .trust-ratings {
+    border-left: 1px solid var(--rule-strong);
+  }
+
+  .trust-panel h3 {
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .trust-panel h3 + p {
+    margin-top: 0.5rem;
+    color: var(--body);
+    max-width: 52ch;
+  }
+
+  .grid-viz {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .grid-viz svg {
+    width: min(50%, 14rem);
+  }
+
+  .cells rect {
+    fill: none;
+    stroke: var(--rule-strong);
+  }
+
+  .snapped {
+    fill: var(--accent-wash);
+    stroke: var(--accent-text);
+    stroke-width: 1.5;
+  }
+
+  .exact {
+    fill: var(--error);
+  }
+
+  .band-gauge {
+    flex: 1;
+    margin: 0;
+  }
+
+  .band-gauge svg {
+    width: 100%;
+    max-width: 16rem;
+    overflow: visible;
+  }
+
+  .band-base,
+  .band-tick {
+    stroke: var(--rule-strong);
+    stroke-width: 1.5;
+  }
+
+  .band-tick.major {
+    stroke: var(--muted);
+    stroke-width: 2;
+  }
+
+  .band-gauge text {
+    fill: var(--muted);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    text-anchor: middle;
+  }
+
+  .band-needle {
+    fill: none;
+    stroke: var(--accent-text);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .band-gauge figcaption,
+  .release figcaption {
+    margin-top: 0.6rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .release {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .release figcaption {
+    flex-basis: 100%;
+  }
+
+  .rlamp {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1.5px dashed var(--unlit);
+    background: var(--sand);
+    color: var(--urgent-text);
+  }
+
+  .rlamp.on {
+    border: 1.5px solid var(--accent-text);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .lcd {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem clamp(1.5rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--rule-strong);
+    background: var(--bg);
+    color: var(--urgent-text);
+    font-weight: 500;
+  }
+
+  .lcd :global(svg) {
+    flex: none;
+  }
+
+  @media (max-width: 1000px) {
+    .stage {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .trust-panel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .trust-ratings {
+      border-left: 0;
+      border-top: 1px solid var(--rule-strong);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-viz {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .grid-viz svg,
+    .band-gauge svg {
+      width: 100%;
+      max-width: none;
+    }
+
+    .seals {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .seals :global(.seal-arrow) {
+      transform: rotate(90deg);
+    }
+  }
+</style>

@@ -7,6 +7,8 @@ import '@fontsource/barlow-condensed/latin-700.css';
 import '@fontsource/barlow-condensed/latin-800.css';
 import '../styles/global.css';
 import { SITE } from '../config';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
   title?: string;
@@ -52,6 +54,8 @@ const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Ast
     {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
+    <SiteHeader />
     <slot />
+    <SiteFooter />
   </body>
 </html>

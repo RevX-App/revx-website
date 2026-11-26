@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { Image } from 'astro:assets';
+import Icon from '../components/Icon.astro';
+import discBrake from '../assets/disc-brake.jpg';
+import { APP_URL } from '../config';
+const mechSpec = [
+  { name: 'Real intake', body: 'Every post comes with structured symptoms and a photo, often with a recording of the noise.' },
+  { name: 'Briefing on match', body: "Once you match, you get a technical briefing on the AI's read. Owners never see it." },
+  { name: 'Your quote', body: 'Quote alongside other mechanics. No lead fees, no pay-to-rank listings.' },
+];
+
+---
+
+<Base title="For mechanics" description="RevX works both ways: you swipe on San Diego jobs that fit your specialties and radius, and owners swipe on you.">
+  <PageHead title="For mechanics" lede="RevX works both ways. You swipe on open posts that fit your specialties and service radius, and owners swipe on you." />
+  <main>
+    <!-- 3. Mechanics -->
+    <section id="mechanics">
+      <div class="wrap split">
+        <div>
+          <dl class="spec">
+            {
+              mechSpec.map((row) => (
+                <div>
+                  <dt>{row.name}</dt>
+                  <dd>{row.body}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <div class="founding">
+            <p class="founding-head">The first 100 mechanics are free forever.</p>
+            <p>
+              We're hand-recruiting independent mobile mechanics, students who wrench on the side, and
+              small shops across San Diego.
+            </p>
+            <a class="btn btn-primary" href={APP_URL}>
+              Join as a founding mechanic <Icon name="arrow" size={18} />
+            </a>
+          </div>
+        </div>
+
+        <figure class="panel-glass display">
+          <p class="panel-title">Sam's post, from the mechanic's side · illustrative</p>
+          <div class="job-card">
+            <Image
+              class="job-photo"
+              src={discBrake}
+              alt="Front wheel removed, exposing the brake rotor and hub"
+              widths={[480, 960]}
+              sizes="24rem"
+              format="webp"
+              quality={72}
+            />
+            <div class="job-body">
+              <p class="job-title">Grinding, front left, only when braking</p>
+              <p class="job-meta">Mechanical · 2016 Civic · 2.5 mi</p>
+              <p class="job-ai"><Icon name="diagnose" size={16} /> AI read: worn front pads</p>
+            </div>
+          </div>
+          <figcaption class="credit">
+            Photo:{' '}
+            <a href="https://commons.wikimedia.org/wiki/File:Disc_brake_car.jpg">Irvin calicut</a>,{' '}
+            <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  /* Mechanics */
+  .spec {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .spec div {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .spec dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading);
+  }
+
+  .spec dd {
+    margin: 0;
+    color: var(--body);
+  }
+
+  .founding {
+    margin-top: 2.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-radius: 1.25rem;
+    border: 1px solid var(--accent-text);
+    background: var(--accent-wash);
+    display: grid;
+    gap: 0.8rem;
+    justify-items: start;
+  }
+
+  .founding-head {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.625rem, 2.6vw, 2.25rem);
+    line-height: 1.05;
+    color: var(--heading);
+  }
+
+  .founding p:not(.founding-head) {
+    color: var(--body);
+    max-width: 56ch;
+  }
+
+  .display {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .job-card {
+    overflow: hidden;
+    border-radius: 0.9rem;
+    border: 1px solid var(--accent-text);
+    background: var(--bg);
+  }
+
+  .job-photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 72% 60%;
+  }
+
+  .job-body {
+    padding: 1rem;
+  }
+
+  .job-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.375rem;
+    line-height: 1.1;
+    color: var(--heading);
+  }
+
+  .job-meta {
+    margin-top: 0.35rem;
+    color: var(--muted);
+  }
+
+  .job-ai {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    color: var(--accent-text);
+  }
+
+  .credit {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  .credit a {
+    display: inline-block;
+    padding-block: 0.3rem;
+    color: var(--body);
+  }
+
+  @media (max-width: 1000px) {
+    .display {
+      position: static;
+      max-width: 28rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .spec div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.25rem;
+    }
+  }
+</style>

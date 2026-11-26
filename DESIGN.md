@@ -235,7 +235,7 @@ components:
 
 **Creative North Star: "The Instrument Cluster"**
 
-Every RevX surface is a dashboard: thin bezel rules, tick scales, and message-centre screens, lit by one lime accent, in the app's palette. Content is presented as readouts, not marketing blocks. A section of the page is a tell-tale lamp in the header; a step in a process is a lit bulb; a ranked list is a set of readings where the lead is lit and the alternates sit dashed and muted; something not built yet is a lamp with no wire behind it.
+Every RevX surface is a dashboard: thin bezel rules, tick scales, and message-centre screens, lit by one lime accent, in the app's palette. Content is presented as readouts, not marketing blocks. A step in a process is a lit bulb; a ranked list is a set of readings where the lead is lit and the alternates sit dashed and muted; something not built yet is a lamp with no wire behind it.
 
 The system runs on a state vocabulary that every component speaks: **off** (sand fill, unlit rim, muted glyph), **done** (sand fill, accent-text rim and glyph), **on** (flat lime bulb, on-accent glyph), **warning** (flat urgent bulb, on-urgent glyph), and **not wired / sealed** (dashed rim). Solid means chosen, confirmed, or live. Dashed means alternate, sealed, pending, placeholder, or not built. The page reads in one direction, top to bottom, with headings on one left edge; density is that of a cluster, compact readouts inside generous margins.
 
@@ -244,7 +244,7 @@ Photography is allowed only as a dim backdrop behind the glass (the hero garage 
 **Key Characteristics:**
 - The app's warm neutral ramp in light and dark; lime carries every lit state and the primary action.
 - Barlow Condensed for everything printed on the dash (headings, legends, readings, numerals, buttons); Barlow for prose; tabular numerals everywhere.
-- Five lamp states (off, done, on, warning, not wired) and a solid/dashed distinction reused across the header, the demo, ranked readings, quotes, seals, roadmap and placeholders.
+- Five lamp states (off, done, on, warning, not wired) and a solid/dashed distinction reused across the demo, ranked readings, quotes, seals, roadmap and placeholders.
 - Circles for anything that lights up; nested rounded rectangles for glass and screens; pills for buttons, chips and the menu toggle.
 - Motion is mechanical and user-driven: bulbs light over 0.3s, screens settle from a slight blur over 0.4s, all on one long ease-out.
 
@@ -304,7 +304,7 @@ The palette mirrors `src/theme/palette.js` in the RevX app repo, which stays the
 - **Body** (400, 1.0625rem, 1.6): prose in body or muted, 52 to 56ch.
 - **Small** (400, 0.9375rem): captions, panel titles, chips, the demo note, the step counter, footer text.
 - **Button** (700, 1.125rem, 0.06em, uppercase): primary button labels and the quiet "I'm a mechanic" link. **Button Compact** (1rem) is the header CTA and the demo's Next.
-- **Nav Label** (600, 0.9375rem, 0.08em, uppercase): header lamp labels and the menu toggle.
+- **Nav Label** (600, 1rem, 0.06em, uppercase): header page links and the menu toggle.
 - **Label** (600, 0.875rem, 0.08em, uppercase): printed legends on readouts and placeholder tags. Nothing on the page is set smaller.
 
 ### Named Rules
@@ -316,9 +316,9 @@ The palette mirrors `src/theme/palette.js` in the RevX app repo, which stays the
 
 ## Layout
 
-One centred container (82rem max, fluid gutter clamp(1rem, 4vw, 3.5rem)) and a fluid section rhythm (clamp(4rem, 8vw, 7rem) block padding). Sections are separated by 1px rules, not background blocks; the only tinted bands are the hero (black), the roadmap (sand) and the close (an accent-wash radial rising from the lower right). Section heads sit on one left edge, 46rem max, with clamp(2.5rem, 5vw, 4rem) below them. The page reads in one order: hero, how it works, trust, mechanics, roadmap, about, contact, FAQ, close.
+One centred container (82rem max, fluid gutter clamp(1rem, 4vw, 3.5rem)) and a fluid section rhythm (clamp(4rem, 8vw, 7rem) block padding). Sections are separated by 1px rules, not background blocks; the only tinted bands are the hero (black), the roadmap (sand) and the close (an accent-wash radial rising from the lower right). Section heads sit on one left edge, 46rem max, with clamp(2.5rem, 5vw, 4rem) below them. The site is six pages under one nav: Home (hero, roadmap, close), How it works (stages, trust), For mechanics, Our story, FAQ and Contact. Inner pages open on a page-head band in brand green (#172C29) carrying the single H1 and a lede; only Home has the garage hero.
 
-**Header.** Sticky, 4.25rem tall: wordmark left, the six section lamps centred, compact Open RevX right.
+**Header.** Sticky, 4.25rem tall, on brand green: crossed-wrench mark and wordmark left (the home link), five page links and a compact Open RevX right.
 
 **Hero.** A 5/6 split, copy left (H1, lede, actions, platforms line) and the message centre right, vertically centred, gap clamp(2rem, 5vw, 5rem). The garage photo fills the section behind both.
 
@@ -331,9 +331,9 @@ One centred container (82rem max, fluid gutter clamp(1rem, 4vw, 3.5rem)) and a f
 **Roadmap.** An auto-fill grid of not-wired lamps, 13rem minimum columns, then the milestone route in five equal columns. **About.** Four founder gauges in four equal columns, each topped by a strong rule, no boxes. **Contact.** A 5/7 split: section head left, message-centre screen right, vertically centred. **Close.** Headline left, start button right.
 
 **Breakpoints.**
-- **1100px:** the header lamps give way to a menu toggle (labelled with the current section) and a 3px six-segment progress strip along the header's base.
+- **960px:** the header links and CTA give way to a "Menu" pill toggle and a green menu sheet carrying the same links and a full-width Open RevX.
 - **1000px:** every split stacks to one column: hero (message centre capped at 40rem), stages, mechanics (panel unstuck, 28rem max), contact and close. The founder gauges go to two columns and the route turns vertical, its wire running down the left. The trust panel stacks and its divider turns horizontal.
-- **640px:** the header CTA hides (the menu sheet carries Open RevX), hero actions stretch, demo field grids go to one column and readout grids to two, the Next label drops its destination, the seal sequence turns vertical, spec rows stack, the roadmap goes to two columns, founder gauges and contact lines go to one.
+- **640px:** hero actions stretch, demo field grids go to one column and readout grids to two, the Next label drops its destination, the seal sequence turns vertical, spec rows stack, the roadmap goes to two columns, founder gauges and contact lines go to one.
 
 ## Elevation & Depth
 
@@ -351,7 +351,7 @@ Panels sit forward on soft, long drop shadows in the --shadow colour (deep green
 
 ## Shapes
 
-Anything that lights up or turns is a circle: header lamps (2rem), demo step lamps (2.25rem bulbs in 2.75rem targets), stage lamps (2.5rem), seals, rating lamps, roadmap lamps and swipe buttons (2.75rem), route stops (2.75rem), copy lamps (1.9rem), founder portraits (5rem), the 8.5rem start button. Glass is a softly rounded rectangle, nested so the radius tightens inward: the message-centre bezel (1.75rem) holds a screen (0.9rem) holds reading rows (0.4rem). Below the hero, instrument panels round at 1.5rem; the menu sheet and founding-mechanic frame at 1.25rem; padded reading rows, quotes and seals at 0.5rem; single-line rows and hypothesis chips at 0.4rem. Buttons, filled chips and the menu toggle are full pills. Placeholder tags and focus rings use a 4px corner.
+Anything that lights up or turns is a circle: the crossed-wrench mark (2.25rem in the header), demo step lamps (2.25rem bulbs in 2.75rem targets), stage lamps (2.5rem), seals, rating lamps, roadmap lamps and swipe buttons (2.75rem), route stops (2.75rem), copy lamps (1.9rem), founder portraits (5rem), the 8.5rem start button. Glass is a softly rounded rectangle, nested so the radius tightens inward: the message-centre bezel (1.75rem) holds a screen (0.9rem) holds reading rows (0.4rem). Below the hero, instrument panels round at 1.5rem; the menu sheet and founding-mechanic frame at 1.25rem; padded reading rows, quotes and seals at 0.5rem; single-line rows and hypothesis chips at 0.4rem. Buttons, filled chips and the menu toggle are full pills. Placeholder tags and focus rings use a 4px corner.
 
 Strokes are thin: 1px rules and panel outlines, 1.5px lamp rims and scale lines, 1.75px icon strokes on a 24px grid with round caps. Dashed strokes carry meaning (alternate, sealed, placeholder, not wired) and are never ornament.
 
@@ -365,8 +365,8 @@ Strokes are thin: 1px rules and panel outlines, 1.5px lamp rims and scale lines,
 - **Press:** buttons translate down 1px on `:active`. Transitions run 0.2s on the shared ease-out.
 - **Focus:** a 2px lime outline offset 3px with a 4px corner, global to every focusable element.
 
-### Navigation: Lamp Header (signature)
-The section lamps are both the navigation and the scroll progress. Each is a 2rem bulb with a section glyph and a nav-label caption, in a 2.75rem target. Sections already passed are **done** (accent-text rim, lime glyph); the section in view is **on** (lime radial bulb, heading label, `aria-current`); the rest are **off**. At 1100px and below the lamps collapse into a pill menu toggle that names the current section, a 3px six-segment strip (unlit, turning lime as sections pass), and a menu sheet with the same lamps beside body links and a full-width Open RevX.
+### Navigation: Site Header
+Every page shares one sticky header on brand green (#172C29). Left: the crossed-wrench mark (`src/assets/revx-mark.svg`, derived from the founder's `spanners_main_logo_white_bg.svg` with the white canvas removed and its lime set to #D9F266) beside the wordmark, white "Rev" and lime "X"; it links Home. Right: How It Works, For Mechanics, Our Story, FAQ, Contact in nav-label type, then Open RevX. Links are white, lime on hover; the current page is lime with a 2px inset lime underline and `aria-current="page"`, set from the URL with no script. Focus is a 2px lime outline at 3px offset. At 960px and below the links fold into a pill "Menu" toggle and a green sheet. The footer repeats the mark, the page links and the legal links on every page.
 
 ### Message Centre (signature)
 The hero instrument: a bezel-radius glass panel holding a seven-lamp step row, the step title with an "n of 7" counter, a screen, and a footer with the demo note and Next. It rests on Diagnose (the one warning lamp, urgent). Advancing is click-only: a lamp, Next, arrow keys, or a drag of the swipe card. Each screen fades in from a 3px blur over 0.4s. Inside the screen: printed legends over ink values, ranked causes, a swipe card with two round buttons (pass in muted, right in lime), chat bubbles with a 0.2rem speech tail, quote rows, lime checks, and dashed sealed reviews with urgent locks.
