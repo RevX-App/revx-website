@@ -144,6 +144,11 @@ const stateLabel = { done: 'Done', now: 'Now', next: 'Next', later: 'Later' };
     border-color: var(--accent-text);
   }
 
+  /* Work in progress: the wire out of a current stop stays dashed but lime. */
+  .main.now .rail::after {
+    border-color: var(--accent-text);
+  }
+
   /* Fork: down from the fork stop, then right into the branch stop. */
   .fork .rail::before {
     top: var(--stop);
@@ -179,6 +184,11 @@ const stateLabel = { done: 'Done', now: 'Now', next: 'Next', later: 'Later' };
     border-radius: 50%;
     border: var(--wire) dashed var(--unlit);
     background: var(--graph-ground, var(--sand)); /* match the section behind the graph */
+  }
+
+  /* The stop the branch merges into is where the current work lands: dotted, but lime. */
+  .branch + .main .stop {
+    border-color: var(--accent-text);
   }
 
   .done .stop {
@@ -266,6 +276,11 @@ const stateLabel = { done: 'Done', now: 'Now', next: 'Next', later: 'Later' };
     .main.done .rail::after {
       border-left-style: solid;
       border-color: var(--accent-text);
+    }
+
+    .main.now .rail::after,
+    .parallel.now + .branch .rail::after {
+      border-color: var(--accent-text); /* the current stop's wire continues past the branch row */
     }
 
     /* Fork: right from the fork stop, then down the branch rail. */
