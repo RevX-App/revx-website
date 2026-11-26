@@ -6,6 +6,7 @@ import danielPhoto from './assets/daniel.jpg';
 import jayniePhoto from './assets/jaynie.jpeg';
 
 // Visible Home/Our story/Contact and the Organization markup come from this one list.
+// Order is the org chart's: founders left to right, then the crew left to right.
 // All are current UC San Diego students; `study` is major and class year.
 // Schema `founder` is every title containing "found"; everyone else is `employee`.
 export const team: {
@@ -19,14 +20,6 @@ export const team: {
   site?: string;
 }[] = [
   {
-    name: 'Stephanie Kovalchuk-Lum',
-    photo: stephPhoto,
-    title: 'Founder & CEO',
-    study: "Cog Sci, UI/UX Design '29",
-    line: 'Bridging the gap between drivers and the mechanics they can trust.',
-    linkedin: 'https://www.linkedin.com/in/stephaniekovalchuk-lum/',
-  },
-  {
     name: 'Mustaqim Bin Burhanuddin',
     photo: piqimPhoto,
     title: 'Co-Founder & CTO',
@@ -36,21 +29,12 @@ export const team: {
     site: 'https://piqim.com',
   },
   {
-    name: 'Eliot Boda',
-    photo: eliotPhoto,
-    title: 'Lead Software Engineer',
-    study: "CS '28",
-    line: 'Polishes the app: the UI details, fixes and finish.',
-    linkedin: 'https://www.linkedin.com/in/eliotboda/',
-    site: 'https://eliotboda.dev/',
-  },
-  {
-    name: 'Daniel Zhang',
-    photo: danielPhoto,
-    title: 'Lead Software Engineer',
-    study: "AI '29",
-    line: 'Builds the AI diagnosis: rule engine plus multimodal model.',
-    linkedin: 'https://www.linkedin.com/in/daniel-zhang-78a2773a4/',
+    name: 'Stephanie Kovalchuk-Lum',
+    photo: stephPhoto,
+    title: 'Founder & CEO',
+    study: "Cog Sci, UI/UX Design '29",
+    line: 'Bridging the gap between drivers and the mechanics they can trust.',
+    linkedin: 'https://www.linkedin.com/in/stephaniekovalchuk-lum/',
   },
   {
     name: 'Jaynie Schnell',
@@ -61,5 +45,22 @@ export const team: {
     line: 'Marketing works when you relate.',
     linkedin: 'https://www.linkedin.com/in/jaynie-schnell/',
     site: 'https://jaynie.me',
+  },
+  {
+    name: 'Daniel Zhang',
+    photo: danielPhoto,
+    title: 'Lead Software Engineer',
+    study: "AI '29",
+    line: 'Builds the AI diagnosis: rule engine plus multimodal model.',
+    linkedin: 'https://www.linkedin.com/in/daniel-zhang-78a2773a4/',
+  },
+  {
+    name: 'Eliot Boda',
+    photo: eliotPhoto,
+    title: 'Lead Software Engineer',
+    study: "CS '28",
+    line: 'Polishes the app: the UI details, fixes and finish.',
+    linkedin: 'https://www.linkedin.com/in/eliotboda/',
+    site: 'https://eliotboda.dev/',
   },
 ];

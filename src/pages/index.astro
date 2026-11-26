@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
 import { APP_URL, SITE, PHONE, MECHANIC_PITCH as pitch } from '../config';
 import { team } from '../team';
+import OrgChart from '../components/OrgChart.astro';
 import Portrait from '../components/Portrait.astro';
 import BranchGraph, { type Stop } from '../components/BranchGraph.astro';
 import { Image } from 'astro:assets';
@@ -156,50 +157,6 @@ const schema = [
       </div>
     </section>
 
-    <!-- Why trust RevX: who's behind it, then the mechanisms that run today -->
-    <section id="trust">
-      <div class="wrap split trust">
-        <div>
-          <header class="sec-head">
-            <h2>Why trust RevX.website?</h2>
-            <p class="lede">
-              We're five UC San Diego students. We've had bad experiences with mechanics ourselves, and found out too late there were better options. RevX.website is how we help you avoid that.
-            </p>
-            <p class="lede">We're starting with our own campus, and a founder reads every message you send.</p>
-          </header>
-          <ul class="team" aria-label="The RevX.website team">
-            {
-              team.map((f) => (
-                <li>
-                  <Portrait person={f} size={3.5} />
-                  <span class="team-name">{f.name}</span>
-                  <span class="team-role">{f.title}</span>
-                </li>
-              ))
-            }
-          </ul>
-          <p class="more"><a href="/our-story">Meet the team</a></p>
-        </div>
-
-        <div>
-          <ul class="lamps">
-            {
-              trust.map((t) => (
-                <li>
-                  <span class="lit" aria-hidden="true"><Icon name={t.icon} size={20} /></span>
-                  <div>
-                    <h3>{t.name}</h3>
-                    <p>{t.body}</p>
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
-          <p class="more"><a href="/faq#trust">How we handle trust</a></p>
-        </div>
-      </div>
-    </section>
-
     <!-- Mechanic recruitment: the one full-lime band on the site -->
     <section class="mech-cta" id="for-mechanics">
       <div class="wrap mech-inner">
@@ -219,6 +176,48 @@ const schema = [
             Questions? Call or text <a class="mech-tel" href={`tel:${PHONE.tel}`}>{PHONE.display}</a>
           </p>
           <a class="mech-more" href="/mechanics">How RevX.website works for mechanics</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why trust RevX: who's behind it, then the mechanisms that run today -->
+    <section id="trust">
+      <div class="wrap split trust">
+        <div>
+          <header class="sec-head">
+            <h2>Why trust RevX.website?</h2>
+            <p class="lede">
+              We're five UC San Diego students. We've had bad experiences with mechanics ourselves, and found out too late there were better options. RevX.website is how we help you avoid that.
+            </p>
+            <p class="lede">We're starting with our own campus, and a founder reads every message you send.</p>
+          </header>
+          <OrgChart label="The RevX.website team" portrait={3.5}>
+            {(f: (typeof team)[number]) => (
+              <>
+                <Portrait person={f} size={3.5} />
+                <span class="team-name">{f.name}</span>
+                <span class="team-role">{f.title}</span>
+              </>
+            )}
+          </OrgChart>
+          <p class="more"><a href="/our-story">Meet the team</a></p>
+        </div>
+
+        <div>
+          <ul class="lamps">
+            {
+              trust.map((t) => (
+                <li>
+                  <span class="lit" aria-hidden="true"><Icon name={t.icon} size={20} /></span>
+                  <div>
+                    <h3>{t.name}</h3>
+                    <p>{t.body}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="more"><a href="/faq#trust">How we handle trust</a></p>
         </div>
       </div>
     </section>
@@ -375,26 +374,8 @@ const schema = [
     }
   }
 
-  .team {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
-    gap: 1.5rem 1.25rem;
-  }
-
-  .team li {
-    display: grid;
-    justify-items: start;
-    gap: 0.15rem;
-  }
-
-  .team :global(.portrait) {
-    margin-bottom: 0.5rem;
-  }
-
   .team-name {
+    margin-top: 0.5rem;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.125rem;

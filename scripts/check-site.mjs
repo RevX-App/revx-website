@@ -75,7 +75,8 @@ for (const t of ["Why we started", "How we're building it", 'The team', "Who's h
   check(story.includes(t.replace("'", '&#39;')) || story.includes(t), `our-story: missing "${t}"`);
 for (const page of ALL) check(!read(`dist/${page}.html`).includes('data-placeholder'), `${page}: dev placeholder leaked into the build`);
 const org = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].flatMap((m) => [JSON.parse(m[1])].flat()).find((o) => o['@type'] === 'Organization');
-check(JSON.stringify(org?.founder?.map((f) => f.name)) === '["Stephanie Kovalchuk-Lum","Mustaqim Bin Burhanuddin"]', `index: founders are ${JSON.stringify(org?.founder?.map((f) => f.name))}`);
+// Sorted: team.ts order is the org chart's, which the schema doesn't care about.
+check(JSON.stringify(org?.founder?.map((f) => f.name).sort()) === '["Mustaqim Bin Burhanuddin","Stephanie Kovalchuk-Lum"]', `index: founders are ${JSON.stringify(org?.founder?.map((f) => f.name))}`);
 // 2026-11-25: five stops; the apps branch off "App live" and merge into the San Diego launch.
 // 2026-11-25: same shape as Our Story: recruiting and marketing side by side, then the apps (in progress).
 for (const t of ['App live in your browser', 'Recruiting mechanics', 'Marketing', 'Social media and events', 'In progress', 'iOS &amp; Android apps', 'Launch in the San Diego area', 'Launch across SoCal', 'class="graph"', "We'll mark a stop done only when it's actually running."])

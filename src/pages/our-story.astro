@@ -1,18 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import porscheHero from '../assets/heroes/porsche-hero.jpeg';
+import mazdaHero from '../assets/heroes/mazda-hero.avif';
 import Portrait from '../components/Portrait.astro';
 import Placeholder from '../components/Placeholder.astro';
 import BranchGraph from '../components/BranchGraph.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 import { team } from '../team';
+import OrgChart from '../components/OrgChart.astro';
 import { story } from '../story';
 ---
 
 <Base title="Our story" description="RevX.website is built by five UC San Diego students who learned the hard way that there were better options than the mechanic they went to.">
-  <PageHead title="Our story" lede="RevX.website started at UC San Diego. The app is open today, and we're signing up local mechanics around campus first." photo={porscheHero} focus="50% 60%" />
+  <PageHead title="Our story" lede="RevX.website started at UC San Diego. The app is open today, and we're signing up local mechanics around campus first." photo={mazdaHero} focus="50% 50%" />
   <main>
     <!-- Group photo: founders supply it -->
     {
@@ -101,40 +102,36 @@ import { story } from '../story';
       </div>
     </section>
 
-    <!-- The team: one gauge per person on one rule, no boxes -->
+    <!-- The team as an org chart: founders on top, the crew branching below -->
     <section id="team">
       <div class="wrap">
         <header class="sec-head">
           <h2>The team</h2>
         </header>
-        <ul class="crew">
-          {
-            team.map((f) => (
-              <li>
-                <div class="crew-id">
-                  <Portrait person={f} />
-                  <h3 class="crew-name">{f.name}</h3>
-                  <p class="crew-title">
-                    {f.title} · {f.study}
-                  </p>
-                </div>
-                <p class="crew-line">{f.line}</p>
-                <p class="crew-links">
-                    {f.linkedin && (
-                      <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>
-                        LinkedIn
-                      </a>
-                    )}
-                    {f.site && (
-                      <a href={f.site} aria-label={`${f.name}'s website`}>
-                        {new URL(f.site).hostname}
-                      </a>
-                    )}
-                </p>
-              </li>
-            ))
-          }
-        </ul>
+        <OrgChart label="The RevX.website team" portrait={5} stack>
+          {(f: (typeof team)[number]) => (
+            <>
+              <Portrait person={f} />
+              <h3 class="crew-name">{f.name}</h3>
+              <p class="crew-title">
+                {f.title} · {f.study}
+              </p>
+              <p class="crew-line">{f.line}</p>
+              <p class="crew-links">
+                {f.linkedin && (
+                  <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>
+                    LinkedIn
+                  </a>
+                )}
+                {f.site && (
+                  <a href={f.site} aria-label={`${f.name}'s website`}>
+                    {new URL(f.site).hostname}
+                  </a>
+                )}
+              </p>
+            </>
+          )}
+        </OrgChart>
       </div>
     </section>
 
@@ -236,37 +233,9 @@ import { story } from '../story';
     font-weight: 600;
   }
 
-  /* The team: one gauge per person on one rule, no boxes. */
-  .crew {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr));
-    gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem); /* row gap separates wrapped rows of cards */
-  }
-
-  /* Every card spans the same three rows (who, what they do, links), so they line up across the row. */
-  .crew li {
-    grid-row: span 3;
-    display: grid;
-    grid-template-rows: subgrid;
-    row-gap: 0.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--rule-strong);
-  }
-
-  .crew-id {
-    display: grid;
-    align-content: start;
-    gap: 0.35rem;
-  }
-
-  .crew :global(.portrait) {
-    margin-bottom: 0.9rem;
-  }
-
+  /* The team: card contents; OrgChart draws the lines. */
   .crew-name {
+    margin-top: 0.9rem;
     font-size: 1.625rem;
   }
 
@@ -280,11 +249,13 @@ import { story } from '../story';
   .crew-line {
     color: var(--body);
     max-width: 32ch;
+    margin-top: 0.75rem;
   }
 
   .crew-links {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 0 1.25rem;
     margin-top: 0.3rem;
   }

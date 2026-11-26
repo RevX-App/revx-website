@@ -29,46 +29,38 @@ const pitchRows = [
       </div>
     </section>
 
-    <!-- Investing, press, partners: the plan in four lines, then the founders' shared inbox -->
+    <!-- Investing, press, partners: who to write to on the left, the plan in four lines on the right -->
     <section id="investors">
       <div class="wrap split contact">
-        <div>
+        <div class="reach">
           <header class="sec-head">
             <h2>For investors</h2>
             <p class="lede">We're raising now. For investing, press or partnerships, email us; a founder reads every message.</p>
           </header>
-          <dl class="pitch">
-            {
-              pitchRows.map((r) => (
-                <div>
-                  <dt>{r.name}</dt>
-                  <dd>{r.body}</dd>
-                </div>
-              ))
-            }
-          </dl>
+
+          <div class="panel-glass founders-line">
+            <p class="msg-head">Founders' line</p>
+            <a class="line-mail" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <button class="btn btn-ghost copy" type="button" data-copy={CONTACT_EMAIL}>
+              <span class="copy-lamp" aria-hidden="true">
+                <Icon name="check" size={16} />
+              </span>
+              <span data-copy-label>Copy email</span>
+            </button>
+            <p class="sr-only" aria-live="polite" data-copy-status />
+          </div>
         </div>
 
-        <figure class="panel-glass">
-          <div class="msg-screen">
-            <p class="msg-head">Incoming · founders' line</p>
-            <ul class="lines">
-              <li>
-                <span class="line-who">RevX.website founders</span>
-                <a class="line-mail" href={`mailto:${CONTACT_EMAIL}`}>
-                  {CONTACT_EMAIL}
-                </a>
-                <button class="btn btn-ghost copy" type="button" data-copy={CONTACT_EMAIL}>
-                  <span class="copy-lamp" aria-hidden="true">
-                    <Icon name="check" size={16} />
-                  </span>
-                  <span data-copy-label>Copy email</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-          <p class="sr-only" aria-live="polite" data-copy-status />
-        </figure>
+        <dl class="pitch">
+          {
+            pitchRows.map((r) => (
+              <div>
+                <dt>{r.name}</dt>
+                <dd>{r.body}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
     </section>
   </main>
@@ -98,74 +90,35 @@ const pitchRows = [
     margin-bottom: 0;
   }
 
-  .pitch {
-    margin: 1.75rem 0 0;
-    border-top: 1px solid var(--rule);
-  }
-
-  .pitch div {
-    display: grid;
-    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
-    gap: 0.25rem 1.5rem;
-    padding-block: 1rem;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .pitch dt {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--heading);
-  }
-
-  .pitch dd {
-    margin: 0;
-    color: var(--body);
-  }
-
-  /* Contact: the message centre, one line per founder. */
+  /* For investors: the reach-out on the left, the plan reading top-down on the right, both from the same top line. */
   .contact {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    align-items: center;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+
+  @media (max-width: 1000px) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .reach {
+    display: grid;
+    gap: 2rem;
   }
 
   .contact .sec-head {
     margin-bottom: 0;
   }
 
-  .msg-screen {
-    padding: 1.1rem 1.2rem;
-    border-radius: 0.9rem;
-    border: 1px solid var(--rule);
-    background: var(--bg);
-  }
-
-  .msg-head {
-    color: var(--muted);
-    font-size: 0.9375rem;
-  }
-
-  .lines {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .lines li {
+  .founders-line {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 0.25rem 1rem;
-    padding-block: 1.1rem;
-    border-bottom: 1px solid var(--rule);
+    gap: 0.5rem 1rem;
   }
 
-  .lines li:last-child {
-    border-bottom: 0;
-    padding-bottom: 0.2rem;
-  }
-
-  .line-who {
+  .msg-head {
     grid-column: 1 / -1;
     font-family: var(--font-display);
     font-weight: 600;
@@ -180,7 +133,7 @@ const pitchRows = [
     overflow-wrap: anywhere;
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.375rem, 2.4vw, 2rem);
+    font-size: clamp(1.375rem, 2.2vw, 1.875rem);
     line-height: 1.15;
     color: var(--accent-text);
     text-decoration: none;
@@ -189,6 +142,31 @@ const pitchRows = [
   .line-mail:hover {
     color: var(--accent-text);
     text-decoration: underline;
+  }
+
+  .pitch {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pitch div {
+    display: grid;
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    gap: 0.25rem 1.5rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .pitch dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading);
+  }
+
+  .pitch dd {
+    margin: 0;
+    color: var(--body);
   }
 
   .copy {
@@ -223,7 +201,7 @@ const pitchRows = [
       grid-template-columns: minmax(0, 1fr);
     }
 
-    .lines li {
+    .founders-line {
       grid-template-columns: minmax(0, 1fr);
       justify-items: start;
     }

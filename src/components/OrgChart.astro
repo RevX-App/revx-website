@@ -1,0 +1,123 @@
+---
+/**
+ * The team as an org chart: founders side by side, joined by one line, with a stem
+ * branching down to everyone else. The page renders each person through the default slot,
+ * a function of the person, so its card styles stay its own.
+ * `stack`: when the chart is too narrow for three across, the crew drops into one column
+ * hanging off the stem, for cards that carry a paragraph.
+ */
+import { team } from '../team';
+
+interface Props {
+  label: string;
+  portrait: number; // rem, the Portrait size each card starts with; the lines meet its centre
+  stack?: boolean;
+}
+
+const { label, portrait, stack = false } = Astro.props;
+const isFounder = (f: (typeof team)[number]) => /found/i.test(f.title);
+const render = (f: (typeof team)[number]) => Astro.slots.render('default', [f]);
+const founders = await Promise.all(team.filter(isFounder).map(render));
+const crew = await Promise.all(team.filter((f) => !isFounder(f)).map(render));
+---
+
+<div class:list={['org', { stack }]} role="group" aria-label={label} style={`--org-portrait: ${portrait}rem`}>
+  <ul class="org-top">{founders.map((html) => <li set:html={html} />)}</ul>
+  <ul class="org-crew">{crew.map((html) => <li set:html={html} />)}</ul>
+</div>
+
+<style>
+  .org {
+    --org-gap: clamp(1.25rem, 3vw, 2.5rem);
+    --org-drop: 1.75rem; /* height of each vertical connector */
+    --org-line: 1.5px solid var(--rule-strong);
+    container: org / inline-size;
+  }
+
+  .org ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    column-gap: var(--org-gap);
+    position: relative;
+  }
+
+  .org li {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    text-align: center;
+    min-width: 0;
+  }
+
+  /* Portraits sit above the lines that run behind them. */
+  .org li > :global(*) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Founders: two across, joined at portrait height, a stem down from the middle of that line. */
+  .org .org-top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: calc(2 * 18rem + var(--org-gap));
+    padding-bottom: var(--org-drop);
+  }
+
+  .org-top::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--org-portrait) / 2);
+    left: calc((100% - var(--org-gap)) / 4);
+    right: calc((100% - var(--org-gap)) / 4);
+    border-top: var(--org-line);
+  }
+
+  .org-top::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--org-portrait) / 2);
+    bottom: 0;
+    left: 50%;
+    border-left: var(--org-line);
+  }
+
+  /* Crew: a bus from the first centre to the last, a drop into each portrait. */
+  .org .org-crew {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: calc(3 * 18rem + 2 * var(--org-gap));
+    padding-top: var(--org-drop);
+  }
+
+  .org-crew::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc((100% - 2 * var(--org-gap)) / 6);
+    right: calc((100% - 2 * var(--org-gap)) / 6);
+    border-top: var(--org-line);
+  }
+
+  .org-crew li::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--org-drop));
+    left: 50%;
+    height: var(--org-drop);
+    border-left: var(--org-line);
+  }
+
+  /* Narrow with paragraphs: one column, each card hanging off the one above. */
+  @container org (max-width: 40rem) {
+    .stack .org-crew {
+      grid-template-columns: minmax(0, 22rem);
+      justify-content: center;
+      row-gap: var(--org-drop);
+    }
+
+    .stack .org-crew::before {
+      display: none;
+    }
+  }
+</style>
