@@ -41,6 +41,11 @@ Rule over everything: **assert only what runs.**
 ## P3: trust
 
 - Compact "Why Trust RevX?" on Home: vetting, quote transparency, mutual consent and accountability, blind reviews, payment and disputes. Each links to a full Trust group at `/faq#trust`. No protections that aren't operational.
+- The section opens with the team (marketing, 2026-11-24): five UC San Diego students, with small portraits linking to `/our-story`. Origin, in the founder's words: shared bad mechanic experiences, realising too late there were more options, and wanting to help people avoid that.
+- Team: Stephanie Kovalchuk-Lum (Cog Sci, UI/UX Design '29), Mustaqim Bin Burhanuddin (Math-CS '28), Eliot Boda (CS '28), Daniel Zhang (AI '29), Jaynie Schnell, Head of Marketing (Clinical Psychology '27; photo pending). All are current students, so the markup says `affiliation`, not `alumniOf`.
+- Five items: Mechanics are reviewed · Quotes you can read (itemized, frozen once sent) · Nothing happens without both of you · Reviews you can believe (hidden until both submit, public after 3 reviews, private price-vs-quote feedback) · Payment and problems (paid directly, RevX can't refund yet, report/block or email support, 24-hour review target).
+- No testimonials until real ones exist, with the reviewer's consent.
+- `/faq` splits into "Trust & safety" (`#trust`) and "Everything else". "How are mechanics checked?" moves from Home's practical bits to the trust group.
 
 ## P4: mechanic recruitment
 
@@ -48,7 +53,7 @@ Rule over everything: **assert only what runs.**
 
 ## P5: Our Story
 
-- Page structure built now, with clearly marked placeholders; the founders write the story. Uses the 4 existing team photos.
+- Page structure built now, with clearly marked placeholders; the founders write the story. Uses the team photos (Jaynie's pending).
 
 ## P6: roadmap
 

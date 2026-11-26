@@ -37,7 +37,10 @@ check(read('dist/index.html').includes('"Organization"'), 'index: no Organizatio
 // Founders confirmed scheduling is built; it must not be listed as unbuilt.
 check(!/name: ?"?Scheduling|>Scheduling</.test(read('dist/index.html')), 'index: lists Scheduling as not built');
 // P2: shared practical Q&A and the three-step journey on Home.
-const QA = ['What does it cost?', 'How are mechanics checked?', 'How do I schedule?', 'How do I pay?', 'What happens at the appointment?'];
+// Vetting moved to the trust section in P3, so Home's practical list is four; /faq keeps all five.
+const QA = ['What does it cost?', 'How do I schedule?', 'How do I pay?', 'What happens at the appointment?'];
+check(read('dist/faq.html').includes('How are mechanics checked?'), 'faq: missing vetting question');
+check(!/<dt[^>]*>How are mechanics checked\?/.test(read('dist/index.html')), 'index: vetting still in practical Q&A');
 const STEPS = ['Snap &amp; Diagnose', 'Match &amp; Compare', 'Get Fixed &amp; Review'];
 const home = read('dist/index.html');
 for (const q of QA) {
@@ -46,6 +49,15 @@ for (const q of QA) {
 }
 for (const s of STEPS) check(home.includes(s), `index: missing step "${s}"`);
 check(!home.includes('data-demo'), 'index: hero demo still present');
+// P3: trust section opens with the team, links to the full trust group.
+const TRUST = ['Why trust RevX?', 'five UC San Diego students', 'Mechanics are reviewed', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
+for (const t of TRUST) check(home.includes(t), `index: trust section missing ${t}`);
+// Home owns #trust now; the old-anchor script must not bounce it to another page.
+check(!/trust: ?'\/how-it-works/.test(home), 'index: /#trust still redirects away');
+check(!home.includes('alumniOf'), 'index: team are current students, not alumni');
+check(read('dist/faq.html').includes('id="trust"'), 'faq: no #trust group');
+check(read('dist/faq.html').includes('Trust &amp; safety'), 'faq: no Trust & safety heading');
+check(read('dist/our-story.html').includes('Jaynie Schnell'), 'our-story: Jaynie missing');
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
 const sitemap = read('dist/sitemap.xml');
 for (const path of Object.values(NAV)) check(sitemap.includes(`<loc>https://revx.website${path === '/' ? '/' : path}</loc>`), `sitemap: missing ${path}`);

@@ -3,6 +3,11 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import { faq } from '../faq';
 
+const groups = [
+  { id: 'trust', title: 'Trust & safety', items: faq.filter((f) => f.group === 'trust') },
+  { id: 'more', title: 'Everything else', items: faq.filter((f) => f.group === 'other') },
+];
+
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -15,26 +20,33 @@ const schema = [
 <Base title="FAQ" description="Straight answers about how RevX works for car owners and mechanics in San Diego." schema={schema}>
   <PageHead title="FAQ" lede="Straight answers about how RevX works for owners and mechanics." />
   <main>
-    <!-- FAQ: direct answers, mirrored in FAQPage markup -->
-    <section id="faq">
-      <div class="wrap">
-        <dl class="faq">
-          {
-            faq.map(({ q, a }) => (
-              <div>
-                <dt>{q}</dt>
-                <dd>{a}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
-    </section>
+    <!-- FAQ: direct answers in two groups, all mirrored in FAQPage markup -->
+    {
+      groups.map((g) => (
+        <section id={g.id}>
+          <div class="wrap">
+            <h2>{g.title}</h2>
+            <dl class="faq">
+              {g.items.map(({ q, a }) => (
+                <div>
+                  <dt>{q}</dt>
+                  <dd>{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      ))
+    }
   </main>
 </Base>
 
 <style>
   /* FAQ */
+  h2 {
+    margin-bottom: 1.25rem;
+  }
+
   .faq {
     max-width: 48rem;
     margin: 0;
