@@ -3,18 +3,20 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
-import discBrake from '../assets/disc-brake.jpg';
-import { APP_URL } from '../config';
+import swipe from '../assets/screens/swipe.png';
+import { APP_URL, MECHANIC_PITCH as pitch } from '../config';
+// Approved 2026-11-24: marketing's four angles, each limited to what the app does today.
 const mechSpec = [
-  { name: 'Real intake', body: 'Every post comes with structured symptoms and a photo, often with a recording of the noise.' },
-  { name: 'Briefing on match', body: "Once you match, you get a technical briefing on the AI's read. Owners never see it." },
-  { name: 'Your quote', body: 'Quote alongside other mechanics. No lead fees, no pay-to-rank listings.' },
+  { name: 'Earnings', body: 'Keep 100% of your quotes during launch. You set the price in your quote; the owner pays you directly.' },
+  { name: 'Flexibility', body: 'Swipe only on jobs that fit your specialties and service radius. You agree on every time slot.' },
+  { name: 'Customers', body: 'Drivers near you post real problems, with photos and an AI read. Match, and you get a technical briefing before you quote.' },
+  { name: 'Fair access', body: 'No lead fees, no pay-to-rank. Every mechanic quotes on the same terms.' },
 ];
 
 ---
 
 <Base title="For mechanics" description="RevX works both ways: you swipe on San Diego jobs that fit your specialties and radius, and owners swipe on you.">
-  <PageHead title="For mechanics" lede="RevX works both ways. You swipe on open posts that fit your specialties and service radius, and owners swipe on you." />
+  <PageHead title={pitch.headline.join(' ')} lede={pitch.support} />
   <main>
     <!-- 3. Mechanics -->
     <section id="mechanics">
@@ -31,40 +33,28 @@ const mechSpec = [
             }
           </dl>
           <div class="founding">
-            <p class="founding-head">The first 100 mechanics get founding status.</p>
+            <p class="founding-head">The first 100 mechanics get founding status and the best terms we ever offer.</p>
             <p>
               We're hand-recruiting independent mobile mechanics, students who wrench on the side, and
               small shops across San Diego.
             </p>
             <a class="btn btn-primary" href={APP_URL}>
-              Join as a founding mechanic <Icon name="arrow" size={18} />
+              {pitch.cta} <Icon name="arrow" size={18} />
             </a>
+            <p class="founding-note">{pitch.note}</p>
           </div>
         </div>
 
-        <figure class="panel-glass display">
-          <p class="panel-title">Sam's post, from the mechanic's side · illustrative</p>
-          <div class="job-card">
-            <Image
-              class="job-photo"
-              src={discBrake}
-              alt="Front wheel removed, exposing the brake rotor and hub"
-              widths={[480, 960]}
-              sizes="24rem"
-              format="webp"
-              quality={72}
-            />
-            <div class="job-body">
-              <p class="job-title">Grinding, front left, only when braking</p>
-              <p class="job-meta">Mechanical · 2016 Civic · 2.5 mi</p>
-              <p class="job-ai"><Icon name="diagnose" size={16} /> AI read: worn front pads</p>
-            </div>
-          </div>
-          <figcaption class="credit">
-            Photo:{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Disc_brake_car.jpg">Irvin calicut</a>,{' '}
-            <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-          </figcaption>
+        <figure class="display">
+          <Image
+            src={swipe}
+            alt="A mechanic's swipe card for a 2016 Honda Civic post: a photo of the front wheel off, 'Brakes seem to have an issue, where the pads are worn out', tagged Mechanical and This week, with pass, details and interested buttons."
+            widths={[320, 480, 640]}
+            sizes="(max-width: 1000px) 18rem, 22rem"
+            format="webp"
+            quality={80}
+          />
+          <figcaption>What you see: an owner's post, from the RevX app · demo account</figcaption>
         </figure>
       </div>
     </section>
@@ -125,64 +115,37 @@ const mechSpec = [
   .display {
     position: sticky;
     top: 6rem;
+    margin: 0;
+    justify-self: center;
+    width: min(100%, 22rem);
   }
 
-  .job-card {
-    overflow: hidden;
-    border-radius: 0.9rem;
-    border: 1px solid var(--accent-text);
-    background: var(--bg);
-  }
-
-  .job-photo {
+  .display img {
+    display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    object-position: 72% 60%;
+    border: 1px solid var(--rule-strong);
+    border-radius: 1.75rem;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.05),
+      0 30px 60px -24px var(--shadow);
   }
 
-  .job-body {
-    padding: 1rem;
-  }
-
-  .job-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.375rem;
-    line-height: 1.1;
-    color: var(--heading);
-  }
-
-  .job-meta {
-    margin-top: 0.35rem;
-    color: var(--muted);
-  }
-
-  .job-ai {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
-    color: var(--accent-text);
-  }
-
-  .credit {
+  .display figcaption {
     margin-top: 0.75rem;
+    text-align: center;
     color: var(--muted);
     font-size: 0.875rem;
   }
 
-  .credit a {
-    display: inline-block;
-    padding-block: 0.3rem;
-    color: var(--body);
+  .founding-note {
+    font-size: 0.9375rem;
   }
 
   @media (max-width: 1000px) {
     .display {
       position: static;
-      max-width: 28rem;
+      width: min(100%, 18rem);
     }
   }
 

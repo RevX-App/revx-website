@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
-import { APP_URL, SITE } from '../config';
+import { APP_URL, SITE, MECHANIC_PITCH as pitch } from '../config';
 import { team } from '../team';
 import Portrait from '../components/Portrait.astro';
 import { Image } from 'astro:assets';
@@ -202,6 +202,26 @@ const schema = [
             }
           </ul>
           <p class="more"><a href="/faq#trust">How we handle trust</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mechanic recruitment: the one full-lime band on the site -->
+    <section class="mech-cta" id="for-mechanics">
+      <div class="wrap mech-inner">
+        <div>
+          <h2>
+            <span>{pitch.headline[0]}</span>
+            <span>{pitch.headline[1]}</span>
+          </h2>
+          <p class="mech-support">{pitch.support}</p>
+        </div>
+        <div class="mech-actions">
+          <a class="btn mech-join" href={APP_URL}>
+            {pitch.cta} <Icon name="arrow" size={18} />
+          </a>
+          <p class="mech-note">{pitch.note}</p>
+          <a class="mech-more" href="/mechanics">How RevX works for mechanics</a>
         </div>
       </div>
     </section>
@@ -444,6 +464,74 @@ const schema = [
     border-radius: 50%;
     border: 1.5px solid var(--accent-text);
     color: var(--accent-text);
+  }
+
+  /* Mechanic CTA: lime ground, near-black ink, inverted button. */
+  .mech-cta {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .mech-cta :focus-visible {
+    outline-color: var(--on-accent);
+  }
+
+  .mech-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
+  }
+
+  .mech-cta h2 {
+    color: var(--on-accent);
+    line-height: 0.95;
+  }
+
+  .mech-cta h2 span {
+    display: block;
+  }
+
+  .mech-support {
+    margin-top: 1.25rem;
+    max-width: 44ch;
+    font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  }
+
+  .mech-actions {
+    display: grid;
+    justify-items: start;
+    gap: 0.75rem;
+  }
+
+  .mech-join {
+    background: var(--on-accent);
+    color: var(--accent);
+  }
+
+  .mech-join:hover {
+    background: var(--brand-deep);
+    color: var(--accent);
+  }
+
+  .mech-note {
+    font-size: 0.9375rem;
+  }
+
+  .mech-more,
+  .mech-more:hover {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--on-accent);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1000px) {
+    .mech-inner {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+    }
   }
 
   /* Roadmap */
