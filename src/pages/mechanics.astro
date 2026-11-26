@@ -1,24 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import mustangHero from '../assets/heroes/mustang-hero.jpg';
 import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
 import swipe from '../assets/screens/swipe.png';
-import { APP_URL, MECHANIC_PITCH as pitch } from '../config';
-import Placeholder from '../components/Placeholder.astro';
-import { story } from '../story';
+import { APP_URL, PHONE, MECHANIC_PITCH as pitch } from '../config';
 // Approved 2026-11-24: marketing's four angles, each limited to what the app does today.
 const mechSpec = [
   { name: 'Earnings', body: 'Keep 100% of your quotes during launch. You set the price in your quote; the owner pays you directly.' },
-  { name: 'Flexibility', body: 'Swipe only on jobs that fit your specialties and service radius. You agree on every time slot.' },
-  { name: 'Customers', body: 'Drivers near you post real problems, with photos and an AI read. Match, and you get a technical briefing before you quote.' },
+  { name: 'Flexibility', body: "Pick only the jobs that fit your skills and how far you'll travel. You agree on every time slot." },
+  { name: 'Customers', body: "Drivers near you post real problems, with photos and the AI's first look at the cause. Match, and you get a technical briefing before you quote." },
   { name: 'Fair access', body: 'No lead fees, no pay-to-rank. Every mechanic quotes on the same terms.' },
+];
+
+// Approved 2026-11-25: what happens after tapping Join, in plain words.
+const joinSteps = [
+  'Sign up in your browser, no download.',
+  "Add your shop, your skills and how far you'll travel.",
+  'A founder checks your details and gets in touch.',
 ];
 
 ---
 
-<Base title="For mechanics" description="RevX works both ways: you swipe on San Diego jobs that fit your specialties and radius, and owners swipe on you.">
-  <PageHead title={pitch.headline.join(' ')} lede={pitch.support} />
+<Base title="For mechanics" description="Pick the San Diego repair jobs that fit your skills and how far you'll travel. Free to join, no lead fees, and you keep 100% of your quotes during launch.">
+  <PageHead title={pitch.headline.join(' ')} lede={pitch.support} photo={mustangHero} focus="50% 61%" />
   <main>
     <!-- 3. Mechanics -->
     <section id="mechanics">
@@ -34,22 +40,10 @@ const mechSpec = [
               ))
             }
           </dl>
-          {
-            story.mechanicQuote ? (
-              <blockquote class="voice">
-                <p>“{story.mechanicQuote.quote}”</p>
-                <footer>
-                  {story.mechanicQuote.name} · {story.mechanicQuote.shop}
-                </footer>
-              </blockquote>
-            ) : (
-              import.meta.env.DEV && (
-                <div class="voice">
-                  <Placeholder need="First mechanic's quote (shared with Our Story)." />
-                </div>
-              )
-            )
-          }
+          <h2 class="join-head">How to join</h2>
+          <ol class="join-steps">
+            {joinSteps.map((s) => <li>{s}</li>)}
+          </ol>
           <div class="founding">
             <p class="founding-head">The first 100 mechanics get founding status and the best terms we ever offer.</p>
             <p>
@@ -60,6 +54,9 @@ const mechSpec = [
               {pitch.cta} <Icon name="arrow" size={18} />
             </a>
             <p class="founding-note">{pitch.note}</p>
+            <p class="founding-note">
+              Questions? Call or text <a href={`tel:${PHONE.tel}`}>{PHONE.display}</a>
+            </p>
           </div>
         </div>
 
@@ -72,7 +69,7 @@ const mechSpec = [
             format="webp"
             quality={80}
           />
-          <figcaption>What you see: an owner's post, from the RevX app · demo account</figcaption>
+          <figcaption>What you see: an owner's post, from the app · demo account</figcaption>
         </figure>
       </div>
     </section>
@@ -106,21 +103,25 @@ const mechSpec = [
     color: var(--body);
   }
 
-  .voice {
-    margin: 2rem 0 0;
+  .join-head {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
   }
 
-  .voice p {
+  .join-steps {
+    margin: 0;
+    padding-left: 1.5rem;
+    display: grid;
+    gap: 0.6rem;
+    color: var(--body);
+    font-size: 1.125rem;
+  }
+
+  .join-steps li::marker {
+    color: var(--accent-text);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.5rem, 2.4vw, 2rem);
-    line-height: 1.1;
-    color: var(--heading);
-  }
-
-  .voice footer {
-    margin-top: 0.75rem;
-    color: var(--muted);
   }
 
   .founding {

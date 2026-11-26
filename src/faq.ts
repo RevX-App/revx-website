@@ -13,7 +13,7 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     id: 'vetting',
     group: 'trust',
     q: 'How are mechanics checked?',
-    a: 'Founders review every mechanic who signs up. Mechanics can add licenses and certifications to their profile, and reviews from past jobs build their record.',
+    a: "Founders verify every mechanic who signs up. Each profile shows what we checked, like years of experience, certifications and licenses, so you can judge for yourself. Reviews from past jobs build their record.",
   },
   {
     id: 'schedule',
@@ -43,7 +43,7 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     id: 'consent',
     group: 'trust',
     q: 'Can anything happen without my OK?',
-    a: 'No. Matching, hiring, scheduling and closing a job each need both you and your mechanic to agree.',
+    a: 'Matching, hiring, scheduling and closing a job each need both you and your mechanic to agree.', // also Home's trust body: no leading "No."
   },
   {
     id: 'reviews',
@@ -55,7 +55,13 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     id: 'problems',
     group: 'trust',
     q: 'What if something goes wrong?',
-    a: "You pay your mechanic directly. RevX doesn't hold your money yet, so it can't issue refunds. If something goes wrong, report or block them in the app, or email support. We aim to review reports within 24 hours.",
+    a: "You pay your mechanic directly. RevX.website doesn't hold your money yet, so it can't issue refunds. If something goes wrong, report or block them in the app, or email support. We aim to review reports within 24 hours.",
+  },
+  {
+    id: 'damage',
+    group: 'trust',
+    q: 'What if my car gets damaged?',
+    a: "RevX.website doesn't insure repairs. Ask your mechanic about their own coverage before work starts, and report any problem in the app.",
   },
   {
     id: 'ai',
@@ -73,25 +79,25 @@ export const faq: { id: string; group: 'trust' | 'other'; q: string; a: string }
     id: 'leads',
     group: 'other',
     q: 'Do mechanics pay for leads?',
-    a: 'No. Mechanics swipe on the jobs they want and quote alongside other mechanics, with no lead fees or pay-to-rank listings. RevX takes no commission during launch; a commission may come later, alongside in-app payments. The first 100 mechanics get founding status and the best terms we ever offer.',
+    a: 'No. Mechanics swipe on the jobs they want and quote alongside other mechanics, with no lead fees or pay-to-rank listings. RevX.website takes no commission during launch; a commission may come later, alongside in-app payments. The first 100 mechanics get founding status and the best terms we ever offer.',
   },
   {
     id: 'where',
     group: 'other',
-    q: 'Where does RevX work?',
-    a: 'RevX is launching in San Diego, starting around UCSD and the neighborhoods near campus.',
+    q: 'Where does RevX.website work?',
+    a: 'RevX.website is launching in San Diego, starting around UCSD and the neighborhoods near campus.',
   },
   {
     id: 'vehicles',
     group: 'other',
-    q: 'Which vehicles and problems does RevX cover?',
+    q: 'Which vehicles and problems does RevX.website cover?',
     a: 'Cars and motorcycles, across four kinds of problems: mechanical, computer/ECU, modification and cosmetic.',
   },
   {
     id: 'location',
     group: 'trust',
     q: 'Is my location shared?',
-    a: "Not precisely. Your exact coordinates never leave RevX's servers. Others see a snapped area of about 0.7 miles and a distance rounded to the half mile, and only your matched mechanic gets the job-site location.",
+    a: "Not precisely. Your exact coordinates never leave RevX.website's servers. Others see a snapped area of about 0.7 miles and a distance rounded to the half mile, and only your matched mechanic gets the job-site location.",
   },
 ];
 

@@ -5,11 +5,14 @@ Rule over everything: **assert only what runs.**
 
 ## Product truths (confirmed by founder)
 
+- **Name:** the company is **RevX.website** (renamed 2026-11-25). Text says "RevX.website"; the wordmark is Rev + lime X + a muted ".website"; app captions say "the app". Structured data keeps "RevX" as an alternate name.
+
 - **Consent is the principle:** both sides match, both agree to take the job, both confirm, both review.
 - **Pricing:** mechanic and owner discuss in chat; the mechanic sends quotes in the app; they agree on one.
 - **Scheduling:** appointments are set in the app with both parties' agreement. (Built. `PRODUCT.md` was wrong.)
 - **Payment:** directly between owner and mechanic. In-app payments and escrow are roadmap.
-- **Verification:** mechanics sign up; founders review each one. Mechanics may optionally attach licenses and certifications. **No verified badge or marker exists in the app**; never say "verified badge".
+- **Verification:** mechanics sign up; founders verify each one. Profiles show what was checked: years of experience, certifications, licenses (confirmed 2026-11-25). No badge exists; never say "verified badge".
+- **Contact:** one shared inbox, revxtheapp@gmail.com (no paid domain yet). Founders' personal addresses stay off the site.
 - **Arrival / shop visit:** both confirm the job in the app, then both leave reviews.
 - **Commission:** none now, during launch. A commission is planned later, likely alongside escrow.
 - **Account deletion** exists in the app (Profile → Account & Security → Delete account).
@@ -18,7 +21,7 @@ Rule over everything: **assert only what runs.**
 
 - Mechanic headline: "Turn wrenches in San Diego? Keep 100% of your quotes during launch." Support: "No lead fees. No pay-to-rank. Connect with drivers who need your expertise." The FAQ says plainly that a commission may come later with in-app payments.
 - "First 100 mechanics free forever" is replaced with founding-status wording, e.g. "Founding mechanics: the first 100 sign-ups get founding status and the best terms we ever offer."
-- Verification copy: "Founders review every mechanic who signs up. Mechanics can add licenses and certifications to their profile."
+- Verification copy: "Founders verify every mechanic who signs up. Each profile shows what we checked, like years of experience, certifications and licenses."
 
 ## P1: navigation and branding
 
@@ -63,11 +66,29 @@ Rule over everything: **assert only what runs.**
 - Helped by, live now: The Basement @ UCSD (helped us get started and connected the founders) and Triton Web Developers (built this website). Never "backed by".
 - Slots the founders fill: group photo, one quote per person, founder's note, milestones, first-mechanic quote (Our Story and /mechanics), press, behind-the-scenes photo. An empty slot shows a dashed placeholder on the dev server only and renders nothing in production; check-site fails if a placeholder reaches `dist/`.
 - Origin copy is limited to the founder's words: shared bad mechanic experiences, finding out too late there were better options.
+- Updated 2026-11-25:
+  - "So far" is a branch graph (shared `BranchGraph` with Home): Founded (Apr 2026) → Published our promotional website (Oct 2026) → Built and launched the web app (Nov 2026) → Marketing and Recruiting mechanics side by side (Dec 2026) → Launch on iOS & Android (in progress) → More to come.
+  - Founder's note: Mustaqim's $4,000 suspension story (half price via a friend's mobile mechanic), plus a slot for a photo of the broken car.
+  - Team: no quotes (each line is already their paraphrased words); cards align in three rows. Jaynie's site: jaynie.me.
+  - No press section until real coverage exists (noted in story.ts).
+  - No first-mechanic quote until we have one with the mechanic's written OK. The slot (Our Story + /mechanics) was removed; see story.ts for how to restore it (component in commit 2d421f3).
 
 ## P6: roadmap
 
 - Remove the unbuilt-feature list from the public site. A progress strip on Home: mechanic onboarding **Now**, UCSD/La Jolla launch **Next**, Greater San Diego + mobile apps **Later**. Nothing is marked live until it is operationally confirmed.
+- Revised again 2026-11-25 (supersedes the next line): six stops, same shape as Our Story. App live in your browser (Done) → Recruiting mechanics (Now) and Marketing (Now; social media and events) side by side → iOS & Android apps (In progress, greyed) → Launch in the San Diego area (Next) → Launch across SoCal (Later). Marketing and recruiting start in December, when the site publishes.
+- Earlier 2026-11-25: five stops on a branch graph. Main line: App live in your browser (Done) → Signing up mechanics (Now) → Launch in the San Diego area (Next; UCSD and La Jolla first) → Launch across SoCal (Later). The iOS & Android apps (Now) branch off App live, run under Signing up mechanics, and merge into the San Diego launch.
+- Superseded: four stops. Done "App live in your browser" · Now "Signing up mechanics" · Next "UCSD & La Jolla" · Later "Greater San Diego + iOS & Android". Heading "Where we're at." Lede "We'll mark a stop done only when it's actually running." No dates. The route visual is reused.
+- The feature lamps, their icons and CSS, and the old Pitching/Soft-test route are deleted. llms.txt "Not yet available" is reduced to in-app payments and escrow, plus the iOS and Android apps. Our Story says "Anything still in the works, we say so."
+
+## Persona pass (2026-11-25)
+
+- Owners can post and sign up on the web app today. Hero: "Mechanics are joining now. Post today, and we'll match you as mechanics near you sign up."
+- Mechanics' call/text line: Google Voice (619) 780-5799, shown in the lime band, on /mechanics and on Contact.
+- /mechanics: "Free to join", 3 plain join steps, no "swipe"/"service radius" jargon. Founding status stays vague until its concrete terms are decided.
+- Contact "For investors": "We're raising now." Rows: problem, model, where we are, who we are. No traction numbers and no one-pager until they exist.
+- FAQ trust: "RevX doesn't insure repairs."
 
 ## Contact
 
-- `/contact` splits into "Need help with the app?" (links to `/support`) and "Investing, press, partners?" (founders' emails).
+- `/contact`: "Need help with the app?" (links to `/support`, plus the call/text line), then "For investors" (pitch rows + the shared inbox revxtheapp@gmail.com).

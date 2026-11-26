@@ -1,16 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import mazdaHero from '../assets/heroes/mazda-hero.avif';
 import Portrait from '../components/Portrait.astro';
 import Placeholder from '../components/Placeholder.astro';
+import BranchGraph from '../components/BranchGraph.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 import { team } from '../team';
+import OrgChart from '../components/OrgChart.astro';
 import { story } from '../story';
 ---
 
-<Base title="Our story" description="RevX is built by five UC San Diego students who learned the hard way that there were better options than the mechanic they went to.">
-  <PageHead title="Our story" lede="RevX started at UC San Diego. We're signing up local mechanics first, then opening RevX to UCSD students and the neighborhoods around campus." />
+<Base title="Our story" description="RevX.website is built by five UC San Diego students who learned the hard way that there were better options than the mechanic they went to.">
+  <PageHead title="Our story" lede="RevX.website started at UC San Diego. The app is open today, and we're signing up local mechanics around campus first." photo={mazdaHero} focus="50% 50%" />
   <main>
     <!-- Group photo: founders supply it -->
     {
@@ -33,46 +36,55 @@ import { story } from '../story';
 
     <!-- Why we started: the founder's own reason -->
     <section id="why">
-      <div class="wrap split">
+      <div class="wrap">
         <header class="sec-head">
           <h2>Why we started</h2>
         </header>
+      </div>
+      <!-- Heading on its own row, so the photo and the story start on the same line. -->
+      <div class:list={['wrap', { split: story.founderCar || import.meta.env.DEV }]}>
+        <div>
+          {
+            story.founderCar ? (
+              <Image class="car" src={story.founderCar.src} alt={story.founderCar.alt} widths={[480, 800, 1200]} sizes="(max-width: 1000px) 100vw, 40rem" format="webp" quality={78} />
+            ) : (
+              <Placeholder need="Photo of Mustaqim's broken car (the $4,000 suspension)." />
+            )
+          }
+        </div>
         <div class="prose">
           <p>
-            We've all had a bad experience with a mechanic, and found out too late that there were better options nearby. We built RevX so the next person doesn't have to learn that the hard way.
+            We've all had a bad experience with a mechanic, and found out too late that there were better options nearby. We built RevX.website so the next person doesn't have to learn that the hard way.
           </p>
-          <p>So we're starting where we are: with mechanics around UC San Diego, and the students and neighbors who need them.</p>
           {
-            story.founderNote ? (
+            story.founderNote && (
               <blockquote class="note">
                 {story.founderNote.text.map((t) => <p>{t}</p>)}
                 <footer>{story.founderNote.by}</footer>
               </blockquote>
-            ) : (
-              <Placeholder need="Founder's note: the real bad-mechanic story, 3–4 sentences, signed." />
             )
           }
+          <p>So we're starting where we are: with mechanics around UC San Diego, and the students and neighbors who need them.</p>
         </div>
       </div>
     </section>
 
     <!-- How we're building it: the consent principle and the honesty rule -->
     <section id="how">
-      <div class="wrap split">
-        <div>
-          <header class="sec-head">
-            <h2>How we're building it</h2>
-          </header>
-          <div class="prose">
-            <p>
-              Consent is the rule. You and your mechanic both choose the match, both agree to the job, both confirm it's done, and both leave a review.
-            </p>
-            <p>And we only tell you about what the app does today. Anything still in the works is labelled as roadmap.</p>
-          </div>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>How we're building it</h2>
+        </header>
+        <div class="prose">
+          <p>We talk all the time as a team: on Discord, on Google Meet and in person.</p>
+          <p>
+            Consent is the rule. You and your mechanic both choose the match, both agree to the job, both confirm it's done, and both leave a review.
+          </p>
+          <p>And we only tell you about what the app does today. Anything still in the works, we say so.</p>
         </div>
         {
           story.behindTheScenes ? (
-            <Image class="bts" src={story.behindTheScenes.src} alt={story.behindTheScenes.alt} widths={[480, 800, 1200]} sizes="(max-width: 1000px) 100vw, 34rem" format="webp" quality={78} />
+            <Image class="bts" src={story.behindTheScenes.src} alt={story.behindTheScenes.alt} widths={[640, 1200, 2000]} sizes="(max-width: 1360px) 100vw, 82rem" format="webp" quality={78} />
           ) : (
             <Placeholder need="Behind-the-scenes photo: the team at work, or with a mechanic." />
           )
@@ -80,70 +92,50 @@ import { story } from '../story';
       </div>
     </section>
 
-    <!-- So far: real, dated milestones only -->
-    {
-      (story.milestones.length > 0 || import.meta.env.DEV) && (
-        <section id="so-far">
-          <div class="wrap">
-            <header class="sec-head">
-              <h2>So far</h2>
-            </header>
-            {story.milestones.length > 0 ? (
-              <ol class="timeline">
-                {story.milestones.map((m) => (
-                  <li>
-                    <span class="when">{m.date}</span>
-                    <span class="what">{m.name}</span>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <Placeholder need="3–5 dated real milestones (founded, first pitch, app live…)." />
-            )}
-          </div>
-        </section>
-      )
-    }
+    <!-- So far: real, dated milestones on the same git-style graph as Home -->
+    <section id="so-far">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>So far</h2>
+        </header>
+        <BranchGraph stops={story.milestones} />
+      </div>
+    </section>
 
-    <!-- The team: one gauge per person on one rule, no boxes -->
+    <!-- The team as an org chart: founders on top, the crew branching below -->
     <section id="team">
       <div class="wrap">
         <header class="sec-head">
           <h2>The team</h2>
         </header>
-        <ul class="crew">
-          {
-            team.map((f) => (
-              <li>
-                <Portrait person={f} />
-                <h3 class="crew-name">{f.name}</h3>
-                <p class="crew-title">
-                  {f.title} · {f.study}
-                </p>
-                {f.line && <p class="crew-line">{f.line}</p>}
-                {f.quote ? <blockquote class="crew-quote">“{f.quote}”</blockquote> : <Placeholder need={`${f.name.split(' ')[0]}'s quote, one sentence.`} />}
-                {(f.linkedin || f.site) && (
-                  <p class="crew-links">
-                    {f.linkedin && (
-                      <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>
-                        LinkedIn
-                      </a>
-                    )}
-                    {f.site && (
-                      <a href={f.site} aria-label={`${f.name}'s website`}>
-                        {new URL(f.site).hostname}
-                      </a>
-                    )}
-                  </p>
+        <OrgChart label="The RevX.website team" portrait={5} stack>
+          {(f: (typeof team)[number]) => (
+            <>
+              <Portrait person={f} />
+              <h3 class="crew-name">{f.name}</h3>
+              <p class="crew-title">
+                {f.title} · {f.study}
+              </p>
+              <p class="crew-line">{f.line}</p>
+              <p class="crew-links">
+                {f.linkedin && (
+                  <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>
+                    LinkedIn
+                  </a>
                 )}
-              </li>
-            ))
-          }
-        </ul>
+                {f.site && (
+                  <a href={f.site} aria-label={`${f.name}'s website`}>
+                    {new URL(f.site).hostname}
+                  </a>
+                )}
+              </p>
+            </>
+          )}
+        </OrgChart>
       </div>
     </section>
 
-    <!-- Who's helped us: real supporters, then press once it exists -->
+    <!-- Who's helped us: real supporters only (no press yet; see story.ts) -->
     <section id="helped">
       <div class="wrap">
         <header class="sec-head">
@@ -153,54 +145,21 @@ import { story } from '../story';
           {
             story.helpers.map((h) => (
               <li>
+                {h.logo ? (
+                  <span class="helper-logo">
+                    <Image src={h.logo} alt="" width={72} height={72} densities={[1, 2]} format="webp" />
+                  </span>
+                ) : (
+                  <Placeholder need={`${h.name} logo, square image.`} />
+                )}
                 <span class="helper-name">{h.url ? <a href={h.url}>{h.name}</a> : h.name}</span>
                 <span class="helper-what">{h.what}</span>
               </li>
             ))
           }
         </ul>
-        {
-          story.press.length > 0 ? (
-            <>
-              <h3 class="press-head">In the press</h3>
-              <ul class="press">
-                {story.press.map((p) => (
-                  <li>
-                    <a href={p.url}>
-                      {p.outlet}: {p.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <div class="press-slot">
-              <Placeholder need="Press or mentions: outlet, title and link for each real article." />
-            </div>
-          )
-        }
       </div>
     </section>
-
-    <!-- A real mechanic, with their written OK -->
-    {
-      (story.mechanicQuote || import.meta.env.DEV) && (
-        <section id="mechanic-voice">
-          <div class="wrap">
-            {story.mechanicQuote ? (
-              <blockquote class="voice">
-                <p>“{story.mechanicQuote.quote}”</p>
-                <footer>
-                  {story.mechanicQuote.name} · {story.mechanicQuote.shop}
-                </footer>
-              </blockquote>
-            ) : (
-              <Placeholder need="First mechanic's quote, with name, shop and their written OK." />
-            )}
-          </div>
-        </section>
-      )
-    }
 
     <!-- Close: two ways to help -->
     <section id="join">
@@ -216,7 +175,7 @@ import { story } from '../story';
             </a>
           </li>
           <li>
-            <a href="/contact">
+            <a href="/contact#investors">
               <span class="way-name">Investing, press or partners</span>
               <span class="way-go">Email the founders <Icon name="arrow" size={18} /></span>
             </a>
@@ -228,8 +187,23 @@ import { story } from '../story';
 </Base>
 
 <style>
-  .group-photo,
   .bts {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  #so-far {
+    --graph-ground: var(--bg);
+  }
+
+  .car {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 60% 55%; /* keep the car and the lift in frame */
+  }
+
+  .group-photo,
+  .bts,
+  .car {
     display: block;
     width: 100%;
     height: auto;
@@ -259,55 +233,9 @@ import { story } from '../story';
     font-weight: 600;
   }
 
-  /* So far: dates on the left, events on a single rule. */
-  .timeline {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--rule);
-  }
-
-  .timeline li {
-    display: grid;
-    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
-    gap: 1.5rem;
-    padding-block: 1rem;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .when {
-    color: var(--accent-text);
-    font-family: var(--font-display);
-    font-weight: 700;
-  }
-
-  .what {
-    color: var(--heading);
-  }
-
-  /* The team: one gauge per person on one rule, no boxes. */
-  .crew {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr));
-    gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem);
-  }
-
-  .crew li {
-    display: grid;
-    align-content: start;
-    gap: 0.35rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--rule-strong);
-  }
-
-  .crew :global(.portrait) {
-    margin-bottom: 0.9rem;
-  }
-
+  /* The team: card contents; OrgChart draws the lines. */
   .crew-name {
+    margin-top: 0.9rem;
     font-size: 1.625rem;
   }
 
@@ -319,21 +247,15 @@ import { story } from '../story';
   }
 
   .crew-line {
-    margin-top: 0.4rem;
     color: var(--body);
     max-width: 32ch;
-  }
-
-  .crew-quote {
-    margin: 0.4rem 0 0;
-    color: var(--heading);
-    font-style: italic;
-    max-width: 32ch;
+    margin-top: 0.75rem;
   }
 
   .crew-links {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 0 1.25rem;
     margin-top: 0.3rem;
   }
@@ -344,69 +266,59 @@ import { story } from '../story';
     min-height: 2.75rem;
   }
 
-  /* Who's helped us: names on rules, what they did beside them. */
+  /* Who's helped us: supporters side by side, logo over name over what they did. */
   .helpers {
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem clamp(1.5rem, 4vw, 3rem);
   }
 
   .helpers li {
     display: grid;
-    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
-    gap: 0.25rem 1.5rem;
-    padding-block: 1.1rem;
-    border-bottom: 1px solid var(--rule);
+    align-content: start;
+    gap: 0.35rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  /* Logos sit in a squircle: a rounded square, true superellipse where corner-shape is supported. */
+  .helper-logo {
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 28%;
+    overflow: hidden;
+    border: 1px solid var(--rule-strong);
+  }
+
+  @supports (corner-shape: squircle) {
+    .helper-logo {
+      border-radius: 50%;
+      corner-shape: squircle;
+    }
+  }
+
+  .helper-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .helper-name {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     color: var(--heading);
   }
 
   .helper-what {
     color: var(--body);
-  }
-
-  .press-head {
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .press {
-    margin: 0;
-    padding-left: 1.25rem;
-  }
-
-  .press a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-  }
-
-  .press-slot {
-    margin-top: 2rem;
-  }
-
-  .voice {
-    margin: 0;
-    max-width: 46rem;
-  }
-
-  .voice p {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    line-height: 1.1;
-    color: var(--heading);
-  }
-
-  .voice footer {
-    margin-top: 1rem;
-    color: var(--muted);
+    max-width: 36ch;
   }
 
   /* Want to help: two rows, the whole row is the link. */
@@ -448,10 +360,4 @@ import { story } from '../story';
     text-decoration: underline;
   }
 
-  @media (max-width: 640px) {
-    .timeline li,
-    .helpers li {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
 </style>

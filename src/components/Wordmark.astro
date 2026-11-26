@@ -7,8 +7,8 @@ interface Props {
 const { size = '2rem' } = Astro.props;
 ---
 
-<span class="wordmark" style={`--size:${size}`} aria-label="RevX">
-  <span class="rev" aria-hidden="true">Rev</span><span class="x" aria-hidden="true">X</span>
+<span class="wordmark" style={`--size:${size}`} aria-label="RevX.website">
+  <span class="rev" aria-hidden="true">Rev</span><span class="x" aria-hidden="true">X</span><span class="tld" aria-hidden="true">.website</span>
 </span>
 
 <style>
@@ -30,5 +30,13 @@ const { size = '2rem' } = Astro.props;
     font-weight: 800;
     /* Matches the app's RevXLogo: all ink on light, lime X on dark. */
     color: light-dark(var(--on-accent), var(--accent));
+  }
+
+  /* Company name is RevX.website (2026-11-25); the suffix stays quiet so the mark still reads as RevX. */
+  .tld {
+    font-size: 0.6em;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--muted);
   }
 </style>

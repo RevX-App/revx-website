@@ -1,18 +1,18 @@
 **Effective date:** November 5, 2026
 
-These terms are an agreement between you and Mustaqim Bin Burhanuddin, who runs RevX
-("RevX", "we"). Contact: revxtheapp@gmail.com. By using RevX, you agree to them and to
+These terms are an agreement between you and Mustaqim Bin Burhanuddin, who runs RevX.website
+("RevX.website", "we"). Contact: revxtheapp@gmail.com. By using RevX.website, you agree to them and to
 our Privacy Policy.
 
-## Who can use RevX
+## Who can use RevX.website
 
 You must be 18 or older, in the United States, and legally able to enter this agreement. Use
 your own email and accurate information, keep your password safe, and tell us if your account
 is misused. You're responsible for activity on your account.
 
-## RevX is a marketplace, not a repair shop
+## RevX.website is a marketplace, not a repair shop
 
-RevX helps owners and mechanics find each other. Mechanics are independent, not our
+RevX.website helps owners and mechanics find each other. Mechanics are independent, not our
 employees or agents. **We don't provide repairs and aren't part of any agreement between you.
 We don't verify licenses, insurance, qualifications, identity, reviews or the accuracy of
 listings.** Do your own checks before hiring someone or meeting them.
@@ -22,7 +22,7 @@ estimate and insurance rules. Owners are responsible for deciding whether to acc
 
 ## Payments
 
-RevX is free and doesn't process payments. Prices, estimates, payment, warranties and
+RevX.website is free and doesn't process payments. Prices, estimates, payment, warranties and
 disputes are between the owner and mechanic. Estimates in the app are records between you, and
 we don't guarantee them. Amounts you enter at the end of a job are your own record. They are not
 an invoice or a receipt, and we don't check them.
@@ -35,13 +35,13 @@ decisions.** If a vehicle may be unsafe, stop driving it and have a qualified me
 
 ## Safety
 
-Use care when meeting anyone through RevX. Meet where you feel safe, and call emergency
+Use care when meeting anyone through RevX.website. Meet where you feel safe, and call emergency
 services if you are in danger. We don't supervise meetings or repairs.
 
 ## Your content
 
 You own what you post. You allow us to host, copy, display and share it as needed to run
-RevX, until it is deleted. You confirm you have the right to post it. This doesn't let us
+RevX.website, until it is deleted. You confirm you have the right to post it. This doesn't let us
 train AI models on it; see the Privacy Policy.
 
 ## Zero tolerance for abuse
@@ -62,13 +62,13 @@ Privacy Policy. We may suspend or end access if you break these terms or to prot
 
 ## Disclaimers
 
-RevX is provided "as is" and "as available", to the fullest extent the law allows. We don't
+RevX.website is provided "as is" and "as available", to the fullest extent the law allows. We don't
 promise it will be uninterrupted or error-free, or that any mechanic, owner, repair or result
 will be suitable.
 
 ## Limit of liability
 
-To the fullest extent the law allows, RevX isn't liable for indirect or consequential damages,
+To the fullest extent the law allows, RevX.website isn't liable for indirect or consequential damages,
 or for loss or injury arising from repairs, vehicles, meetings, other users or AI results.
 Our total liability for any claim is limited to $100. Some places don't allow these limits, so
 they may not all apply to you.
@@ -84,7 +84,7 @@ can still use small claims court where it applies.
 
 ## Apple
 
-These terms are between you and us, not Apple. Apple isn't responsible for RevX or its content,
+These terms are between you and us, not Apple. Apple isn't responsible for RevX.website or its content,
 or for support, or for claims about it, including third-party intellectual property claims. Apple and its
 subsidiaries may enforce these terms as third-party beneficiaries. You must follow any App
 Store terms that apply.
@@ -92,4 +92,4 @@ Store terms that apply.
 ## Changes
 
 We may update these terms. We'll post changes and tell you in the app about important ones.
-If you keep using RevX after they take effect, you accept them.
+If you keep using RevX.website after they take effect, you accept them.

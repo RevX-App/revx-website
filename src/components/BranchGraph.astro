@@ -1,0 +1,319 @@
+---
+/**
+ * A git-style progress graph: a main line of stops, with one branch that forks off a stop
+ * (`fork`), runs under the stop marked `parallel`, and merges into the next main stop.
+ * Desktop: columns left to right (CSS subgrid). Phones: vertical, like `git log --graph`.
+ * Solid wire = travelled (after a done stop), dashed = ahead; branch wires are lime.
+ */
+import Icon from './Icon.astro';
+
+export interface Stop {
+  name: string;
+  body?: string;
+  state: 'done' | 'now' | 'next' | 'later';
+  label?: string; // overrides the state word, e.g. a date
+  col: number; // desktop column
+  lane: 'main' | 'branch';
+  fork?: boolean;
+  parallel?: boolean;
+  last?: boolean;
+}
+
+interface Props {
+  stops: Stop[];
+}
+
+const { stops } = Astro.props;
+const cols = Math.max(...stops.map((s) => s.col));
+const stateLabel = { done: 'Done', now: 'Now', next: 'Next', later: 'Later' };
+---
+
+<ol class="graph" style={`--cols: ${cols}`}>
+  {
+    stops.map((m) => (
+      <li
+        class:list={[m.state, m.lane, { fork: m.fork, parallel: m.parallel, last: m.last }]}
+        style={`--col: ${m.col}`}
+        aria-current={m.state === 'now' && m.lane === 'main' ? 'step' : undefined}
+      >
+        <span class="rail" aria-hidden="true">
+          <span class="stop">
+            {m.state === 'done' && <Icon name="check" size={18} />}
+            {m.state === 'now' && <Icon name="pin" size={18} />}
+          </span>
+        </span>
+        <span class="label">
+          <span class="stop-name">{m.name}</span>
+          <span class="stop-state">{m.label ?? stateLabel[m.state]}</span>
+          {m.body && <span class="stop-body">{m.body}</span>}
+        </span>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  /* Main line on top, the branch below. Solid = travelled, dashed = ahead. */
+  .graph {
+    --stop: 2.75rem;
+    --band: 8rem; /* rail row: main stops at its top, the branch stop lower down */
+    --branch-y: 4.75rem; /* top of the branch stop inside the band */
+    --wire: 1.5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+  }
+
+  .label {
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+  }
+
+  .rail::before,
+  .rail::after {
+    content: '';
+    position: absolute;
+    border: 0 dashed var(--unlit);
+  }
+
+  /* Desktop geometry only, so none of it leaks into the vertical phone graph. */
+  @media (min-width: 1001px) {
+  .graph {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: auto var(--band) auto;
+  }
+
+  .graph li {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-column: var(--col);
+    padding-right: 1.5rem;
+  }
+
+  .graph li.main {
+    grid-row: 1 / 3;
+  }
+
+  .graph li.branch {
+    grid-row: 2 / 4;
+  }
+
+  .graph li.main .label {
+    grid-row: 1;
+    padding-bottom: 1.25rem;
+  }
+
+  .graph li.main .rail {
+    grid-row: 2;
+  }
+
+  .graph li.branch .rail {
+    grid-row: 1;
+  }
+
+  .graph li.branch .label {
+    grid-row: 2;
+  }
+
+  /* The rail spans the full column (into the padding) so wires reach the next stop. */
+  .rail {
+    position: relative;
+    margin-right: -1.5rem;
+  }
+
+  .branch .stop {
+    margin-top: var(--branch-y);
+  }
+
+  .branch .label {
+    padding-top: 0.75rem;
+  }
+
+  /* Main wire to the next main stop. */
+  .main:not(.last) .rail::after {
+    top: calc(var(--stop) / 2);
+    left: var(--stop);
+    right: 0;
+    border-top-width: var(--wire);
+  }
+
+  .main.done .rail::after {
+    border-top-style: solid;
+    border-color: var(--accent-text);
+  }
+
+  /* Work in progress: the wire out of a current stop stays dashed but lime. */
+  .main.now .rail::after {
+    border-color: var(--accent-text);
+  }
+
+  /* Fork: down from the fork stop, then right into the branch stop. */
+  .fork .rail::before {
+    top: var(--stop);
+    left: calc(var(--stop) / 2);
+    width: calc(100% - var(--stop) / 2);
+    height: calc(var(--branch-y) - var(--stop) / 2);
+    border-left-width: var(--wire);
+    border-bottom-width: var(--wire);
+    border-bottom-left-radius: 1rem;
+    border-color: var(--accent-text);
+  }
+
+  /* Merge: right from the branch stop, then up into the next main stop. */
+  .branch .rail::after {
+    top: calc(var(--stop) / 2);
+    left: var(--stop);
+    width: calc(100% - var(--stop) / 2);
+    height: var(--branch-y);
+    border-right-width: var(--wire);
+    border-bottom-width: var(--wire);
+    border-bottom-right-radius: 1rem;
+    border-color: var(--accent-text);
+  }
+  }
+
+  .stop {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: var(--stop);
+    height: var(--stop);
+    border-radius: 50%;
+    border: var(--wire) dashed var(--unlit);
+    background: var(--graph-ground, var(--sand)); /* match the section behind the graph */
+  }
+
+  /* The stop the branch merges into is where the current work lands: dotted, but lime. */
+  .branch + .main .stop {
+    border-color: var(--accent-text);
+  }
+
+  .done .stop {
+    border: var(--wire) solid var(--accent-text);
+    color: var(--accent-text);
+  }
+
+  .now .stop {
+    border: var(--wire) solid var(--accent-text);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .stop-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.1;
+    color: var(--heading);
+  }
+
+  .next .stop-name,
+  .later .stop-name {
+    color: var(--muted);
+  }
+
+  .stop-body {
+    margin-top: 0.25rem;
+    color: var(--body);
+    max-width: 26ch;
+  }
+
+  .stop-state {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .now .stop-state {
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 1000px) {
+    /* The graph turns vertical, like git log --graph: main rail left, branch rail beside it. */
+    .graph {
+      --lane: calc(var(--stop) + 1rem); /* branch rail offset */
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .graph li {
+      position: relative;
+      display: grid;
+      grid-template-columns: calc(var(--stop) + var(--lane)) minmax(0, 1fr);
+      column-gap: 0.75rem;
+      padding: 0 0 1.75rem;
+    }
+
+    .branch .stop {
+      margin: 0 0 0 var(--lane);
+    }
+
+
+    /* Main rail down to the next stop; the branch row lets it pass through. */
+    .main:not(.last) .rail::after,
+    .branch .rail::after {
+      top: var(--stop);
+      bottom: 0;
+      left: calc(var(--stop) / 2);
+      width: 0;
+      border-top-width: 0;
+      border-right-width: 0;
+      border-bottom-width: 0;
+      border-left-width: var(--wire);
+      border-left-style: dashed;
+      border-color: var(--unlit);
+    }
+
+    .branch .rail::after {
+      top: 0;
+    }
+
+    .main.done .rail::after {
+      border-left-style: solid;
+      border-color: var(--accent-text);
+    }
+
+    .main.now .rail::after,
+    .parallel.now + .branch .rail::after {
+      border-color: var(--accent-text); /* the current stop's wire continues past the branch row */
+    }
+
+    /* Fork: right from the fork stop, then down the branch rail. */
+    .fork .rail::before {
+      top: calc(var(--stop) / 2);
+      bottom: 0;
+      left: var(--stop);
+      width: calc(var(--lane) - var(--stop) / 2);
+      border-top-width: var(--wire);
+      border-right-width: var(--wire);
+      border-top-right-radius: 1rem;
+      border-color: var(--accent-text);
+    }
+
+    /* Branch rail alongside the parallel stop. */
+    .parallel .rail::before {
+      top: 0;
+      bottom: 0;
+      left: calc(var(--lane) + var(--stop) / 2 - var(--wire)); /* line up with the fork's and merge's right borders, drawn inside their boxes */
+      border-left-width: var(--wire);
+      border-color: var(--accent-text);
+    }
+
+    /* Merge: down from the branch stop, then left into the main rail. */
+    .branch .rail::before {
+      top: var(--stop);
+      bottom: 0;
+      left: calc(var(--stop) / 2);
+      width: var(--lane);
+      border-right-width: var(--wire);
+      border-bottom-width: var(--wire);
+      border-bottom-right-radius: 1rem;
+      border-color: var(--accent-text);
+    }
+  }
+</style>

@@ -3,6 +3,6 @@ export const NAV: { href: string; label: string }[] = [
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/mechanics', label: 'For Mechanics' },
   { href: '/our-story', label: 'Our Story' },
-  { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'FAQ' },
 ];

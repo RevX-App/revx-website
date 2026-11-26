@@ -164,8 +164,8 @@ html {
 .start {
   display: grid;
   place-content: center;
-  width: 8.5rem;
-  height: 8.5rem;
+  width: 9.5rem;
+  height: 9.5rem;
   border-radius: 50%;
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
@@ -204,6 +204,15 @@ html {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent-text);
+}
+
+/* ".website" rides small and lowercase after RevX, like the wordmark, so it fits the ring. */
+.start-tld {
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--muted);
 }
 
 
@@ -313,4 +322,11 @@ main h3 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Phone links sit inline in copy; keep them a full 44px tap target. */
+a[href^='tel:'] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
 }

@@ -1,6 +1,6 @@
 {
-  "name": "RevX: AI mechanic and mobile mechanics in San Diego",
-  "short_name": "RevX",
+  "name": "RevX.website: AI mechanic and mobile mechanics in San Diego",
+  "short_name": "RevX.website",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }

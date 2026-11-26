@@ -1,13 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import audiHero from '../assets/heroes/audi-hero.jpeg';
 import Icon from '../components/Icon.astro';
-import { team } from '../team';
-const contacts = team.filter((f) => f.email);
+import { CONTACT_EMAIL, PHONE } from '../config';
+
+// Approved 2026-11-25. No traction numbers until they're real.
+const pitchRows = [
+  { name: 'The problem', body: "Car owners can't tell what's wrong or what's fair, and good independent mechanics struggle to find customers." },
+  { name: 'The model', body: 'Free during launch. A commission may come later, likely alongside in-app payments and escrow.' },
+  { name: 'Where we are', body: "The app is live in the browser, and we're onboarding founding mechanics around UC San Diego." },
+  { name: 'Who we are', body: 'Five UC San Diego students who built the app in-house, with a start from The Basement @ UCSD.' },
+];
 ---
 
-<Base title="Contact" description="Get help with the RevX app, or email the founders about investing, press or partnerships.">
-  <PageHead title="Contact" lede="Help with the app, or a direct line to the founders." />
+<Base title="Contact" description="Get help with the app, or email the founders about investing, press or partnerships.">
+  <PageHead title="Contact" lede="Help with the app, or a direct line to the founders." photo={audiHero} focus="50% 40%" />
   <main>
     <section id="help">
       <div class="wrap">
@@ -16,50 +24,49 @@ const contacts = team.filter((f) => f.email);
           <p class="lede">
             Account questions, bugs, reports and account deletion are on our <a href="/support">support page</a>.
           </p>
+          <p class="lede">Mechanics with questions can call or text <a href={`tel:${PHONE.tel}`}>{PHONE.display}</a>.</p>
         </header>
       </div>
     </section>
 
-    <!-- 6. Contact: investors first, straight to the founders' inboxes -->
-    <section id="contact">
+    <!-- Investing, press, partners: who to write to on the left, the plan in four lines on the right -->
+    <section id="investors">
       <div class="wrap split contact">
-        <header class="sec-head">
-          <h2>Investing, press, partners?</h2>
-          <p class="lede">Email us directly; a founder reads every message.</p>
-        </header>
+        <div class="reach">
+          <header class="sec-head">
+            <h2>For investors</h2>
+            <p class="lede">We're raising now. For investing, press or partnerships, email us; a founder reads every message.</p>
+          </header>
 
-        <figure class="panel-glass">
-          <div class="msg-screen">
-            <p class="msg-head">Incoming · founders' line</p>
-            <ul class="lines">
-              {
-                contacts.map((c) => (
-                  <li>
-                    <span class="line-who">
-                      {c.name} · {c.title}
-                    </span>
-                    <a class="line-mail" href={`mailto:${c.email}`}>
-                      {c.email}
-                    </a>
-                    <button class="btn btn-ghost copy" type="button" data-copy={c.email}>
-                      <span class="copy-lamp" aria-hidden="true">
-                        <Icon name="check" size={16} />
-                      </span>
-                      <span data-copy-label>Copy email</span>
-                    </button>
-                  </li>
-                ))
-              }
-            </ul>
+          <div class="panel-glass founders-line">
+            <p class="msg-head">Founders' line</p>
+            <a class="line-mail" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <button class="btn btn-ghost copy" type="button" data-copy={CONTACT_EMAIL}>
+              <span class="copy-lamp" aria-hidden="true">
+                <Icon name="check" size={16} />
+              </span>
+              <span data-copy-label>Copy email</span>
+            </button>
+            <p class="sr-only" aria-live="polite" data-copy-status />
           </div>
-          <p class="sr-only" aria-live="polite" data-copy-status />
-        </figure>
+        </div>
+
+        <dl class="pitch">
+          {
+            pitchRows.map((r) => (
+              <div>
+                <dt>{r.name}</dt>
+                <dd>{r.body}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
     </section>
   </main>
 </Base>
 <script>
-  // Copy a founder's email; the lamp lights only on a click, per the no-autonomous-motion rule.
+  // Copy the founders' email; the lamp lights only on a click, per the no-autonomous-motion rule.
   const status = document.querySelector<HTMLElement>('[data-copy-status]');
   document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
     const label = btn.querySelector<HTMLElement>('[data-copy-label]')!;
@@ -83,49 +90,35 @@ const contacts = team.filter((f) => f.email);
     margin-bottom: 0;
   }
 
-  /* Contact: the message centre, one line per founder. */
+  /* For investors: the reach-out on the left, the plan reading top-down on the right, both from the same top line. */
   .contact {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
+    align-items: start;
+  }
+
+  @media (max-width: 1000px) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .reach {
+    display: grid;
+    gap: 2rem;
   }
 
   .contact .sec-head {
     margin-bottom: 0;
   }
 
-  .msg-screen {
-    padding: 1.1rem 1.2rem;
-    border-radius: 0.9rem;
-    border: 1px solid var(--rule);
-    background: var(--bg);
-  }
-
-  .msg-head {
-    color: var(--muted);
-    font-size: 0.9375rem;
-  }
-
-  .lines {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .lines li {
+  .founders-line {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 0.25rem 1rem;
-    padding-block: 1.1rem;
-    border-bottom: 1px solid var(--rule);
+    gap: 0.5rem 1rem;
   }
 
-  .lines li:last-child {
-    border-bottom: 0;
-    padding-bottom: 0.2rem;
-  }
-
-  .line-who {
+  .msg-head {
     grid-column: 1 / -1;
     font-family: var(--font-display);
     font-weight: 600;
@@ -140,7 +133,7 @@ const contacts = team.filter((f) => f.email);
     overflow-wrap: anywhere;
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.375rem, 2.4vw, 2rem);
+    font-size: clamp(1.375rem, 2.2vw, 1.875rem);
     line-height: 1.15;
     color: var(--accent-text);
     text-decoration: none;
@@ -149,6 +142,31 @@ const contacts = team.filter((f) => f.email);
   .line-mail:hover {
     color: var(--accent-text);
     text-decoration: underline;
+  }
+
+  .pitch {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pitch div {
+    display: grid;
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    gap: 0.25rem 1.5rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .pitch dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading);
+  }
+
+  .pitch dd {
+    margin: 0;
+    color: var(--body);
   }
 
   .copy {
@@ -179,7 +197,11 @@ const contacts = team.filter((f) => f.email);
   }
 
   @media (max-width: 640px) {
-    .lines li {
+    .pitch div {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .founders-line {
       grid-template-columns: minmax(0, 1fr);
       justify-items: start;
     }
