@@ -2,16 +2,115 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Portrait from '../components/Portrait.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Icon from '../components/Icon.astro';
+import { Image } from 'astro:assets';
 import { team } from '../team';
+import { story } from '../story';
 ---
 
-<Base title="Our story" description="RevX was founded by UC San Diego students, starting with local mechanics and the neighborhoods around campus.">
+<Base title="Our story" description="RevX is built by five UC San Diego students who learned the hard way that there were better options than the mechanic they went to.">
   <PageHead title="Our story" lede="RevX started at UC San Diego. We're signing up local mechanics first, then opening RevX to UCSD students and the neighborhoods around campus." />
   <main>
-    <!-- 5. About: the founding team, linked to the profiles that vouch for them -->
-    <section id="about">
-      <div class="wrap">
+    <!-- Group photo: founders supply it -->
+    {
+      story.groupPhoto ? (
+        <section class="group">
+          <div class="wrap">
+            <Image class="group-photo" src={story.groupPhoto.src} alt={story.groupPhoto.alt} widths={[640, 1024, 1600]} sizes="(max-width: 1360px) 100vw, 82rem" format="webp" quality={78} />
+          </div>
+        </section>
+      ) : (
+        import.meta.env.DEV && (
+          <section class="group">
+            <div class="wrap">
+              <Placeholder need="Team group photo, landscape, on campus or with a car." />
+            </div>
+          </section>
+        )
+      )
+    }
 
+    <!-- Why we started: the founder's own reason -->
+    <section id="why">
+      <div class="wrap split">
+        <header class="sec-head">
+          <h2>Why we started</h2>
+        </header>
+        <div class="prose">
+          <p>
+            We've all had a bad experience with a mechanic, and found out too late that there were better options nearby. We built RevX so the next person doesn't have to learn that the hard way.
+          </p>
+          <p>So we're starting where we are: with mechanics around UC San Diego, and the students and neighbors who need them.</p>
+          {
+            story.founderNote ? (
+              <blockquote class="note">
+                {story.founderNote.text.map((t) => <p>{t}</p>)}
+                <footer>{story.founderNote.by}</footer>
+              </blockquote>
+            ) : (
+              <Placeholder need="Founder's note: the real bad-mechanic story, 3–4 sentences, signed." />
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- How we're building it: the consent principle and the honesty rule -->
+    <section id="how">
+      <div class="wrap split">
+        <div>
+          <header class="sec-head">
+            <h2>How we're building it</h2>
+          </header>
+          <div class="prose">
+            <p>
+              Consent is the rule. You and your mechanic both choose the match, both agree to the job, both confirm it's done, and both leave a review.
+            </p>
+            <p>And we only tell you about what the app does today. Anything still in the works is labelled as roadmap.</p>
+          </div>
+        </div>
+        {
+          story.behindTheScenes ? (
+            <Image class="bts" src={story.behindTheScenes.src} alt={story.behindTheScenes.alt} widths={[480, 800, 1200]} sizes="(max-width: 1000px) 100vw, 34rem" format="webp" quality={78} />
+          ) : (
+            <Placeholder need="Behind-the-scenes photo: the team at work, or with a mechanic." />
+          )
+        }
+      </div>
+    </section>
+
+    <!-- So far: real, dated milestones only -->
+    {
+      (story.milestones.length > 0 || import.meta.env.DEV) && (
+        <section id="so-far">
+          <div class="wrap">
+            <header class="sec-head">
+              <h2>So far</h2>
+            </header>
+            {story.milestones.length > 0 ? (
+              <ol class="timeline">
+                {story.milestones.map((m) => (
+                  <li>
+                    <span class="when">{m.date}</span>
+                    <span class="what">{m.name}</span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <Placeholder need="3–5 dated real milestones (founded, first pitch, app live…)." />
+            )}
+          </div>
+        </section>
+      )
+    }
+
+    <!-- The team: one gauge per person on one rule, no boxes -->
+    <section id="team">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>The team</h2>
+        </header>
         <ul class="crew">
           {
             team.map((f) => (
@@ -22,21 +121,106 @@ import { team } from '../team';
                   {f.title} · {f.study}
                 </p>
                 {f.line && <p class="crew-line">{f.line}</p>}
-                <p class="crew-links">
-                  {f.linkedin && (
-                    <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>
-                      LinkedIn
-                    </a>
-                  )}
-                  {f.site && (
-                    <a href={f.site} aria-label={`${f.name}'s website`}>
-                      {new URL(f.site).hostname}
-                    </a>
-                  )}
-                </p>
+                {f.quote ? <blockquote class="crew-quote">“{f.quote}”</blockquote> : <Placeholder need={`${f.name.split(' ')[0]}'s quote, one sentence.`} />}
+                {(f.linkedin || f.site) && (
+                  <p class="crew-links">
+                    {f.linkedin && (
+                      <a href={f.linkedin} aria-label={`${f.name} on LinkedIn`}>
+                        LinkedIn
+                      </a>
+                    )}
+                    {f.site && (
+                      <a href={f.site} aria-label={`${f.name}'s website`}>
+                        {new URL(f.site).hostname}
+                      </a>
+                    )}
+                  </p>
+                )}
               </li>
             ))
           }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Who's helped us: real supporters, then press once it exists -->
+    <section id="helped">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>Who's helped us</h2>
+        </header>
+        <ul class="helpers">
+          {
+            story.helpers.map((h) => (
+              <li>
+                <span class="helper-name">{h.url ? <a href={h.url}>{h.name}</a> : h.name}</span>
+                <span class="helper-what">{h.what}</span>
+              </li>
+            ))
+          }
+        </ul>
+        {
+          story.press.length > 0 ? (
+            <>
+              <h3 class="press-head">In the press</h3>
+              <ul class="press">
+                {story.press.map((p) => (
+                  <li>
+                    <a href={p.url}>
+                      {p.outlet}: {p.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <div class="press-slot">
+              <Placeholder need="Press or mentions: outlet, title and link for each real article." />
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <!-- A real mechanic, with their written OK -->
+    {
+      (story.mechanicQuote || import.meta.env.DEV) && (
+        <section id="mechanic-voice">
+          <div class="wrap">
+            {story.mechanicQuote ? (
+              <blockquote class="voice">
+                <p>“{story.mechanicQuote.quote}”</p>
+                <footer>
+                  {story.mechanicQuote.name} · {story.mechanicQuote.shop}
+                </footer>
+              </blockquote>
+            ) : (
+              <Placeholder need="First mechanic's quote, with name, shop and their written OK." />
+            )}
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Close: two ways to help -->
+    <section id="join">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2>Want to help?</h2>
+        </header>
+        <ul class="ways">
+          <li>
+            <a href="/mechanics">
+              <span class="way-name">You fix cars</span>
+              <span class="way-go">Join as a founding mechanic <Icon name="arrow" size={18} /></span>
+            </a>
+          </li>
+          <li>
+            <a href="/contact">
+              <span class="way-name">Investing, press or partners</span>
+              <span class="way-go">Email the founders <Icon name="arrow" size={18} /></span>
+            </a>
+          </li>
         </ul>
       </div>
     </section>
@@ -44,7 +228,64 @@ import { team } from '../team';
 </Base>
 
 <style>
-  /* About: one gauge per person on one rule, no boxes. */
+  .group-photo,
+  .bts {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1.5rem;
+    border: 1px solid var(--rule-strong);
+  }
+
+  .prose {
+    display: grid;
+    gap: 1rem;
+    max-width: 62ch;
+    color: var(--body);
+    font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+  }
+
+  .note {
+    margin: 0.75rem 0 0;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--accent-text);
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .note footer {
+    color: var(--muted);
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  /* So far: dates on the left, events on a single rule. */
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .when {
+    color: var(--accent-text);
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  .what {
+    color: var(--heading);
+  }
+
+  /* The team: one gauge per person on one rule, no boxes. */
   .crew {
     list-style: none;
     margin: 0;
@@ -83,6 +324,13 @@ import { team } from '../team';
     max-width: 32ch;
   }
 
+  .crew-quote {
+    margin: 0.4rem 0 0;
+    color: var(--heading);
+    font-style: italic;
+    max-width: 32ch;
+  }
+
   .crew-links {
     display: flex;
     flex-wrap: wrap;
@@ -94,5 +342,116 @@ import { team } from '../team';
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
+  }
+
+  /* Who's helped us: names on rules, what they did beside them. */
+  .helpers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .helpers li {
+    display: grid;
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+    gap: 0.25rem 1.5rem;
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .helper-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading);
+  }
+
+  .helper-what {
+    color: var(--body);
+  }
+
+  .press-head {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .press {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .press a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  .press-slot {
+    margin-top: 2rem;
+  }
+
+  .voice {
+    margin: 0;
+    max-width: 46rem;
+  }
+
+  .voice p {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    color: var(--heading);
+  }
+
+  .voice footer {
+    margin-top: 1rem;
+    color: var(--muted);
+  }
+
+  /* Want to help: two rows, the whole row is the link. */
+  .ways {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .ways a {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    min-height: 4.5rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+  }
+
+  .way-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+    color: var(--heading);
+  }
+
+  .way-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent-text);
+    font-weight: 600;
+  }
+
+  .ways a:hover .way-go {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .timeline li,
+    .helpers li {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

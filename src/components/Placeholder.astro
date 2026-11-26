@@ -1,0 +1,29 @@
+---
+/**
+ * Marks content the founders still owe. Dev server only: production renders nothing,
+ * and check-site fails if `data-placeholder` ever reaches dist/.
+ */
+interface Props {
+  need: string;
+}
+const { need } = Astro.props;
+---
+
+{
+  import.meta.env.DEV && (
+    <p class="placeholder" data-placeholder>
+      <strong>To provide:</strong> {need}
+    </p>
+  )
+}
+
+<style>
+  .placeholder {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    border: 1.5px dashed var(--accent-text);
+    border-radius: 0.9rem;
+    color: var(--accent-text);
+    font-size: 0.9375rem;
+  }
+</style>

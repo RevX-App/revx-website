@@ -53,7 +53,7 @@ check(!home.includes('data-demo'), 'index: hero demo still present');
 const TRUST = ['Why trust RevX?', 'five UC San Diego students', 'Mechanics are reviewed', 'Quotes you can read', 'Nothing happens without both of you', 'Reviews you can believe', 'Payment and problems', 'href="/faq#trust"', 'Meet the team'];
 for (const t of TRUST) check(home.includes(t), `index: trust section missing ${t}`);
 // Home owns #trust now; the old-anchor script must not bounce it to another page.
-check(!/trust: ?'\/how-it-works/.test(home), 'index: /#trust still redirects away');
+check(!/const to = \{[^}]*\btrust:/.test(home), 'index: /#trust still redirects away');
 check(!home.includes('alumniOf'), 'index: team are current students, not alumni');
 check(read('dist/faq.html').includes('id="trust"'), 'faq: no #trust group');
 check(read('dist/faq.html').includes('Trust &amp; safety'), 'faq: no Trust & safety heading');
@@ -66,7 +66,15 @@ for (const t of MECH) {
 }
 for (const t of ['Earnings', 'Flexibility', 'Customers', 'Fair access']) check(read('dist/mechanics.html').includes(t), `mechanics: missing "${t}"`);
 check(!/Irvin calicut|CC BY-SA|illustrative/.test(read('dist/mechanics.html')), 'mechanics: stock photo or credit still present');
+// P5: Our Story sections, real titles, and no dev-only placeholder in the build.
+const story = read('dist/our-story.html');
+for (const t of ["Why we started", "How we're building it", 'The team', "Who's helped us", 'The Basement', 'Triton Web Developers', 'Founder &amp; CEO', 'Co-Founder &amp; CTO', 'Lead Software Engineer', 'Marketing works when you relate.', 'Want to help?'])
+  check(story.includes(t.replace("'", '&#39;')) || story.includes(t), `our-story: missing "${t}"`);
+for (const page of ALL) check(!read(`dist/${page}.html`).includes('data-placeholder'), `${page}: dev placeholder leaked into the build`);
+const org = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].flatMap((m) => [JSON.parse(m[1])].flat()).find((o) => o['@type'] === 'Organization');
+check(JSON.stringify(org?.founder?.map((f) => f.name)) === '["Stephanie Kovalchuk-Lum","Mustaqim Bin Burhanuddin"]', `index: founders are ${JSON.stringify(org?.founder?.map((f) => f.name))}`);
 for (const page of ALL) check(!/free forever/i.test(read(`dist/${page}.html`)), `${page}: still promises "free forever"`);
+check(!/free forever/i.test(read('dist/llms.txt')), 'llms.txt: still promises "free forever"');
 const sitemap = read('dist/sitemap.xml');
 for (const path of Object.values(NAV)) check(sitemap.includes(`<loc>https://revx.website${path === '/' ? '/' : path}</loc>`), `sitemap: missing ${path}`);
 
